@@ -1,1 +1,1 @@
-student management assignment project 
+point of sale system
