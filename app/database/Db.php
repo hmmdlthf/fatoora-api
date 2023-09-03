@@ -13,21 +13,13 @@ class Db
         // $dbname = getenv('DB_DATABASE');
         // $port = getenv('DB_PORT');
 
-        $servername = 'localhost';
+        $servername = 'local';
         $username = 'root';
         $password = 'cs50root';
-        $dbname = 'student_management_database2';
-        $port = '3306';
-
-        // $servername = 'sql947.main-hosting.eu';
-        // $username = 'u793985497_onlineAcademy';
-        // $password = 'OnlineAcademyUserAlthaf123@';
-        // $dbname = 'u793985497_onlineAcademy';
-        // $port = '3306';
+        $dbname = 'pos';
 
         try {
-            $dsn = "mysql:host=" . $servername . ";dbname=" . $dbname;
-            $pdo = new PDO($dsn, $username, $password);
+            $pdo = new PDO("sqlsrv:server=$servername ; Database=pos", "", "");
             $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
             return $pdo;
