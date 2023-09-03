@@ -13,13 +13,11 @@ class Db
         // $dbname = getenv('DB_DATABASE');
         // $port = getenv('DB_PORT');
 
-        $servername = 'local';
-        $username = 'root';
-        $password = 'cs50root';
+        $servername = 'KEVIN-JORN-PC';
         $dbname = 'pos';
 
         try {
-            $pdo = new PDO("sqlsrv:server=$servername ; Database=pos", "", "");
+            $pdo = new PDO("sqlsrv:server=$servername ; Database=$dbname", "", "");
             $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
             return $pdo;
