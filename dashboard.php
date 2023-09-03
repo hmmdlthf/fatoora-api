@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="css/bootstrap.css">
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="/css/tables.css">
 
 
     <link rel="shortcut icon" href="/favicon.svg" type="image/x-icon">
@@ -38,16 +39,35 @@
                                         <th scope="col">Quantity</th>
                                         <th scope="col">Unit</th>
                                         <th scope="col">Total(R)</th>
+                                        <th scope="col"></th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td scope="col"></td>
+                                        <td scope="col">8716200200899</td>
+                                        <td>Rainbow Sweetened Condensed Milk (397 ML * 48.00 Can)</td>
+                                        <td>CT</td>
+                                        <td>
+                                            <div class="d-flex justify-content-start">
+                                                <input class="" type="text" name="quantity" id="quantity" value="1.0000" style="width: 100px; margin-right: .5rem;">
+                                                <span class="bg-success p-1 rounded text-white">A</span>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            280.00
+                                            <input type="checkbox" name="is__wholesale" id="is__wholesale">
+                                        </td>
+                                        <td class="fw-bold" id="cart__total">
+                                            280.00
+                                        </td>
+                                        <td>
+                                            <button class="px-2 py-1 text-white bg-danger fw-bold rounded border-0">D</button>
+                                        </td>
                                     </tr>
                                 </tbody>
                             </table>
                         </div>
-                        <div class="row" id="no__cart__records">
+                        <div class="row d-none" id="no__cart__records">
                             <div class="col-12 text-center p-3 border">
                                 Your Cart is Empty!
                             </div>
@@ -338,7 +358,7 @@
                                                                 <div class="text">
                                                                     <div>Wholesale</div>
                                                                     <div>price</div>
-                                                                 </div>
+                                                                </div>
                                                                 <div class="px-1 d-flex align-items-start" id="th__c2">
                                                                     <svg xmlns="http://www.w3.org/2000/svg" class="sort__down d-none" height=".7em" viewBox="0 0 320 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
                                                                         <path d="M182.6 470.6c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-9.2-9.2-11.9-22.9-6.9-34.9s16.6-19.8 29.6-19.8H288c12.9 0 24.6 7.8 29.6 19.8s2.2 25.7-6.9 34.9l-128 128z" />
