@@ -64,6 +64,111 @@
                                             <button class="px-2 py-1 text-white bg-danger fw-bold rounded border-0">D</button>
                                         </td>
                                     </tr>
+                                    <tr>
+                                        <td scope="col">8716200200899</td>
+                                        <td>Rainbow Sweetened Condensed Milk (397 ML * 48.00 Can)</td>
+                                        <td>CT</td>
+                                        <td>
+                                            <div class="d-flex justify-content-start">
+                                                <input class="" type="text" name="quantity" id="quantity" value="1.0000" style="width: 100px; margin-right: .5rem;">
+                                                <span class="bg-success p-1 rounded text-white">A</span>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            280.00
+                                            <input type="checkbox" name="is__wholesale" id="is__wholesale">
+                                        </td>
+                                        <td class="fw-bold" id="cart__total">
+                                            280.00
+                                        </td>
+                                        <td>
+                                            <button class="px-2 py-1 text-white bg-danger fw-bold rounded border-0">D</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td scope="col">8716200200899</td>
+                                        <td>Rainbow Sweetened Condensed Milk (397 ML * 48.00 Can)</td>
+                                        <td>CT</td>
+                                        <td>
+                                            <div class="d-flex justify-content-start">
+                                                <input class="" type="text" name="quantity" id="quantity" value="1.0000" style="width: 100px; margin-right: .5rem;">
+                                                <span class="bg-success p-1 rounded text-white">A</span>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            280.00
+                                            <input type="checkbox" name="is__wholesale" id="is__wholesale">
+                                        </td>
+                                        <td class="fw-bold" id="cart__total">
+                                            280.00
+                                        </td>
+                                        <td>
+                                            <button class="px-2 py-1 text-white bg-danger fw-bold rounded border-0">D</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td scope="col">8716200200899</td>
+                                        <td>Rainbow Sweetened Condensed Milk (397 ML * 48.00 Can)</td>
+                                        <td>CT</td>
+                                        <td>
+                                            <div class="d-flex justify-content-start">
+                                                <input class="" type="text" name="quantity" id="quantity" value="1.0000" style="width: 100px; margin-right: .5rem;">
+                                                <span class="bg-success p-1 rounded text-white">A</span>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            280.00
+                                            <input type="checkbox" name="is__wholesale" id="is__wholesale">
+                                        </td>
+                                        <td class="fw-bold" id="cart__total">
+                                            280.00
+                                        </td>
+                                        <td>
+                                            <button class="px-2 py-1 text-white bg-danger fw-bold rounded border-0">D</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td scope="col">8716200200899</td>
+                                        <td>Rainbow Sweetened Condensed Milk (397 ML * 48.00 Can)</td>
+                                        <td>CT</td>
+                                        <td>
+                                            <div class="d-flex justify-content-start">
+                                                <input class="" type="text" name="quantity" id="quantity" value="1.0000" style="width: 100px; margin-right: .5rem;">
+                                                <span class="bg-success p-1 rounded text-white">A</span>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            280.00
+                                            <input type="checkbox" name="is__wholesale" id="is__wholesale">
+                                        </td>
+                                        <td class="fw-bold" id="cart__total">
+                                            280.00
+                                        </td>
+                                        <td>
+                                            <button class="px-2 py-1 text-white bg-danger fw-bold rounded border-0">D</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td scope="col">8716200200899</td>
+                                        <td>Rainbow Sweetened Condensed Milk (397 ML * 48.00 Can)</td>
+                                        <td>CT</td>
+                                        <td>
+                                            <div class="d-flex justify-content-start">
+                                                <input class="" type="text" name="quantity" id="quantity" value="1.0000" style="width: 100px; margin-right: .5rem;">
+                                                <span class="bg-success p-1 rounded text-white">A</span>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            280.00
+                                            <input type="checkbox" name="is__wholesale" id="is__wholesale">
+                                        </td>
+                                        <td class="fw-bold" id="cart__total">
+                                            280.00
+                                        </td>
+                                        <td>
+                                            <button class="px-2 py-1 text-white bg-danger fw-bold rounded border-0">D</button>
+                                        </td>
+                                    </tr>
                                 </tbody>
                             </table>
                         </div>
