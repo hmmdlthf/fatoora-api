@@ -8,6 +8,8 @@
     <title>POS | Dashoard</title>
 
 
+    <link rel="stylesheet" href="/sccs/styles.css">
+    <link rel="stylesheet" href="/sccs/common.css">
     <link rel="stylesheet" href="/sccs/dashboard.css">
     <link rel="shortcut icon" href="/favicon.svg" type="image/x-icon">
 </head>
@@ -33,6 +35,48 @@
                         </tr>
                     </thead>
                     <tbody>
+                        <tr>
+                            <td>871600200899</td>
+                            <td>Rainbow Sweetened Condensed Milk (397 ML * 48.00 Can)</td>
+                            <td>CT</td>
+                            <td>
+                                <div class="quantity">
+                                    <input class="cart__record__quantity__input" type="text" name="quantity" id="quantity" value="1.0000">
+                                    <span class="cart__record__A">A</span>
+                                </div>
+                            </td>
+                            <td>280.00<span><input type="checkbox" name="is__wholesale" id="is__wholesale"></span></td>
+                            <td>280.00</td>
+                            <td><button class="cart__record__deleteBtn">D</button></td>
+                        </tr>
+                        <tr>
+                            <td>871600200899</td>
+                            <td>Rainbow Sweetened Condensed Milk (397 ML * 48.00 Can)</td>
+                            <td>CT</td>
+                            <td>
+                                <div class="quantity">
+                                    <input class="cart__record__quantity__input" type="text" name="quantity" id="quantity" value="1.0000">
+                                    <span class="cart__record__A">A</span>
+                                </div>
+                            </td>
+                            <td>280.00<span><input type="checkbox" name="is__wholesale" id="is__wholesale"></span></td>
+                            <td>280.00</td>
+                            <td><button class="cart__record__deleteBtn">D</button></td>
+                        </tr>
+                        <tr>
+                            <td>871600200899</td>
+                            <td>Rainbow Sweetened Condensed Milk (397 ML * 48.00 Can)</td>
+                            <td>CT</td>
+                            <td>
+                                <div class="quantity">
+                                    <input class="cart__record__quantity__input" type="text" name="quantity" id="quantity" value="1.0000">
+                                    <span class="cart__record__A">A</span>
+                                </div>
+                            </td>
+                            <td>280.00<span><input type="checkbox" name="is__wholesale" id="is__wholesale"></span></td>
+                            <td>280.00</td>
+                            <td><button class="cart__record__deleteBtn">D</button></td>
+                        </tr>
                         <tr>
                             <td>871600200899</td>
                             <td>Rainbow Sweetened Condensed Milk (397 ML * 48.00 Can)</td>
@@ -280,18 +324,10 @@
         </div>
     </div>
 
+    <div class="modal"></div>
 
-    <script>
-        let table_top = document.getElementById("cart__table").getBoundingClientRect().top;
-        let totals_height = document.querySelector(".totals").getBoundingClientRect().height;
-        let window_height = window.innerHeight;
-        let cart_height = window_height - totals_height - table_top;
-        document.getElementById("cart__table").style.height = `${cart_height}px`;
-    </script>
-    <script>
-        let height = window.innerHeight - document.querySelector(".category__btns").getBoundingClientRect().top;
-        document.querySelector(".category__btns").style.height = `${height}px`;
-    </script>
+
+    <script src="/js/scroll.js"></script>
 </body>
 
 </html>

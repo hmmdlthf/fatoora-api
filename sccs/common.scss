@@ -1,0 +1,16 @@
+@import 'variables';
+
+
+.btn {
+    cursor: pointer;
+    padding-inline: 1rem;
+    padding-block: .5rem;
+    color: white;
+    background-color: var(--green-dark);
+    border: none;
+    user-select: none;
+
+    &:active {
+        background-color: var(--green-light);
+    }
+}
