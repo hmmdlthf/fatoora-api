@@ -24,6 +24,7 @@ body {
         height: 100%;
 
         .top {
+            width: 100%;
             display: flex;
             align-items: center;
             justify-content: flex-start;
@@ -45,6 +46,7 @@ body {
             }
 
             .table {
+                width: 100%;
                 overflow: auto;
                 height: 600px;
 
@@ -83,6 +85,7 @@ body {
                     padding-inline: .5rem;
                     padding-block: 1rem;
                     vertical-align: text-top;
+                    max-width: 200px;
 
                     .cart__record__deleteBtn {
                         background-color: var(--red-dark);
@@ -114,6 +117,7 @@ body {
                             border-radius: .2rem;
                             color: white;
                             margin-left: .2rem;
+                            cursor: pointer;
                         }
                     }
                 }

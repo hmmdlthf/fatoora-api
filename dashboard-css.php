@@ -25,7 +25,7 @@ $ROOT = $_SERVER["DOCUMENT_ROOT"];
     <div class="col-5">
         <div class="top">
             <div class="header">
-                <div class="title">Retail Price Selected</div>
+                <div class="title">Retail Price Selected | سعر التجزئة المحدد</div>
                 <div class="btn">HOLD INVOICE</div>
             </div>
             <div class="table" id="cart__table">
@@ -252,35 +252,35 @@ $ROOT = $_SERVER["DOCUMENT_ROOT"];
             </div>
         </div>
         <button class="order__btn btn">PROCEED ORDER | متابعة الطلب</button>
-        <input class="calc__screen" dir="rtl" type="text" name="calc__code" id="calc__code" placeholder="Product Barcode | كود المنتج">
+        <input class="calc__screen" dir="rtl" type="text" name="calc__code" id="calc__code" placeholder="Product Barcode | كود المنتج" autofocus>
         <div class="calc">
             <div class="col">
-                <div class="calc__btn">7</div>
-                <div class="calc__btn">4</div>
-                <div class="calc__btn">1</div>
-                <div class="calc__btn">0</div>
+                <div class="calc__btn" id="key_7">7</div>
+                <div class="calc__btn" id="key_4">4</div>
+                <div class="calc__btn" id="key_1">1</div>
+                <div class="calc__btn" id="key_0">0</div>
             </div>
             <div class="col">
-                <div class="calc__btn">8</div>
-                <div class="calc__btn">5</div>
-                <div class="calc__btn">2</div>
-                <div class="calc__btn">*</div>
+                <div class="calc__btn" id="key_8">8</div>
+                <div class="calc__btn" id="key_5">5</div>
+                <div class="calc__btn" id="key_2">2</div>
+                <div class="calc__btn" id="key_multiply">*</div>
             </div>
             <div class="col">
-                <div class="calc__btn">9</div>
-                <div class="calc__btn">6</div>
-                <div class="calc__btn">3</div>
-                <div class="calc__btn">.</div>
+                <div class="calc__btn" id="key_9">9</div>
+                <div class="calc__btn" id="key_6">6</div>
+                <div class="calc__btn" id="key_3">3</div>
+                <div class="calc__btn" id="key_period">.</div>
             </div>
             <div class="col">
-                <div class="calc__btn">
+                <div class="calc__btn" id="key_close">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" id="backspace">
                         <path fill="none" d="M0 0h24v24H0V0z"></path>
                         <path d="M22 3H7c-.69 0-1.23.35-1.59.88L.37 11.45c-.22.34-.22.77 0 1.11l5.04 7.56c.36.52.9.88 1.59.88h15c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-3.7 13.3c-.39.39-1.02.39-1.41 0L14 13.41l-2.89 2.89c-.39.39-1.02.39-1.41 0-.39-.39-.39-1.02 0-1.41L12.59 12 9.7 9.11c-.39-.39-.39-1.02 0-1.41.39-.39 1.02-.39 1.41 0L14 10.59l2.89-2.89c.39-.39 1.02-.39 1.41 0 .39.39.39 1.02 0 1.41L15.41 12l2.89 2.89c.38.38.38 1.02 0 1.41z" fill="currentColor"></path>
                     </svg>
                 </div>
-                <div class="calc__btn">C</div>
-                <div class="calc__btn calc__btnEnter">
+                <div class="calc__btn" id="key_reset">C</div>
+                <div class="calc__btn calc__btnEnter" id="key_enter">
                     <svg xmlns="http://www.w3.org/2000/svg" height="5rem" viewBox="0 0 24 24" id="enter">
                         <path d="M19,6a1,1,0,0,0-1,1v4a1,1,0,0,1-1,1H7.41l1.3-1.29A1,1,0,0,0,7.29,9.29l-3,3a1,1,0,0,0-.21.33,1,1,0,0,0,0,.76,1,1,0,0,0,.21.33l3,3a1,1,0,0,0,1.42,0,1,1,0,0,0,0-1.42L7.41,14H17a3,3,0,0,0,3-3V7A1,1,0,0,0,19,6Z" fill="currentColor"></path>
                     </svg>
@@ -335,6 +335,7 @@ $ROOT = $_SERVER["DOCUMENT_ROOT"];
 
     <script src="/js/database.js"></script>
     <script src="/js/scroll.js"></script>
+    <script src="/js/calculator.js"></script>
 </body>
 
 </html>

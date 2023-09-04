@@ -37,6 +37,7 @@ body .col-5 {
   height: 100%;
 }
 body .col-5 .top {
+  width: 100%;
   display: flex;
   align-items: center;
   justify-content: flex-start;
@@ -56,6 +57,7 @@ body .col-5 .top .header .title {
   font-weight: bold;
 }
 body .col-5 .top .table {
+  width: 100%;
   overflow: auto;
   height: 600px;
 }
@@ -88,6 +90,7 @@ body .col-5 .top table th {
   padding-inline: 0.5rem;
   padding-block: 1rem;
   vertical-align: text-top;
+  max-width: 200px;
 }
 body .col-5 .top table td .cart__record__deleteBtn,
 body .col-5 .top table th .cart__record__deleteBtn {
@@ -121,6 +124,7 @@ body .col-5 .top table th .quantity .cart__record__A {
   border-radius: 0.2rem;
   color: white;
   margin-left: 0.2rem;
+  cursor: pointer;
 }
 body .col-5 .bottom {
   width: 100%;
