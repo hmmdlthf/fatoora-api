@@ -326,7 +326,7 @@
 
     <div class="modal"></div>
 
-
+    <script src="/js/database.js"></script>
     <script src="/js/scroll.js"></script>
 </body>
 
