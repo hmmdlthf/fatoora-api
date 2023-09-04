@@ -6,6 +6,7 @@
   --red-dark: #DD3245;
   --red-light: #e05061;
   --grey-10: #727378;
+  --grey-6: #d5d9db;
   --grey-5: #E6EBEE;
   --grey-1: #F1F5F6;
   --bs-font-sans-serif: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", "Noto Sans", "Liberation Sans", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
@@ -72,6 +73,11 @@ body .col-5 .top table {
   width: 100%;
   border: var(--border);
   border-collapse: collapse;
+}
+body .col-5 .top table th {
+  position: sticky;
+  top: 0;
+  background-color: white;
 }
 body .col-5 .top table th,
 body .col-5 .top table tr {

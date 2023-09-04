@@ -25,4 +25,8 @@
 }
 .btn:active {
   background-color: var(--green-light);
+}
+
+.d-none {
+  display: none !important;
 }/*# sourceMappingURL=common.css.map */

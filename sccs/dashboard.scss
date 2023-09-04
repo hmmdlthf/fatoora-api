@@ -67,6 +67,12 @@ body {
                 border: var(--border);
                 border-collapse: collapse;
 
+                th {
+                    position: sticky;
+                    top: 0;
+                    background-color: white;
+                }
+
                 th,
                 tr {
                     border: var(--border);

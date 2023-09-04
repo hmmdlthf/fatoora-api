@@ -1,3 +1,9 @@
+<?php 
+
+$ROOT = $_SERVER["DOCUMENT_ROOT"];
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -11,6 +17,7 @@
     <link rel="stylesheet" href="/sccs/styles.css">
     <link rel="stylesheet" href="/sccs/common.css">
     <link rel="stylesheet" href="/sccs/dashboard.css">
+    <link rel="stylesheet" href="/sccs/inventory-modal.css">
     <link rel="shortcut icon" href="/favicon.svg" type="image/x-icon">
 </head>
 
@@ -239,7 +246,7 @@
                 </div>
                 <div class="col">
                     <div class="menu__btn">Discount | تخفيض</div>
-                    <div class="menu__btn">Inventory | جرد</div>
+                    <div class="menu__btn" onclick="showInventoryModal()">Inventory | جرد</div>
                     <div class="menu__btn">Other | آخر</div>
                 </div>
             </div>
@@ -324,7 +331,7 @@
         </div>
     </div>
 
-    <div class="modal"></div>
+    <?php include $ROOT . '/inventory.php'; ?>
 
     <script src="/js/database.js"></script>
     <script src="/js/scroll.js"></script>
