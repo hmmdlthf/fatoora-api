@@ -25,25 +25,6 @@ document.querySelectorAll('.calc__btn').forEach((x) => {
     });
 });
 
-// handle key press events
-// ascii 48 - 57 reprsents 0 - 9
-// 46 = period (".") | Enter
-// 42 = multiply ("*")
-// 08 = backspace
-// 10 = enter
-document.addEventListener('keydown', (e) => {
-    if (e.key == 'Enter') {
-        pressEnter();
-    } else if (e.key == '.') {
-        addPeriod();
-    } else if (e.key == 'Backspace') {
-        pressBackspace();
-    } else if (isNumeric(e.key)) {
-        calc_input_value += `${e.key}`;
-        updateCalcValue(calc_input_value);
-    }
-});
-
 calc_input.addEventListener('onfocus', () => {
     // end = calc_input_value.length;
     //calc_input.setSelectionRange(end - 1, end);
