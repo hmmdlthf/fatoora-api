@@ -8,18 +8,13 @@ document.querySelectorAll('.calc__btn').forEach((x) => {
         if (x.id == `key_multiply`) {
 
         } else if (x.id == `key_reset`) {
-            calc_input_value = '';
-            updateCalcValue(calc_input_value)
-            focusInput()
+            resetValue();
         } else if (x.id == 'key_period') {
-            calc_input_value += '.';
-            updateCalcValue(calc_input_value);
+            addPeriod();
         } else if (x.id == 'key_enter') {
-            addProductToCart();
-            focusInput()
+            pressEnter();
         } else if (x.id == 'key_close') {
-            calc_input_value = calc_input_value.slice(0, -1);
-            updateCalcValue(calc_input_value);
+            pressBackspace();
         }
         for (let i = 0; i <= 9; i++) {
             if (x.id == `key_${i}`) {
@@ -30,9 +25,28 @@ document.querySelectorAll('.calc__btn').forEach((x) => {
     });
 });
 
+// handle key press events
+// ascii 48 - 57 reprsents 0 - 9
+// 46 = period (".") | Enter
+// 42 = multiply ("*")
+// 08 = backspace
+// 10 = enter
+document.addEventListener('keydown', (e) => {
+    if (e.key == 'Enter') {
+        pressEnter();
+    } else if (e.key == '.') {
+        addPeriod();
+    } else if (e.key == 'Backspace') {
+        pressBackspace();
+    } else if (isNumeric(e.key)) {
+        calc_input_value += `${e.key}`;
+        updateCalcValue(calc_input_value);
+    }
+});
+
 calc_input.addEventListener('onfocus', () => {
-    end = calc_input_value.length;
-    calc_input.setSelectionRange(end-1, end);
+    // end = calc_input_value.length;
+    //calc_input.setSelectionRange(end - 1, end);
 });
 
 function focusInput() {
@@ -46,4 +60,29 @@ function updateCalcValue(v) {
 
 function addProductToCart() {
 
+}
+
+function resetValue() {
+    calc_input_value = '';
+    updateCalcValue(calc_input_value)
+    focusInput()
+}
+
+function addPeriod() {
+    calc_input_value += '.';
+    updateCalcValue(calc_input_value);
+}
+
+function pressEnter() {
+    addProductToCart();
+    focusInput();
+}
+
+function pressBackspace() {
+    calc_input_value = calc_input_value.slice(0, -1);
+    updateCalcValue(calc_input_value);
+}
+
+function isNumeric(value) {
+    return /^-?\d+$/.test(value);
 }
