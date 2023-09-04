@@ -25,18 +25,13 @@ document.querySelectorAll('.calc__btn').forEach((x) => {
     });
 });
 
-calc_input.addEventListener('onfocus', () => {
-    // end = calc_input_value.length;
-    //calc_input.setSelectionRange(end - 1, end);
-});
-
 function focusInput() {
     calc_input.focus();
 }
 
 function updateCalcValue(v) {
     calc_input.value = v;
-    // focusInput();
+    focusInput();
 }
 
 function addProductToCart() {
