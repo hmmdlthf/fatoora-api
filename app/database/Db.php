@@ -16,7 +16,7 @@ class Db
 
             return $pdo;
         } catch (PDOException $th) {
-            echo "Connection Failed " . $th->getMessage() . "<br>";
+            //echo "Connection Failed " . $th->getMessage() . "<br>";
         }
     }
 }

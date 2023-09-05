@@ -11,13 +11,16 @@ $username = $_POST['username'];
 $password = $_POST['password'];
 
 if (!isset($username) || !isset($password)) {
-    die("Fill all the fields");
+    $error_message = "Fill all the fields";
+    header('Location: /index.php');
+    exit();
 }
 
 try {
     $conn = $db->connect($username, $password);
 } catch (Exception $e) {
-    echo "Wrong credentials";
+    $error_message = "Login failed! wrong login or password";
+    header('Location: /index.php');
     exit();
 }
 
@@ -25,5 +28,9 @@ if ($conn) {
     session_config($username, $password);
     header('Location: /dashboard-css.php');
 } else {
-    die("Login failed! wrong login or password");
+    $error_message = "Login failed! wrong login or password";
+    header('Location: /index.php');
+    exit();
 }
+
+?>

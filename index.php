@@ -1,3 +1,37 @@
+<?php
+
+if (isset($_POST['submit'])) {
+    $ROOT = $_SERVER["DOCUMENT_ROOT"];
+    require_once $ROOT . '/vendor/autoload.php';
+    require_once $ROOT . '/app/database/Db.php';
+    require_once $ROOT . '/login/utils.php';
+
+
+    $db = new Db();
+
+    $username = $_POST['username'];
+    $password = $_POST['password'];
+
+    if (!isset($username) || !isset($password)) {
+        $error_message = "Fill all the fields";
+    }
+
+    try {
+        $conn = $db->connect($username, $password);
+    } catch (Exception $e) {
+        $error_message = "Login failed! wrong login or password";
+    }
+
+    if ($conn) {
+        session_config($username, $password);
+        header('Location: /dashboard-css.php');
+    } else {
+        $error_message = "Login failed! wrong login or password";
+    }
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -23,10 +57,12 @@
             <div>emtyaz for catering company</div>
             <div>رقم ضريبة القيمة المضافة</div>
         </div>
-        <form action="login/loginProcess.php" method="post">
-            <div class="login__message d-none" id="login__message">
-                Failed! Wrong User id or password
-            </div>
+        <form action="index.php" method="post">
+            <?php if ($error_message) { ?>
+                <div class="login__message" id="login__message">
+                    Failed! Wrong User id or password
+                </div>
+            <?php } ?>
             <div class="form__group">
                 <div class="form__control">
                     <input type="text" name="username" id="username">
@@ -37,7 +73,7 @@
             </div>
             <div class="form__group">
                 <div class="form__control">
-                    <button type="submit" class="btn">Login</button>
+                    <button type="submit" name="submit" class="btn">Login</button>
                 </div>
             </div>
         </form>
