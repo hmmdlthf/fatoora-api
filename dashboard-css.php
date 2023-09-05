@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 $ROOT = $_SERVER["DOCUMENT_ROOT"];
 require_once $ROOT . '/login/utils.php';
@@ -25,6 +25,10 @@ session_check();
 </head>
 
 <body>
+    <script>
+        var session_time = <?php echo $_SESSION['login_time_stamp']; ?>;
+    </script>
+
     <div class="col-5">
         <div class="top">
             <div class="header">
@@ -336,9 +340,9 @@ session_check();
 
     <?php include $ROOT . '/inventory.php'; ?>
 
-    <script src="/js/database.js"></script>
     <script src="/js/scroll.js"></script>
     <script src="/js/calculator.js"></script>
+    <script src="/js/session.js"></script>
 </body>
 
 </html>
