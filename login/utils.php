@@ -7,7 +7,7 @@ function session_check()
 {
     session_start();
     if (isset($_SESSION['username'])) {
-        if (time() - $_SESSION['login_time_stamp'] > 600) {
+        if (time() - $_SESSION['login_time_stamp'] > (60 * 60)) {
             session_unset();
             session_destroy();
             header("Location: /dashboard-css.php");
