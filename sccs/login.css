@@ -96,12 +96,16 @@ body .login__box form .form__group > * + * {
 body .login__box form .form__group .form__control {
   width: 100%;
 }
+body .login__box form .form__group .form__control input:hover {
+  outline: var(--border);
+}
 body .login__box form .form__group .form__control input,
 body .login__box form .form__group .form__control button {
   width: 100%;
   padding-inline: 0.5rem;
   padding-block: 0.5rem;
   border-radius: 0.5rem;
+  border: var(--border);
 }
 body .login__box .footer {
   width: 100%;

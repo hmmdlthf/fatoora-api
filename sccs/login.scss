@@ -90,13 +90,19 @@ body {
                 .form__control {
                     width: 100%;
 
+                    input {
+                        &:hover {
+                            outline: var(--border);
+                        }
+                    }
+
                     input,
                     button {
                         width: 100%;
                         padding-inline: .5rem;
                         padding-block: .5rem;
                         border-radius: .5rem;
-
+                        border: var(--border);
                     }
 
                     button {}
@@ -111,7 +117,6 @@ body {
             justify-content: center;
             flex-direction: column;
             text-align: center;
-
             font-size: .7rem;
         }
 

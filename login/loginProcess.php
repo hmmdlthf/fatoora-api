@@ -16,4 +16,9 @@ try {
     exit();
 }
 
-header('Location: /dashboard-css.php');
+if ($conn) {
+    header('Location: /dashboard-css.php');
+} else {
+    die("Login failed! wrong login or password");
+}
+
