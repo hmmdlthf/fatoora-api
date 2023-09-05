@@ -1,0 +1,119 @@
+@import 'variables';
+
+body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100vw;
+    height: 100vh;
+    position: relative;
+
+    &::after {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        content: "";
+        background-image: url("/images/bg.webp");
+        background-repeat: no-repeat;
+        background-size: cover;
+        z-index: -1;
+        filter: blur(2);
+    }
+
+    .login__box {
+        width: 100%;
+        max-width: 300px;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        flex-direction: column;
+        padding-inline: 2rem;
+        padding-block: 2rem;
+        border-radius: .5rem;
+        background-color: white;
+
+        >* + * {
+            margin-top: 2rem;
+        }
+
+        .header {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+            justify-content: center;
+            text-align: center;
+
+            >div {
+                font-size: 1.2rem;
+                font-weight: bold;
+                color: var(--red-dark);
+            }
+
+            :last-child {
+                color: var(--green-dark);
+            }
+        }
+
+        form {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            flex-direction: column;
+
+            >*+* {
+                margin-top: 2rem;
+            }
+
+            .login__message {
+                width: 100%;
+                padding: 1rem;
+                border-radius: .5rem;
+                background-color: var(--red-light-10);
+                color: var(--red-dark);
+            }
+
+            .form__group {
+                width: 100%;
+                display: flex;
+                align-items: center;
+                justify-content: flex-start;
+                flex-direction: column;
+
+                >* + * {
+                    margin-top: 1rem;
+                }
+
+                .form__control {
+                    width: 100%;
+
+                    input,
+                    button {
+                        width: 100%;
+                        padding-inline: .5rem;
+                        padding-block: .5rem;
+                        border-radius: .5rem;
+
+                    }
+
+                    button {}
+                }
+            }
+        }
+
+        .footer {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            text-align: center;
+
+            font-size: .7rem;
+        }
+
+    }
+}
