@@ -5,7 +5,7 @@ document.addEventListener('click', () => {
     var timeDifferenceInSeconds = current_time - session_time;
 
     // Convert 15 minutes to seconds
-    var fifteenMinutesInSeconds = 5 * 60;
+    var fifteenMinutesInSeconds = 15 * 60;
 
     if (timeDifferenceInSeconds > fifteenMinutesInSeconds) {
         // Your code to handle the case when the difference is greater than 15 minutes

@@ -29,4 +29,11 @@ function session_config($username, $password)
     $_SESSION['login_time_stamp'] = time();
 }
 
-
+function session_get()
+{
+    session_start();
+    $username = $_SESSION['username'];
+    $encypt = new Encrytp();
+    $d_password = $encypt->decrypt_string($_SESSION['password']);
+    return ["username" => $username, "password" => $d_password];
+}
