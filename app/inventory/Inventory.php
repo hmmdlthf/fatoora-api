@@ -64,4 +64,31 @@ class Inventory extends Db
             return false;
         }
     }
+
+    public function findInventoryRecordsByBarcode($username, $password, $barcode)
+    {
+        $query = "SELECT [Warehouse]
+        ,[RecID]
+        ,[UPC]
+        ,[SKU]
+        ,[ProductName]
+        ,[ProductNameAR]
+        ,[WholesalePrice]
+        ,[RetailPrice]
+        ,[ProductPackageTypeCode]
+        ,[ProductPackageTypeCodeAR]
+        ,[StockOnHand]
+        FROM [saudipos].[POS].[V_ProductRetail_Inventory]
+        WHERE [UPC] LIKE '". $barcode . "' ";
+
+        $statement = $this->connect($username, $password)->prepare($query);
+        $statement->execute();
+        $resultSet = $statement->fetch();
+
+        if ($resultSet > 0) {
+            return $resultSet;
+        } else {
+            return false;
+        }
+    }
 }

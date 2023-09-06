@@ -34,10 +34,6 @@ function updateCalcValue(v) {
     focusInput();
 }
 
-function addProductToCart() {
-
-}
-
 function resetValue() {
     calc_input_value = '';
     updateCalcValue(calc_input_value)
@@ -50,8 +46,7 @@ function addPeriod() {
 }
 
 function pressEnter() {
-    addProductToCart();
-    focusInput();
+    getProductByBarcode(calc_input.value);
 }
 
 function pressBackspace() {
