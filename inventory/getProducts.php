@@ -7,19 +7,17 @@ require_once $ROOT . "/app/inventory/Inventory.php";
 
 $limit_start = $_GET['start'];
 $range = $_GET['range'];
+$q = $_GET['q'];
 
 $credentials = session_get();
 
 $inventory = new Inventory();
 
-$records = $inventory->findInventoryRecords($credentials['username'], $credentials['password'], $limit_start, $range);
+if (isset($q)) {
+    $records = $inventory->findInventoryRecordsBySearchTerm($credentials['username'], $credentials['password'], $q, $limit_start, $range);
+} else {
+    $records = $inventory->findInventoryRecords($credentials['username'], $credentials['password'], $limit_start, $range);
+}
 
 header('Content-type: application/json');
 echo json_encode($records);
-
-
-
-
-
-
-

@@ -23,7 +23,10 @@
                     </span>
                     enteries
                 </div>
-                <div class="search">Search:<input type="search" name="inventory__search" id="inventory__search"></div>
+                <form method="get" class="search" id="inventory__searchForm">
+                    Search:
+                    <input type="search" name="inventory__search" id="inventory__search">
+                </form>
             </div>
             <div class="table" id="inventory__table">
                 <table>

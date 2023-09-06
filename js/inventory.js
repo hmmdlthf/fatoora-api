@@ -9,6 +9,14 @@ function getProducts() {
         })
 }
 
+function getProductsFromSearch(searchTerm) {
+    fetch(`inventory/getProducts.php?q=${searchTerm}&start=${start}&range=${range}`)
+        .then(r => r.json())
+        .then(j => {
+            addProductsJsonToTable(j);
+        })
+}
+
 function addLoadingBar() {
 
 }
@@ -41,4 +49,11 @@ function addProductsJsonToTable(j) {
 document.getElementById('inventory__table__entries').addEventListener('change', (e) => {
     range = e.target.value;
     getProducts();
+})
+
+document.getElementById('inventory__searchForm').addEventListener('submit', (e) => {
+    e.preventDefault()
+    let searchValue = document.getElementById('inventory__search').value
+    // alert(searchValue)
+    getProductsFromSearch(searchValue);
 })
