@@ -6,7 +6,7 @@ require_once $ROOT . "/app/database/Db.php";
 
 class Inventory extends Db
 {
-    public function findInventoryRecords($username, $password, $limit_start = 0, $range = 100)
+    public function findInventoryRecords($limit_start = 0, $range = 100)
     {
         $query = "SELECT [Warehouse]
         ,[RecID]
@@ -19,12 +19,12 @@ class Inventory extends Db
         ,[ProductPackageTypeCode]
         ,[ProductPackageTypeCodeAR]
         ,[StockOnHand]
-        FROM [saudipos].[POS].[V_ProductRetail_Inventory]
+        FROM [saudipos].[POS].[V_ProductRetail_Inventory_No_WE]
         ORDER BY RecID
         OFFSET ". $limit_start . " ROWS
         FETCH NEXT ". ($range) . " ROWS ONLY";
 
-        $statement = $this->connect($username, $password)->prepare($query);
+        $statement = $this->connect()->prepare($query);
         $statement->execute();
         $resultSet = $statement->fetchAll();
 
@@ -35,7 +35,7 @@ class Inventory extends Db
         }
     }
 
-    public function findInventoryRecordsBySearchTerm($username, $password, $searchTerm, $limit_start = 0, $range = 100)
+    public function findInventoryRecordsBySearchTerm($searchTerm, $limit_start = 0, $range = 100)
     {
         $query = "SELECT [Warehouse]
         ,[RecID]
@@ -48,13 +48,13 @@ class Inventory extends Db
         ,[ProductPackageTypeCode]
         ,[ProductPackageTypeCodeAR]
         ,[StockOnHand]
-        FROM [saudipos].[POS].[V_ProductRetail_Inventory]
+        FROM [saudipos].[POS].[V_ProductRetail_Inventory_No_WE]
         WHERE [ProductName] LIKE '%". $searchTerm . "%' 
         ORDER BY RecID
         OFFSET ". $limit_start . " ROWS
         FETCH NEXT ". ($range) . " ROWS ONLY";
 
-        $statement = $this->connect($username, $password)->prepare($query);
+        $statement = $this->connect()->prepare($query);
         $statement->execute();
         $resultSet = $statement->fetchAll();
 
@@ -65,7 +65,7 @@ class Inventory extends Db
         }
     }
 
-    public function findInventoryRecordsByBarcode($username, $password, $barcode)
+    public function findInventoryRecordsByBarcode($barcode)
     {
         $query = "SELECT [Warehouse]
         ,[RecID]
@@ -78,10 +78,10 @@ class Inventory extends Db
         ,[ProductPackageTypeCode]
         ,[ProductPackageTypeCodeAR]
         ,[StockOnHand]
-        FROM [saudipos].[POS].[V_ProductRetail_Inventory]
+        FROM [saudipos].[POS].[V_ProductRetail_Inventory_No_WE]
         WHERE [UPC] LIKE '". $barcode . "' ";
 
-        $statement = $this->connect($username, $password)->prepare($query);
+        $statement = $this->connect()->prepare($query);
         $statement->execute();
         $resultSet = $statement->fetch();
 

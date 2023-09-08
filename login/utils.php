@@ -21,10 +21,7 @@ function session_config($username, $password)
 {
     session_start();
     $_SESSION['username'] = $username;
-
-    $encrypt = new Encrytp();
-    $password_encrypted = $encrypt->encrypt_string($password);
-    $_SESSION['password'] = $password_encrypted;
+    $_SESSION['password'] = $password;
 
     $_SESSION['login_time_stamp'] = time();
 }
@@ -33,7 +30,6 @@ function session_get()
 {
     session_start();
     $username = $_SESSION['username'];
-    $encypt = new Encrytp();
-    $d_password = $encypt->decrypt_string($_SESSION['password']);
-    return ["username" => $username, "password" => $d_password];
+    $password = $_SESSION['password'];
+    return ["username" => $username, "password" => $password];
 }

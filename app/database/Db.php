@@ -5,10 +5,12 @@ require_once $ROOT . '/vendor/autoload.php';
 
 class Db
 {
-    public function connect($username, $password)
+    public function connect()
     {
         $servername = '(local)';
         $dbname = 'saudipos';
+        $username = 'posadmin';
+        $password = '123';
 
         try {
             $pdo = new PDO("sqlsrv:server=$servername ; Database=$dbname", $username, $password);

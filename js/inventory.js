@@ -52,9 +52,7 @@ document.getElementById('inventory__table__entries').addEventListener('change', 
     getProducts();
 })
 
-document.getElementById('inventory__searchForm').addEventListener('submit', (e) => {
-    e.preventDefault()
+document.getElementById('inventory__search').addEventListener('input', (e) => {
     let searchValue = document.getElementById('inventory__search').value
-    // alert(searchValue)
-    getProductsFromSearch(searchValue);
+    getProductsFromSearch(e.target.value);
 })
