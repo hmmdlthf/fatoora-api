@@ -11,7 +11,7 @@ $credentials = session_get();
 
 $inventory = new Inventory();
 
-$record = $inventory->findInventoryRecordsByBarcode($credentials['username'], $credentials['password'], $barcode);
+$record = $inventory->findInventoryRecordsByBarcode($barcode);
 
 header('Content-type: application/json');
 echo json_encode($record);

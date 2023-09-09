@@ -1,4 +1,5 @@
-var cart_record_index = 0
+var cart_record_index = 0;
+var invoiceTempRecID = 0;
 
 function getProductByBarcode(barcode) {
     fetch(`inventory/getProduct.php?barcode=${barcode}`)
@@ -40,4 +41,27 @@ function addProductToCart(j) {
     cart_table.appendChild(tr);
 
     cart_record_index++
+}
+
+
+function initializeCart() {
+    fetch(`invoice-temp/getInvoiceTemp.php`)
+        .then(r => r.json())
+        .then(j => {
+            invoiceTempRecID = j.RecID;
+            // alert(invoiceTempRecID)
+        })
+}
+
+document.body.onload = () => {
+    initializeCart()
+};
+
+
+function getInvoiceDetailByInvoiceRecId() {
+    fetch(`invoice-temp/getInvoiceTemp.php?InvoiceRecID=${invoiceTempRecID}`)
+        .then(r => r.json())
+        .then(j => {
+            console.log(j)
+        })
 }

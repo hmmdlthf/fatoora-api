@@ -14,9 +14,9 @@ $credentials = session_get();
 $inventory = new Inventory();
 
 if (isset($q)) {
-    $records = $inventory->findInventoryRecordsBySearchTerm($credentials['username'], $credentials['password'], $q, $limit_start, $range);
+    $records = $inventory->findInventoryRecordsBySearchTerm($q, $limit_start, $range);
 } else {
-    $records = $inventory->findInventoryRecords($credentials['username'], $credentials['password'], $limit_start, $range);
+    $records = $inventory->findInventoryRecords($limit_start, $range);
 }
 
 header('Content-type: application/json');

@@ -59,7 +59,13 @@ session_check();
                                     <span class="cart__record__A">A</span>
                                 </div>
                             </td>
-                            <td>280.00<span><input type="checkbox" name="is__wholesale" id="is__wholesale"></span></td>
+                            <td>280.00
+                                <span>
+                                    <div class="switch" id="switch">
+                                        <input type="checkbox" name="is__wholesale" id="is__wholesale">
+                                    </div>
+                                </span>
+                            </td>
                             <td>280.00</td>
                             <td><button class="cart__record__deleteBtn">D</button></td>
                         </tr>
@@ -200,6 +206,7 @@ session_check();
 
     <?php include $ROOT . '/inventory.php'; ?>
 
+    <script src="/js/script.js"></script>
     <script src="/js/scroll.js"></script>
     <script src="/js/calculator.js"></script>
     <script src="/js/session.js"></script>
