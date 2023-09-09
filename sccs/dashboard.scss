@@ -296,40 +296,6 @@ body {
             border: none;
             font-size: 1rem;
         }
-
-        .calc {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 100%;
-
-            .col {
-                width: calc(100% / 4);
-
-                .calc__btn {
-                    width: 100%;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    border: var(--border);
-                    height: 60px;
-                    color: white;
-                    background-color: var(--grey-10);
-                    cursor: pointer;
-                    user-select: none;
-                    font-size: 1.5rem;
-
-                    &:active {
-                        background-color: var(--grey-5);
-                        color: var(--grey-10);
-                    }
-                }
-
-                .calc__btnEnter {
-                    height: 120px;
-                }
-            }
-        }
     }
 
     .col-3 {

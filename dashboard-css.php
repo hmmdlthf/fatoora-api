@@ -20,7 +20,9 @@ session_check();
     <link rel="stylesheet" href="/sccs/styles.css">
     <link rel="stylesheet" href="/sccs/common.css">
     <link rel="stylesheet" href="/sccs/dashboard.css">
+    <link rel="stylesheet" href="/sccs/calculator.css">
     <link rel="stylesheet" href="/sccs/inventory-modal.css">
+    <link rel="stylesheet" href="/sccs/customer-modal.css">
     <link rel="shortcut icon" href="/favicon.svg" type="image/x-icon">
 </head>
 
@@ -113,7 +115,7 @@ session_check();
             </div>
             <div class="main__menu__btns">
                 <div class="col">
-                    <div class="menu__btn">Cutomer | عميل</div>
+                    <div class="menu__btn" onclick="showCustomerAddModal()">Cutomer | عميل</div>
                     <div class="menu__btn">Suspend | تعليق</div>
                     <div class="menu__btn">Remarks | ملاحظات</div>
                 </div>
@@ -203,6 +205,10 @@ session_check();
             <div class="category__btn">Frozen</div>
         </div>
     </div>
+
+    <?php include $ROOT . '/customer/customer-model.php'; ?>
+
+    <script src="/js/inventory.js"></script>
 
     <?php include $ROOT . '/inventory.php'; ?>
 

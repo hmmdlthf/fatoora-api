@@ -272,37 +272,6 @@ body .col-4 .calc__screen {
   border: none;
   font-size: 1rem;
 }
-body .col-4 .calc {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-}
-body .col-4 .calc .col {
-  width: 25%;
-}
-body .col-4 .calc .col .calc__btn {
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: var(--border);
-  height: 60px;
-  color: white;
-  background-color: var(--grey-10);
-  cursor: pointer;
-  -webkit-user-select: none;
-     -moz-user-select: none;
-          user-select: none;
-  font-size: 1.5rem;
-}
-body .col-4 .calc .col .calc__btn:active {
-  background-color: var(--grey-5);
-  color: var(--grey-10);
-}
-body .col-4 .calc .col .calc__btnEnter {
-  height: 120px;
-}
 body .col-3 {
   width: 25%;
   height: 100%;
