@@ -77,6 +77,9 @@ body .col-5 .top table {
   border: var(--border);
   border-collapse: collapse;
 }
+body .col-5 .top table thead {
+  z-index: 6;
+}
 body .col-5 .top table th {
   position: sticky;
   top: 0;
@@ -112,6 +115,9 @@ body .col-5 .top table th .quantity {
   display: flex;
   align-items: center;
   justify-content: flex-start;
+  position: relative;
+  width: -moz-fit-content;
+  width: fit-content;
 }
 body .col-5 .top table td .quantity input,
 body .col-5 .top table th .quantity input {
@@ -121,11 +127,37 @@ body .col-5 .top table th .quantity input {
 body .col-5 .top table td .quantity .cart__record__A,
 body .col-5 .top table th .quantity .cart__record__A {
   background-color: var(--green-dark);
+  position: relative;
   padding: 0.2rem;
   border-radius: 0.2rem;
   color: white;
   margin-left: 0.2rem;
   cursor: pointer;
+}
+body .col-5 .top table td .quantity .upbtn,
+body .col-5 .top table td .quantity .downbtn,
+body .col-5 .top table th .quantity .upbtn,
+body .col-5 .top table th .quantity .downbtn {
+  position: absolute;
+  right: 0;
+  width: 0;
+  height: 0;
+  z-index: 5;
+  cursor: pointer;
+}
+body .col-5 .top table td .quantity .upbtn,
+body .col-5 .top table th .quantity .upbtn {
+  top: -0.6rem;
+  border-left: 0.5rem solid transparent;
+  border-right: 0.5rem solid transparent;
+  border-bottom: 0.5rem solid var(--green-light);
+}
+body .col-5 .top table td .quantity .downbtn,
+body .col-5 .top table th .quantity .downbtn {
+  border-left: 0.5rem solid transparent;
+  border-right: 0.5rem solid transparent;
+  border-top: 0.5rem solid var(--green-light);
+  bottom: -0.6rem;
 }
 body .col-5 .bottom {
   width: 100%;

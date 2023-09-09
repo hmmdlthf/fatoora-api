@@ -73,7 +73,8 @@ class InvoiceDetailTemp extends Db
         ,idt.[PriceTypeRecID]
         FROM [saudipos].[POS].[V_InvoiceDetailTemporary] vidt
         INNER JOIN [saudipos].[POS].[InvoiceDetailTemporary] idt ON vidt.InvoiceDetailRecID = idt.RecID
-        WHERE vidt.InvoiceRecID = ?";
+        WHERE vidt.InvoiceRecID = ? 
+        ORDER BY idt.RecID DESC";
 
         $statement = $this->connect()->prepare($query);
         $statement->execute([$invoiceRecID]);

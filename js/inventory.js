@@ -40,8 +40,16 @@ function addProductsJsonToTable(j) {
 
         td = document.createElement('td');
         td.id = `product${i}__Action`
-        td.innerHTML = '<button class="btn">Add Cart</button>';
+        button = document.createElement('button')
+        button.className = 'btn'
+        button.innerHTML = 'Add Cart'
+        td.appendChild(button)
         tr.appendChild(td);
+
+        button.addEventListener('click', () => {
+            addToCartByBarcode(x['UPC'])
+            showInventoryModal()
+        })
 
         inventory_table.appendChild(tr);
     });

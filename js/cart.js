@@ -29,8 +29,58 @@ function addProductToCart(j) {
         td = document.createElement('td');
         td.id = `cartRecord${cart_record_index}__${y}`;
 
-        if (y == 'Quantity') {
-            td.innerHTML = 1;
+        if (y == 'OrderQuantity') {
+            let div = document.createElement('div');
+            let span = document.createElement('span')
+            let input = document.createElement('input')
+            
+            div.className = 'quantity'
+            input.className = 'cart__record__quantity__input'
+            span.className = 'cart__record__A'
+            input.id = `quantity_${j['InvoiceDetailRecID']}`
+            span.id = `cart__record__A__btn__${j['InvoiceDetailRecID']}`
+
+            input.setAttribute('type', 'text')
+            input.setAttribute('name', 'quantity')
+            
+            td.appendChild(div)
+            div.appendChild(input)
+            div.appendChild(span)
+            
+            input.value = j['OrderQuantity'] ? j['OrderQuantity'] : 1.0000;
+            span.innerHTML = 'A'
+
+            let input_value = j['OrderQuantity']
+            let upbtn = document.createElement('div')
+            let downbtn = document.createElement('div')
+            upbtn.className = 'upbtn'
+            downbtn.className = 'downbtn'
+            div.appendChild(upbtn)
+            div.appendChild(downbtn)
+            
+            upbtn.addEventListener('click', () => {
+                input_value++
+                input.value = input_value
+            })
+
+            downbtn.addEventListener('click', () => {
+                if (input_value > 1) {
+                    input_value--
+                    input.value = input_value
+                }
+            })
+
+            span.addEventListener('click', () => {
+                if (input.value) {
+                    if (confirm("Confirm Update")) {
+                        updateQuantity(j['InvoiceDetailRecID'], input.value)
+                    }
+                } else {
+                    alert('Enter amount to update!')
+                }
+            })
+
+
         } else if (y == 'UnitAmount') {
             let span = document.createElement('span');
             let span0 = document.createElement('span');
@@ -150,10 +200,11 @@ function deleteInvoiceDetail(recID) {
     })
 }
 
+
 function togglePriceType(div, recID, priceTypeID) {
     fetch(`invoice-temp/togglePriceType.php?recID=${recID}&priceTypeID=${priceTypeID}`)
     .then(r => {
-        alert(r)
+        // alert(r)
         emptyCart()
         getInvoiceDetailByInvoiceRecId()
         getCartTotals()
@@ -164,4 +215,15 @@ function togglePriceType(div, recID, priceTypeID) {
 
 function wholePriceToggle(div) {
     div.classList.toggle('switch-on')
+}
+
+
+function updateQuantity(recID, orderQuantity) {
+    fetch(`invoice-temp/updateQuantity.php?recID=${recID}&orderQuantity=${orderQuantity}`)
+    .then(r => {
+        emptyCart()
+        getInvoiceDetailByInvoiceRecId()
+        getCartTotals()
+        div.classList.toggle('switch-on')
+    })
 }
