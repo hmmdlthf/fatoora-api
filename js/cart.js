@@ -32,11 +32,34 @@ function addProductToCart(j) {
         if (y == 'Quantity') {
             td.innerHTML = 1;
         } else if (y == 'UnitAmount') {
-            td.innerHTML = `${j['UnitAmount']}<span>
-            <div class="switch" id="switch">
-                <input class="is__wholesale__switch" type="checkbox" name="is__wholesale" id="is__wholesale">
-            </div>
-        </span>`;
+            let span = document.createElement('span');
+            let span0 = document.createElement('span');
+            let div = document.createElement('div');
+            let input = document.createElement('input');
+
+            div.id = `switch__${j['InvoiceDetailRecID']}`;
+            div.className = 'switch';
+
+            input.id = `is__wholesale__${j['InvoiceDetailRecID']}`;
+            input.className = `is__wholesale__switch`;
+            input.setAttribute('type', 'checkbox')
+            input.setAttribute('name', 'is__wholesale')
+            div.appendChild(input)
+            span.appendChild(div)
+            td.appendChild(span0)
+            td.appendChild(span)
+
+            input.addEventListener('change', (e) => {
+                togglePriceType(div, j['InvoiceDetailRecID'], j['PriceTypeRecID'])
+            })
+
+            if (j['PriceTypeRecID'] == "2") {
+                span0.innerHTML = `${j['WholesalePrice']}`
+                div.classList.add('switch-on')
+            } else {
+                span0.innerHTML = `${j['UnitAmount']}`
+            }
+
         } else if (y == 'Action') {
             td.innerHTML = `<button class="cart__record__deleteBtn" onclick="deleteInvoiceDetail(${j['InvoiceDetailRecID']})">D</button>`;
         } else {
@@ -107,14 +130,6 @@ function getInvoiceDetailByInvoiceRecId() {
 }
 
 
-document.querySelectorAll('.is__wholesale__switch').forEach((s) => {
-    s.addEventListener('input', () => {
-        console.log("clicked")
-        s.parentElement.classList.toggle('switch-on')
-    })
-})
-
-
 function addToCartByBarcode(barcode) {
     fetch(`invoice-temp/addToCartByBarcode.php?invoiceRecID=${invoiceTempRecID}&barcode=${barcode}`)
         .then(r => r.json())
@@ -133,4 +148,20 @@ function deleteInvoiceDetail(recID) {
         getInvoiceDetailByInvoiceRecId()
         getCartTotals()
     })
+}
+
+function togglePriceType(div, recID, priceTypeID) {
+    fetch(`invoice-temp/togglePriceType.php?recID=${recID}&priceTypeID=${priceTypeID}`)
+    .then(r => {
+        alert(r)
+        emptyCart()
+        getInvoiceDetailByInvoiceRecId()
+        getCartTotals()
+        div.classList.toggle('switch-on')
+    })
+}
+
+
+function wholePriceToggle(div) {
+    div.classList.toggle('switch-on')
 }

@@ -58,19 +58,22 @@ class InvoiceDetailTemp extends Db
 
     public function findAllInventoryByInvoiceRecID($invoiceRecID)
     {
-        $query = "SELECT [InvoiceDetailRecID]
-        ,[InvoiceRecID]
-        ,[Barcode]
-        ,[ProductRecID]
-        ,[ProductFullName]
-        ,[ProductPackageTypeRecID]
-        ,[ProductPackageTypeCodeAR]
-        ,[OrderQuantity]
-        ,[UnitAmount]
-        ,[WholesalePrice]
-        ,[TotalAmount]
-        FROM [saudipos].[POS].[V_InvoiceDetailTemporary]
-        WHERE [InvoiceRecID] = ?";
+        $query = "SELECT [RecordNumber]
+        ,vidt.[InvoiceDetailRecID]
+        ,vidt.[InvoiceRecID]
+        ,vidt.[Barcode]
+        ,vidt.[ProductRecID]
+        ,vidt.[ProductFullName]
+        ,vidt.[ProductPackageTypeRecID]
+        ,vidt.[ProductPackageTypeCodeAR]
+        ,vidt.[OrderQuantity]
+        ,vidt.[UnitAmount]
+        ,vidt.[WholesalePrice]
+        ,vidt.[TotalAmount]
+        ,idt.[PriceTypeRecID]
+        FROM [saudipos].[POS].[V_InvoiceDetailTemporary] vidt
+        INNER JOIN [saudipos].[POS].[InvoiceDetailTemporary] idt ON vidt.InvoiceDetailRecID = idt.RecID
+        WHERE vidt.InvoiceRecID = ?";
 
         $statement = $this->connect()->prepare($query);
         $statement->execute([$invoiceRecID]);
@@ -106,7 +109,7 @@ class InvoiceDetailTemp extends Db
         return $invoiceTemp;
     }
 
-    public function updatePriceType($recId, $priceTypeRecID, $newUnitAmount)
+    public function updatePriceType($recId, $priceTypeRecID)
     {
         // Check if the record exists
         $existingRecord = $this->findById($recId);
@@ -117,13 +120,12 @@ class InvoiceDetailTemp extends Db
         // $totalAmount = $this->calculateTotalAmount($newUnitAmount, $existingRecord['OrderQuantity']);
 
         $query = "UPDATE [saudipos].[POS].[InvoiceDetailTemporary]
-                  SET [PriceTypeRecID] = ?,
-                      [UnitAmount] = ?
+                  SET [PriceTypeRecID] = ?
                     OUTPUT Inserted.[InvoiceRecID]
                   WHERE [RecID] = ?";
 
         $statement = $this->connect()->prepare($query);
-        $statement->execute([$priceTypeRecID, $newUnitAmount, $recId]);
+        $statement->execute([$priceTypeRecID, $recId]);
         $result = $statement->fetch();
 
         $invoiceTemp = (new InvoiceTemp())->calculateTotalsAndUpdate($result['InvoiceRecID']);
