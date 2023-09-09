@@ -46,7 +46,7 @@ function addPeriod() {
 }
 
 function pressEnter() {
-    getProductByBarcode(calc_input.value);
+    addToCartByBarcode(calc_input.value);
 }
 
 function pressBackspace() {

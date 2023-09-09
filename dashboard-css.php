@@ -33,7 +33,7 @@ session_check();
         <div class="top">
             <div class="header">
                 <div class="title">Retail Price Selected | سعر التجزئة المحدد</div>
-                <div class="btn">HOLD INVOICE</div>
+                <div class="btn" onclick="holdInvoice()">HOLD INVOICE</div>
             </div>
             <div class="table" id="cart__table">
                 <table>
@@ -62,7 +62,7 @@ session_check();
                             <td>280.00
                                 <span>
                                     <div class="switch" id="switch">
-                                        <input type="checkbox" name="is__wholesale" id="is__wholesale">
+                                        <input class="is__wholesale__switch" type="checkbox" name="is__wholesale" id="is__wholesale">
                                     </div>
                                 </span>
                             </td>
@@ -76,19 +76,19 @@ session_check();
         </div>
         <div class="bottom">
             <div class="totals" id="totals">
-                <div class="total__card">
+                <div class="total__card" id="totals_sub_total">
                     <div class="title">Sale (Retail) | أُوكَازيُون</div>
-                    <div class="amount">SAR. <span id="sale__total">280.00</span></div>
+                    <div class="amount">SAR. <span id="sub__total">280.00</span></div>
                 </div>
-                <div class="total__card">
+                <div class="total__card" id="totals_vat_total">
                     <div class="title">VAT Amount | قيمة الضريبة</div>
                     <div class="amount">SAR. <span id="vat__total">42.00</span></div>
                 </div>
-                <div class="total__card bg__green">
+                <div class="total__card bg__green" id="totals_grand_total">
                     <div class="title">Grand Total | المجموع الإجمالي</div>
                     <div class="amount">SAR. <span id="grand__total">322.00</span></div>
                 </div>
-                <div class="total__card bg__blue">
+                <div class="total__card bg__blue" id="totals_balance_total">
                     <div class="title">Balance | توازن</div>
                     <div class="amount">SAR. <span id="balance__total">322.00</span></div>
                 </div>

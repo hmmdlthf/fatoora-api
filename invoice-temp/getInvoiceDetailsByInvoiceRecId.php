@@ -6,7 +6,7 @@ require_once $ROOT . "/app/invoiceDetailTemp/InvoiceDetailTemp.php";
 
 $invoiceRecId = $_GET['invoiceRecID'];
 
-$invoiceDetails = (new InvoiceDetailTemp())->findAllByInvoiceRecID($invoiceRecId);
+$invoiceDetails = (new InvoiceDetailTemp())->findAllInventoryByInvoiceRecID($invoiceRecId);
 
 header('Content-type: application/json');
 echo json_encode($invoiceDetails);

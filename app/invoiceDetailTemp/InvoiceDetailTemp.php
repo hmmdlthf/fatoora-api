@@ -3,6 +3,7 @@
 $ROOT = $_SERVER["DOCUMENT_ROOT"];
 require_once $ROOT . '/vendor/autoload.php';
 require_once $ROOT . "/app/database/Db.php";
+require_once $ROOT . "/app/inventory/Inventory.php";
 
 class InvoiceDetailTemp extends Db
 {
@@ -40,7 +41,34 @@ class InvoiceDetailTemp extends Db
                          ,[TotalAmount]
                   FROM [saudipos].[POS].[InvoiceDetailTemporary]
                   WHERE [InvoiceRecID] = ?";
-        
+
+        $statement = $this->connect()->prepare($query);
+        $statement->execute([$invoiceRecID]);
+        $result = $statement->fetchAll();
+
+        if ($result > 0) {
+            return $result;
+        } else {
+            return false;
+        }
+    }
+
+    public function findAllInventoryByInvoiceRecID($invoiceRecID)
+    {
+        $query = "SELECT [InvoiceDetailRecID]
+        ,[InvoiceRecID]
+        ,[Barcode]
+        ,[ProductRecID]
+        ,[ProductFullName]
+        ,[ProductPackageTypeRecID]
+        ,[ProductPackageTypeCodeAR]
+        ,[OrderQuantity]
+        ,[UnitAmount]
+        ,[WholesalePrice]
+        ,[TotalAmount]
+        FROM [saudipos].[POS].[V_InvoiceDetailTemporary]
+        WHERE [InvoiceRecID] = ?";
+
         $statement = $this->connect()->prepare($query);
         $statement->execute([$invoiceRecID]);
         $result = $statement->fetchAll();
@@ -59,18 +87,17 @@ class InvoiceDetailTemp extends Db
 
     public function create($invoiceTempId, $dic)
     {
-        $totalAmount = $this->calculateTotalAmount($dic['UnitAmount'], $dic['OrderQuantity']);
+        // $totalAmount = $this->calculateTotalAmount($dic['UnitAmount'], $dic['OrderQuantity']);
 
         $query = "INSERT INTO [saudipos].[POS].[InvoiceDetailTemporary]
         ([InvoiceRecID]
         ,[ProductRecID]
         ,[UnitAmount]
         ,[OrderQuantity]
-        ,[PriceTypeRecID]
-        ,[TotalAmount])
-        VALUES (?, ?, ?, ?, ?, ?)";
+        ,[PriceTypeRecID])
+        VALUES (?, ?, ?, ?, ?)";
         $statement = $this->connect()->prepare($query);
-        $statement->execute([$invoiceTempId, $dic['ProductRecID'], $dic['UnitAmount'], $dic['OrderQuantity'], $dic['PriceTypeRecID'], $totalAmount]);
+        $statement->execute([$invoiceTempId, $dic['ProductRecID'], $dic['UnitAmount'], $dic['OrderQuantity'], $dic['PriceTypeRecID']]);
         return true;
     }
 
@@ -82,16 +109,15 @@ class InvoiceDetailTemp extends Db
             return false; // Record not found
         }
 
-        $totalAmount = $this->calculateTotalAmount($newUnitAmount, $existingRecord['OrderQuantity']);
+        // $totalAmount = $this->calculateTotalAmount($newUnitAmount, $existingRecord['OrderQuantity']);
 
         $query = "UPDATE [saudipos].[POS].[InvoiceDetailTemporary]
                   SET [PriceTypeRecID] = ?,
-                      [UnitAmount] = ?,
-                      [TotalAmount] = ?
+                      [UnitAmount] = ?
                   WHERE [RecID] = ?";
 
         $statement = $this->connect()->prepare($query);
-        $result = $statement->execute([$priceTypeRecID, $newUnitAmount, $totalAmount, $recId]);
+        $result = $statement->execute([$priceTypeRecID, $newUnitAmount, $recId]);
 
         return $result;
     }
@@ -104,15 +130,14 @@ class InvoiceDetailTemp extends Db
             return false; // Record not found
         }
 
-        $totalAmount = $this->calculateTotalAmount($existingRecord['UnitAmount'], $newQuantity);
+        // $totalAmount = $this->calculateTotalAmount($existingRecord['UnitAmount'], $newQuantity);
 
         $query = "UPDATE [saudipos].[POS].[InvoiceDetailTemporary]
-                  SET [OrderQuantity] = ?,
-                      [TotalAmount] = ?
+                  SET [OrderQuantity] = ?
                   WHERE [RecID] = ?";
 
         $statement = $this->connect()->prepare($query);
-        $result = $statement->execute([$newQuantity, $totalAmount, $recId]);
+        $result = $statement->execute([$newQuantity, $recId]);
 
         return $result;
     }
@@ -130,6 +155,41 @@ class InvoiceDetailTemp extends Db
 
         $statement = $this->connect()->prepare($query);
         $result = $statement->execute([$recId]);
+
+        return $result;
+    }
+
+    public function addByBarcode($invoiceRecID, $barcode)
+    {
+        $product = (new Inventory())->findInventoryRecordsByBarcode($barcode);
+
+        if ($product) {
+            // Check if a record with the same ProductRecID already exists
+            $existingRecord = $this->findRecordByProductRecID($invoiceRecID, $product['RecID']);
+
+            if ($existingRecord) {
+                // If record already exists, update the quantity
+                $newQuantity = $existingRecord['OrderQuantity'] + 1;
+                return $this->updateQuantity($existingRecord['RecID'], $newQuantity);
+            } else {
+                // If no record exists, create a new one
+                $dic = ['ProductRecID' => $product['RecID'], 'UnitAmount' => $product['RetailPrice'], 'OrderQuantity' => 1, 'PriceTypeRecID' => 1];
+                return $this->create($invoiceRecID, $dic);
+            }
+        }
+
+        return false;
+    }
+
+    private function findRecordByProductRecID($invoiceRecID, $productRecID)
+    {
+        $query = "SELECT [RecID]
+                  FROM [saudipos].[POS].[InvoiceDetailTemporary]
+                  WHERE [InvoiceRecID] = ? AND [ProductRecID] = ?";
+
+        $statement = $this->connect()->prepare($query);
+        $statement->execute([$invoiceRecID, $productRecID]);
+        $result = $statement->fetch();
 
         return $result;
     }
