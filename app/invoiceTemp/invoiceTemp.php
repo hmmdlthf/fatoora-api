@@ -80,10 +80,9 @@ class InvoiceTemp extends Db
         $balanceAmount = 0;
 
         foreach ($invoiceDetailRecords as $record) {
-            $totalSubTotal += $record['TotalAmount'];
-            $VATAmount = $record['TotalAmount'] * 0.15;
-            $totalVATAmount += $VATAmount; // Assuming 15% VAT
-            $grandTotal += $record['TotalAmount'] + $VATAmount;
+            $totalSubTotal += $record['SubTotal'];
+            $totalVATAmount = $record['SalesTaxAmount'];
+            $grandTotal += $record['TotalAmount'];
         }
 
         $results = $this->updateTotals($recId, $totalSubTotal, $totalVATAmount, $grandTotal, $balanceAmount);

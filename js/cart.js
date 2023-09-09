@@ -38,7 +38,7 @@ function addProductToCart(j) {
             </div>
         </span>`;
         } else if (y == 'Action') {
-            td.innerHTML = '<button class="cart__record__deleteBtn">D</button>';
+            td.innerHTML = `<button class="cart__record__deleteBtn" onclick="deleteInvoiceDetail(${j['InvoiceDetailRecID']})">D</button>`;
         } else {
             td.innerHTML = j[y];
         }
@@ -123,4 +123,14 @@ function addToCartByBarcode(barcode) {
             getInvoiceDetailByInvoiceRecId()
             getCartTotals()
         })
+}
+
+
+function deleteInvoiceDetail(recID) {
+    fetch(`invoice-temp/deleteInvoiceDetailTemp.php?recID=${recID}`)
+    .then(r => {
+        emptyCart()
+        getInvoiceDetailByInvoiceRecId()
+        getCartTotals()
+    })
 }

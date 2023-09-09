@@ -4,6 +4,7 @@ $ROOT = $_SERVER["DOCUMENT_ROOT"];
 require_once $ROOT . '/vendor/autoload.php';
 require_once $ROOT . "/app/database/Db.php";
 require_once $ROOT . "/app/inventory/Inventory.php";
+require_once $ROOT . "/app/invoiceTemp/invoiceTemp.php";
 
 class InvoiceDetailTemp extends Db
 {
@@ -38,6 +39,8 @@ class InvoiceDetailTemp extends Db
                          ,[UnitAmount]
                          ,[OrderQuantity]
                          ,[PriceTypeRecID]
+                         ,[SubTotal]
+                         ,[SalesTaxAmount]
                          ,[TotalAmount]
                   FROM [saudipos].[POS].[InvoiceDetailTemporary]
                   WHERE [InvoiceRecID] = ?";
@@ -98,7 +101,9 @@ class InvoiceDetailTemp extends Db
         VALUES (?, ?, ?, ?, ?)";
         $statement = $this->connect()->prepare($query);
         $statement->execute([$invoiceTempId, $dic['ProductRecID'], $dic['UnitAmount'], $dic['OrderQuantity'], $dic['PriceTypeRecID']]);
-        return true;
+
+        $invoiceTemp = (new InvoiceTemp())->calculateTotalsAndUpdate($invoiceTempId);
+        return $invoiceTemp;
     }
 
     public function updatePriceType($recId, $priceTypeRecID, $newUnitAmount)
@@ -114,12 +119,15 @@ class InvoiceDetailTemp extends Db
         $query = "UPDATE [saudipos].[POS].[InvoiceDetailTemporary]
                   SET [PriceTypeRecID] = ?,
                       [UnitAmount] = ?
+                    OUTPUT Inserted.[InvoiceRecID]
                   WHERE [RecID] = ?";
 
         $statement = $this->connect()->prepare($query);
-        $result = $statement->execute([$priceTypeRecID, $newUnitAmount, $recId]);
+        $statement->execute([$priceTypeRecID, $newUnitAmount, $recId]);
+        $result = $statement->fetch();
 
-        return $result;
+        $invoiceTemp = (new InvoiceTemp())->calculateTotalsAndUpdate($result['InvoiceRecID']);
+        return $invoiceTemp;
     }
 
     public function updateQuantity($recId, $newQuantity)
@@ -134,12 +142,15 @@ class InvoiceDetailTemp extends Db
 
         $query = "UPDATE [saudipos].[POS].[InvoiceDetailTemporary]
                   SET [OrderQuantity] = ?
+                  OUTPUT Inserted.[InvoiceRecID]
                   WHERE [RecID] = ?";
 
         $statement = $this->connect()->prepare($query);
-        $result = $statement->execute([$newQuantity, $recId]);
+        $statement->execute([$newQuantity, $recId]);
+        $result = $statement->fetch();
 
-        return $result;
+        $invoiceTemp = (new InvoiceTemp())->calculateTotalsAndUpdate($result['InvoiceRecID']);
+        return $invoiceTemp;
     }
 
     public function delete($recId)
@@ -151,12 +162,16 @@ class InvoiceDetailTemp extends Db
         }
 
         // Delete the record
-        $query = "DELETE FROM [saudipos].[POS].[InvoiceDetailTemporary] WHERE [RecID] = ?";
+        $query = "DELETE FROM [saudipos].[POS].[InvoiceDetailTemporary] 
+        OUTPUT Deleted.[InvoiceRecID] 
+        WHERE [RecID] = ?";
 
         $statement = $this->connect()->prepare($query);
-        $result = $statement->execute([$recId]);
+        $statement->execute([$recId]);
+        $result = $statement->fetch();
 
-        return $result;
+        $invoiceTemp = (new InvoiceTemp())->calculateTotalsAndUpdate($result['InvoiceRecID']);
+        return $invoiceTemp;
     }
 
     public function addByBarcode($invoiceRecID, $barcode)
@@ -183,7 +198,7 @@ class InvoiceDetailTemp extends Db
 
     private function findRecordByProductRecID($invoiceRecID, $productRecID)
     {
-        $query = "SELECT [RecID]
+        $query = "SELECT [RecID], [OrderQuantity]
                   FROM [saudipos].[POS].[InvoiceDetailTemporary]
                   WHERE [InvoiceRecID] = ? AND [ProductRecID] = ?";
 
