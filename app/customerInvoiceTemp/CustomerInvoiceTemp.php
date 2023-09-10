@@ -7,7 +7,7 @@ require_once $ROOT . "/app/customer/Customer.php";
 
 class CustomerInvoiceTemp extends Db
 {
-    private function insertToInvoiceTemp($customerRecID)
+    public function insertToInvoiceTemp($customerRecID)
     {
         $query = "INSERT INTO [POS].InvoiceTemporary(CustomerRecID, DBItemsPrice) OUTPUT Inserted.RecID VALUES(?, ?)";
         $stmt = $this->connect()->prepare($query);
@@ -19,7 +19,7 @@ class CustomerInvoiceTemp extends Db
         return $recID;
     }
 
-    private function updateCustomerInInvoiceTemp($customerRecID, $recID)
+    public function updateCustomerInInvoiceTemp($customerRecID, $recID)
     {
         $query = "UPDATE [POS].InvoiceTemporary SET CustomerRecID = ? WHERE RecID = ?";
         $stmt = $this->connect()->prepare($query);
@@ -28,14 +28,38 @@ class CustomerInvoiceTemp extends Db
 
     public function addCustomerToInvoiceTemp($customerCode, $customerPhone, $customerName, $recID)
     {
-        $customerRecID = (new Customer())->find($customerCode, $customerPhone, $customerName)['RecID'];
+        $customerRecID = (new Customer())->findByCode($customerCode, $customerPhone, $customerName)['RecID'];
 
-        if ($customerRecID == "") {
-            $recID = $this->insertToInvoiceTemp($customerRecID);
-        } else {
+        if ($customerRecID) {
             $this->updateCustomerInInvoiceTemp($customerRecID, $recID);
+            return $customerRecID;
+        } else {
+            die('No customer with this info');
         }
+    }
 
-        return json_encode(['message' => '', 'recID' => $recID]);
+    public function findCustomerByInvoiceTempRecID($recID)
+    {
+        $query = "SELECT it.[PriceTypeRecID]
+		,pt.[Name] PriceTypeName
+	    ,c.[RecID]
+		,c.[Code]
+		,c.[Name]
+		,c.[NameAR]
+		,c.[Phone]
+        FROM [saudipos].[POS].[InvoiceTemporary] it
+        INNER JOIN [saudipos].[Business].[Customer] c ON c.[RecID] = it.[CustomerRecID]
+        INNER JOIN [saudipos].[CodeMaster].[PriceType] pt ON it.[PriceTypeRecID] = pt.[RecID]
+        WHERE it.[RecID] = '" . $recID . "'";
+
+        $statement = $this->connect()->prepare($query);
+        $statement->execute();
+        $resultSet = $statement->fetch();
+
+        if ($resultSet > 0) {
+            return $resultSet;
+        } else {
+            return false;
+        }
     }
 }

@@ -19,7 +19,7 @@ function getCustomersBySearchTerm() {
 }
 
 // Function to search for customers and highlight matching characters
-function displayCustomerSearchResults(customers) {    
+function displayCustomerSearchResults(customers) {
     searchResults.style.display = 'block';
 
     // Clear previous results
@@ -38,7 +38,7 @@ function displayCustomerSearchResults(customers) {
             const resultItem = document.createElement("div");
             resultItem.innerHTML = highlightedName;
             searchResults.appendChild(resultItem);
-            searchResults.addEventListener('click', () => {
+            resultItem.addEventListener('click', () => {
                 selectCustomer(customer);
             })
         }
@@ -60,13 +60,44 @@ document.getElementById('customer_search_form').addEventListener('submit', (e) =
 })
 
 function addCustomerToInvoice() {
-    fetch(`customer/addCustomerToInvoiceTemp.php?recID=${invoiceTempRecID}&code=${selectedCustomer.Code}&phone=${selectedCustomer.Phone}&name=${selectedCustomer.Name}`)
+    fetch(`customer/addCustomerToInvoiceTemp.php?recID=${invoiceTempRecID}${customer_code_input.value ? `&code=${customer_code_input.value}` : ''}${customer_phone_input.value ? `&phone=${customer_phone_input.value}` : ''}${customer_name_input.value ? `&name=${customer_name_input.value}` : ''}`)
         .then(r => r.json())
         .then(j => {
-            addCustomerToCartDisplay(j);
+            console.log(j)
+            getCustomerByInvoiceTemp(invoiceTempRecID)
+            showCustomerAddModal()
         })
 }
 
-function addCustomerToCartDisplay() {
+function addCustomerToCartDisplay(customer) {
+    var customer_name = document.getElementById('customer__name');
+    var customer_code = document.getElementById('customer__code');
+    var customer_phone = document.getElementById('customer__phone');
+    var customer_price_type = document.getElementById('customer__price__type');
+    customer_name.innerHTML = customer.Name;
+    customer_code.innerHTML = customer.Code;
+    customer_phone.innerHTML = customer.Phone;
+    customer_price_type.innerHTML = `${customer.PriceTypeName.split('Price')[0]} ${'Customer'}`
 
+}
+
+function removeCustomerFromCartDisplay() {
+    var customer_name = document.getElementById('customer__name');
+    var customer_code = document.getElementById('customer__code');
+    var customer_phone = document.getElementById('customer__phone');
+    var customer_price_type = document.getElementById('customer__price__type');
+    customer_name.innerHTML = ''
+    customer_code.innerHTML = ''
+    customer_phone.innerHTML = ''
+    customer_price_type.innerHTML = ''
+}
+
+function getCustomerByInvoiceTemp(recID) {
+    fetch(`customer/getCustomerByInvoiceTemp.php?recID=${recID}`)
+        .then(r => r.json())
+        .then(j => {
+            addCustomerToCartDisplay(j)
+        }).catch(() => {
+            removeCustomerFromCartDisplay()  
+        })
 }

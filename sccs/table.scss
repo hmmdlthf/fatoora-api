@@ -3,9 +3,11 @@
     height: 70vh;
     max-height: 70vh;
     overflow: auto;
+    width: 100%;
 
     table {
         border-collapse: collapse;
+        width: 100%;
 
         thead {
             th {

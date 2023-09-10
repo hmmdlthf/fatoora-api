@@ -1,18 +1,24 @@
 var cart_record_index = 0;
 var invoiceTempRecID = 0;
+var invoiceTemp_PriceTypeRecID = 1;
+var invoiceTemp_CustomerRecID = 0;
+
+
 
 function emptyCart() {
     document.querySelector('#cart__table table tbody').innerHTML = '';
-    
+
 }
 
+
 function holdInvoice() {
-    fetch(`invoice-temp/holdInvoice.php`)
-        .then(r => {
-            alert('hold success')
-            initializeCartTable();
-            resetValue()
-        });
+    if (confirm('Confirm hold invoice')) {
+        fetch(`invoice-temp/holdInvoice.php`)
+            .then(r => {
+                initializeCartTable();
+                resetValue()
+            });
+    }
 }
 
 
@@ -33,7 +39,7 @@ function addProductToCart(j) {
             let div = document.createElement('div');
             let span = document.createElement('span')
             let input = document.createElement('input')
-            
+
             div.className = 'quantity'
             input.className = 'cart__record__quantity__input'
             span.className = 'cart__record__A'
@@ -42,11 +48,11 @@ function addProductToCart(j) {
 
             input.setAttribute('type', 'text')
             input.setAttribute('name', 'quantity')
-            
+
             td.appendChild(div)
             div.appendChild(input)
             div.appendChild(span)
-            
+
             input.value = j['OrderQuantity'] ? j['OrderQuantity'] : 1.0000;
             span.innerHTML = 'A'
 
@@ -57,7 +63,7 @@ function addProductToCart(j) {
             downbtn.className = 'downbtn'
             div.appendChild(upbtn)
             div.appendChild(downbtn)
-            
+
             upbtn.addEventListener('click', () => {
                 input_value++
                 input.value = input_value
@@ -146,9 +152,12 @@ function initializeCartTable() {
         .then(j => {
             invoiceTempRecID = j.RecID;
             console.log(invoiceTempRecID)
+            invoiceTemp_CustomerRecID = j.CustomerRecID
+            invoiceTemp_PriceTypeRecID = j.PriceTypeID
             emptyCart()
             getInvoiceDetailByInvoiceRecId()
             getCartTotals()
+            getCustomerByInvoiceTemp(invoiceTempRecID)
         })
 }
 
@@ -193,23 +202,23 @@ function addToCartByBarcode(barcode) {
 
 function deleteInvoiceDetail(recID) {
     fetch(`invoice-temp/deleteInvoiceDetailTemp.php?recID=${recID}`)
-    .then(r => {
-        emptyCart()
-        getInvoiceDetailByInvoiceRecId()
-        getCartTotals()
-    })
+        .then(r => {
+            emptyCart()
+            getInvoiceDetailByInvoiceRecId()
+            getCartTotals()
+        })
 }
 
 
 function togglePriceType(div, recID, priceTypeID) {
     fetch(`invoice-temp/togglePriceType.php?recID=${recID}&priceTypeID=${priceTypeID}`)
-    .then(r => {
-        // alert(r)
-        emptyCart()
-        getInvoiceDetailByInvoiceRecId()
-        getCartTotals()
-        div.classList.toggle('switch-on')
-    })
+        .then(r => {
+            // alert(r)
+            emptyCart()
+            getInvoiceDetailByInvoiceRecId()
+            getCartTotals()
+            div.classList.toggle('switch-on')
+        })
 }
 
 
@@ -220,10 +229,19 @@ function wholePriceToggle(div) {
 
 function updateQuantity(recID, orderQuantity) {
     fetch(`invoice-temp/updateQuantity.php?recID=${recID}&orderQuantity=${orderQuantity}`)
-    .then(r => {
-        emptyCart()
-        getInvoiceDetailByInvoiceRecId()
-        getCartTotals()
-        div.classList.toggle('switch-on')
-    })
+        .then(r => {
+            emptyCart()
+            getInvoiceDetailByInvoiceRecId()
+            getCartTotals()
+            div.classList.toggle('switch-on')
+        })
+}
+
+
+function copyTempToInvoice() {
+    fetch(`invoice-temp/insertInvoiceTempToInvoice.php?recID=${invoiceTempRecID}`)
+        .then(r => {
+            alert('Temp invoice added to invoice')
+            holdInvoice()
+        })
 }

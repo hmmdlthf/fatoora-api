@@ -6,9 +6,31 @@ require_once $ROOT . "/app/database/Db.php";
 
 class Customer extends Db
 {
-    public function find($customerCode, $customerNo, $customerName)
+    public function find($recID)
     {
-        $query = "SELECT TOP 1 * FROM Business.Customer WHERE (Code = ? OR Phone = ? OR NameAR = ?) AND RecID <> 1";
+        $query = "SELECT
+        [RecID]
+        ,[Code]
+        ,[Name]
+        ,[NameAR]
+        ,[Phone]
+        FROM [saudipos].[Business].[Customer]
+        WHERE [RecID] = '" . $recID . "'";
+
+        $statement = $this->connect()->prepare($query);
+        $statement->execute();
+        $resultSet = $statement->fetch();
+
+        if ($resultSet > 0) {
+            return $resultSet;
+        } else {
+            return false;
+        }
+    }
+
+    public function findByCode($customerCode, $customerNo, $customerName)
+    {
+        $query = "SELECT TOP 1 * FROM Business.Customer WHERE (Code = ? OR Phone = ? OR Name = ?) AND RecID <> 1";
         $stmt = $this->connect()->prepare($query);
         $stmt->execute([$customerCode, $customerNo, $customerName]);
 
@@ -29,8 +51,7 @@ class Customer extends Db
         ,[NameAR]
         ,[Phone]
         FROM [saudipos].[Business].[Customer]
-        WHERE [Name] LIKE '%". $term . "%'"
-        ;
+        WHERE [Name] LIKE '%" . $term . "%'";
 
         $statement = $this->connect()->prepare($query);
         $statement->execute();
@@ -42,6 +63,4 @@ class Customer extends Db
             return false;
         }
     }
-
-    
 }

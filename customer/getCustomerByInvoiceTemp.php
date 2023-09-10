@@ -9,12 +9,9 @@ require_once $ROOT . "/app/customerInvoiceTemp/CustomerInvoiceTemp.php";
 session_check();
 
 try {
-    if (isset($_GET['recID']) && (isset($_GET['name']) || isset($_GET['code']) || isset($_GET['phone']))) {
+    if (isset($_GET['recID'])) {
         $recID = $_GET['recID'];
-        $name = $_GET['name'];
-        $code = $_GET['code'];
-        $phone = $_GET['phone'];
-        $result = (new CustomerInvoiceTemp())->addCustomerToInvoiceTemp($code, $phone, $name, $recID);
+        $result = (new CustomerInvoiceTemp())->findCustomerByInvoiceTempRecID($recID);
 
         if ($result) {
             header('Content-type: application/json');
@@ -22,6 +19,8 @@ try {
         } else {
             die('unsuccess');
         }
+    } else {
+        die('enter recID');
     }
 } catch (Exception $e) {
     die("$e");

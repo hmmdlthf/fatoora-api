@@ -26,6 +26,7 @@ session_check();
     <link rel="stylesheet" href="/sccs/modal.css">
     <link rel="stylesheet" href="/sccs/inventory-modal.css">
     <link rel="stylesheet" href="/sccs/customer-modal.css">
+    <link rel="stylesheet" href="/sccs/sales-modal.css">
     <link rel="shortcut icon" href="/favicon.svg" type="image/x-icon">
 </head>
 
@@ -107,6 +108,7 @@ session_check();
             <div class="detail">Customer Code: <span id="customer__code"></span></div>
             <div class="detail">Customer Phone: <span id="customer__phone"></span></div>
             <div class="detail">Customer Name: <span id="customer__name"></span></div>
+            <div class="detail">Customer Price Type: <span id="customer__price__type"></span></div>
         </div>
         <div class="main__menu">
             <div class="icon">
@@ -129,7 +131,7 @@ session_check();
                 </div>
             </div>
         </div>
-        <button class="order__btn btn">PROCEED ORDER | متابعة الطلب</button>
+        <button class="order__btn btn" onclick="copyTempToInvoice()">PROCEED ORDER | متابعة الطلب</button>
         <input class="calc__screen" dir="rtl" type="text" name="calc__code" id="calc__code" placeholder="Product Barcode | كود المنتج" autofocus>
         <div class="calc">
             <div class="col">
@@ -226,6 +228,7 @@ session_check();
     <script src="/js/session.js"></script>
     <script src="/js/cart.js"></script>
     <script src="/js/customer.js"></script>
+    <script src="/js/sales.js"></script>
 </body>
 
 </html>

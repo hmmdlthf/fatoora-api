@@ -6,9 +6,10 @@ require_once $ROOT . "/app/invoiceTemp/invoiceTemp.php";
 require_once $ROOT . "/login/utils.php";
 
 session_check();
+$credentials = session_get();
 
 if (!isset($_SESSION['InvoiceTempRecID'])) {
-    $invoiceTemp = (new InvoiceTemp())->create();
+    $invoiceTemp = (new InvoiceTemp())->create($credentials['username']);
     $_SESSION['InvoiceTempRecID'] = $invoiceTemp;
 } else {
     $invoiceTemp = $_SESSION['InvoiceTempRecID'];

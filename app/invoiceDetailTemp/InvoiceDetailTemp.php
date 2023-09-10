@@ -10,15 +10,17 @@ class InvoiceDetailTemp extends Db
 {
     public function findById($recId)
     {
-        $query = "SELECT [RecID]
+        $query = "SELECT [InvoiceDetailRecID] AS RecID
         ,[InvoiceRecID]
-        ,[ProductRecID]
-        ,[UnitAmount]
-        ,[OrderQuantity]
         ,[PriceTypeRecID]
+        ,[ProductRecID]
+        ,[OrderQuantity]
+        ,[UnitAmount]
+        ,[RetailPrice]
+        ,[WholesalePrice]
         ,[TotalAmount]
-        FROM [saudipos].[POS].[InvoiceDetailTemporary] 
-        WHERE [RecID] = '" . $recId . "'";
+        FROM [saudipos].[POS].[V_InvoiceDetailTemporary]
+        WHERE [InvoiceDetailRecID] = '" . $recId . "'";
 
         $statement = $this->connect()->prepare($query);
         $statement->execute();
@@ -118,15 +120,19 @@ class InvoiceDetailTemp extends Db
             return false; // Record not found
         }
 
-        // $totalAmount = $this->calculateTotalAmount($newUnitAmount, $existingRecord['OrderQuantity']);
+        if ($priceTypeRecID == 2) {
+            $unitAmount = $existingRecord['WholesalePrice'];
+        } else {
+            $unitAmount = $existingRecord['RetailPrice'];
+        }
 
         $query = "UPDATE [saudipos].[POS].[InvoiceDetailTemporary]
-                  SET [PriceTypeRecID] = ?
+                  SET [PriceTypeRecID] = ?, [UnitAmount] = ?
                     OUTPUT Inserted.[InvoiceRecID]
                   WHERE [RecID] = ?";
 
         $statement = $this->connect()->prepare($query);
-        $statement->execute([$priceTypeRecID, $recId]);
+        $statement->execute([$priceTypeRecID, $unitAmount, $recId]);
         $result = $statement->fetch();
 
         $invoiceTemp = (new InvoiceTemp())->calculateTotalsAndUpdate($result['InvoiceRecID']);
