@@ -17,7 +17,6 @@ function getProductsFromSearch(searchTerm) {
         })
 }
 
-
 function addLoadingBar() {
 
 }

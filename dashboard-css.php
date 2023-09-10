@@ -19,8 +19,11 @@ session_check();
 
     <link rel="stylesheet" href="/sccs/styles.css">
     <link rel="stylesheet" href="/sccs/common.css">
+    <link rel="stylesheet" href="/sccs/forms.css">
+    <link rel="stylesheet" href="/sccs/table.css">
     <link rel="stylesheet" href="/sccs/dashboard.css">
     <link rel="stylesheet" href="/sccs/calculator.css">
+    <link rel="stylesheet" href="/sccs/modal.css">
     <link rel="stylesheet" href="/sccs/inventory-modal.css">
     <link rel="stylesheet" href="/sccs/customer-modal.css">
     <link rel="shortcut icon" href="/favicon.svg" type="image/x-icon">
@@ -176,11 +179,11 @@ session_check();
             <div>Payments | المدفوعات</div>
         </div>
         <div class="couple__btns">
-            <div class="btn">
+            <div class="btn" onclick="showSalesModal()">
                 <div class="text">Recent Sales</div>
                 <div class="text__arabic">المبيعات الأخيرة</div>
             </div>
-            <div class="btn">
+            <div class="btn" onclick="showInvoiceOnHoldModal()">
                 <div class="text">Invoices on Hold</div>
                 <div class="text__arabic">الفاتورة معلقة</div>
             </div>
@@ -206,12 +209,17 @@ session_check();
         </div>
     </div>
 
-    <?php include $ROOT . '/customer/customer-model.php'; ?>
 
+    <?php include $ROOT . '/modals/invoice-on-hold.php'; ?>
+
+    <?php include $ROOT . '/modals/sales-modal.php'; ?>
+    
+    <?php include $ROOT . '/modals/customer-modal.php'; ?>
+    
     <script src="/js/inventory.js"></script>
 
-    <?php include $ROOT . '/inventory.php'; ?>
-
+    <?php include $ROOT . '/modals/inventory-modal.php'; ?>
+    
     <script src="/js/script.js"></script>
     <script src="/js/scroll.js"></script>
     <script src="/js/calculator.js"></script>

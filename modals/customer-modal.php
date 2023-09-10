@@ -1,4 +1,4 @@
-<div class="customer__add__modal" id="customer__add__modal">
+<div class="customer__add__modal modal" id="customer__add__modal">
     <div class="backdrop" onclick="showCustomerAddModal()"></div>
     <div class="box">
         <div class="header">

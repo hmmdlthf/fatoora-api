@@ -14,65 +14,8 @@
   --font-family: var(--bs-font-sans-serif);
 }
 
-.inventory__modal {
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  right: 0;
-  left: 0;
-  z-index: 50;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  display: none;
-}
-.inventory__modal.active {
-  display: flex;
-}
-.inventory__modal .backdrop {
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  right: 0;
-  left: 0;
-  z-index: 51;
-  background-color: var(--grey-10);
-  opacity: 0.3;
-}
 .inventory__modal .box {
-  width: 100%;
   max-width: 1200px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
-  border-radius: 0.5rem;
-  background-color: white;
-  z-index: 52;
-}
-.inventory__modal .box .header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  width: 100%;
-  padding-inline: 1rem;
-  padding-block: 1rem;
-  border-bottom: var(--border);
-}
-.inventory__modal .box .header .title {
-  font-weight: bold;
-}
-.inventory__modal .box .header .close__btn {
-  cursor: pointer;
-}
-.inventory__modal .box .body {
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  flex-direction: column;
-  width: 100%;
-  padding-inline: 1rem;
-  padding-block: 1rem;
 }
 .inventory__modal .box .body .top {
   width: 100%;

@@ -1,34 +1,16 @@
-<div class="inventory__modal" id="inventory__modal">
-    <div class="backdrop" onclick="showInventoryModal()"></div>
+<div class="sales_modal modal" id="sales_modal">
+    <div class="backdrop" onclick="showSalesModal()"></div>
     <div class="box">
         <div class="header">
-            <div class="title">All Inventory | كل المخزون</div>
-            <div class="close__btn" onclick="showInventoryModal()">
+            <div class="title">Total Sales | إجمالي المبيعات</div>
+            <div class="close__btn" onclick="showSalesModal()">
                 <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 384 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
                     <path d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z" fill="currentColor" />
                 </svg>
             </div>
         </div>
         <div class="body">
-            <div class="top">
-                <div class="entries__limit">
-                    show
-                    <span>
-                        <select name="entries" id="inventory__table__entries">
-                            <option value="10">10</option>
-                            <option value="25">25</option>
-                            <option value="50">50</option>
-                            <option value="100" selected>100</option>
-                        </select>
-                    </span>
-                    enteries
-                </div>
-                <form method="get" class="search" id="inventory__searchForm">
-                    Search:
-                    <input type="search" name="inventory__search" id="inventory__search">
-                </form>
-            </div>
-            <div class="table" id="inventory__table">
+            <div class="table" id="sales__table">
                 <table>
                     <thead>
                         <tr>
@@ -237,11 +219,11 @@
 </div>
 
 <script>
-    function showInventoryModal() {
-        document.getElementById('inventory__modal').classList.toggle('active');
+    function showSalesModal() {
+        document.getElementById('sales_modal').classList.toggle('active');
         
-        if (document.getElementById('inventory__modal').classList.contains('active')) {
-            getProducts();
+        if (document.getElementById('sales_modal').classList.contains('active')) {
+            
         }
     }
 </script>
