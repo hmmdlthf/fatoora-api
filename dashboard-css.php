@@ -225,6 +225,7 @@ session_check();
     <script src="/js/calculator.js"></script>
     <script src="/js/session.js"></script>
     <script src="/js/cart.js"></script>
+    <script src="/js/customer.js"></script>
 </body>
 
 </html>

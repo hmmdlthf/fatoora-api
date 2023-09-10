@@ -21,16 +21,16 @@ class CustomerInvoiceTemp extends Db
 
     private function updateCustomerInInvoiceTemp($customerRecID, $recID)
     {
-        $query = "UPDATE [POS].InvoiceTemporary SET CustomerRecID = ?, DBItemsPrice = ? WHERE RecID = ?";
+        $query = "UPDATE [POS].InvoiceTemporary SET CustomerRecID = ? WHERE RecID = ?";
         $stmt = $this->connect()->prepare($query);
-        $stmt->execute([$customerRecID, "2", $recID]);
+        $stmt->execute([$customerRecID, $recID]);
     }
 
-    public function addCustomerToInvoiceTemp($customerCode, $customerNo, $customerName, $recID)
+    public function addCustomerToInvoiceTemp($customerCode, $customerPhone, $customerName, $recID)
     {
-        $customerRecID = (new Customer())->find($customerCode, $customerNo, $customerName)['RecID'];
+        $customerRecID = (new Customer())->find($customerCode, $customerPhone, $customerName)['RecID'];
 
-        if ($recID == "") {
+        if ($customerRecID == "") {
             $recID = $this->insertToInvoiceTemp($customerRecID);
         } else {
             $this->updateCustomerInInvoiceTemp($customerRecID, $recID);

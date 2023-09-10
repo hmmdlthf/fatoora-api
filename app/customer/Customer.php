@@ -21,5 +21,27 @@ class Customer extends Db
         }
     }
 
+    public function findBySearchTerm($term)
+    {
+        $query = "SELECT TOP (8) [RecID]
+        ,[Code]
+        ,[Name]
+        ,[NameAR]
+        ,[Phone]
+        FROM [saudipos].[Business].[Customer]
+        WHERE [Name] LIKE '%". $term . "%'"
+        ;
+
+        $statement = $this->connect()->prepare($query);
+        $statement->execute();
+        $resultSet = $statement->fetchAll();
+
+        if ($resultSet > 0) {
+            return $resultSet;
+        } else {
+            return false;
+        }
+    }
+
     
 }

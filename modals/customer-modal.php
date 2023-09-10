@@ -10,7 +10,7 @@
             </div>
         </div>
         <div class="body">
-            <form action="" class="form">
+            <form action="" class="form" id="customer_search_form">
                 <div class="form__group">
                     <div class="form__control">
                         <label for="customer_code">Customer Code</label>
@@ -27,6 +27,9 @@
                     <div class="form__control">
                         <label for="customer_name">Customer Name</label>
                         <input type="text" name="customer_name" id="customer_name" placeholder="Customer Name | اسم الزبون">
+                        <div class="customer__search__results" id="customer__search__results">
+
+                        </div>
                     </div>
                 </div>
                 <div class="form__group">
