@@ -55,7 +55,7 @@ session_check();
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
+                        <!-- <tr>
                             <td>871600200899</td>
                             <td>Rainbow Sweetened Condensed Milk (397 ML * 48.00 Can)</td>
                             <td>CT</td>
@@ -74,7 +74,7 @@ session_check();
                             </td>
                             <td>280.00</td>
                             <td><button class="cart__record__deleteBtn">D</button></td>
-                        </tr>
+                        </tr> -->
                     </tbody>
                 </table>
             </div>
