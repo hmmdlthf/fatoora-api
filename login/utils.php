@@ -15,7 +15,7 @@ function session_check()
             header("Location: /dashboard-css.php");
         }
     } else {
-        header("location: /index.php");
+        header("Location: /index.php");
     }
 }
 

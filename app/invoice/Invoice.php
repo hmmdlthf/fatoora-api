@@ -21,8 +21,8 @@ class Invoice extends Db
         FROM [saudipos].[POS].[V_Invoice]
         WHERE [CreatedBy] = '" . $username . "'
         ORDER BY RecID
-        OFFSET ". $limit_start . " ROWS
-        FETCH NEXT ". ($range) . " ROWS ONLY";
+        OFFSET " . $limit_start . " ROWS
+        FETCH NEXT " . ($range) . " ROWS ONLY";
 
         $statement = $this->connect()->prepare($query);
         $statement->execute();
@@ -50,8 +50,8 @@ class Invoice extends Db
         FROM [saudipos].[POS].[V_Invoice]
         WHERE [CashierPerson] = $userRecID
         ORDER BY RecID
-        OFFSET ". $limit_start . " ROWS
-        FETCH NEXT ". ($range) . " ROWS ONLY";
+        OFFSET " . $limit_start . " ROWS
+        FETCH NEXT " . ($range) . " ROWS ONLY";
 
         $statement = $this->connect()->prepare($query);
         $statement->execute();
@@ -63,5 +63,35 @@ class Invoice extends Db
             return false;
         }
     }
-        
+
+    public function findInvoiceHeaderFooter($recID)
+    {
+        $query = "SELECT 
+        InvoiceNumber, 
+        convert (varchar,InvoiceDate) as Date, 
+        convert (varchar, CreatedTime, 8) as Time, 
+        CashierID, 
+        CashAmount, 
+        CardAmount, 
+        BalanceAmount, 
+        TotalSubTotal, 
+        TotalVATAmount, 
+        GrandTotal, 
+        CustomerName, 
+        CustomerNameAR, 
+        VATNumber, 
+        Remarks 
+        FROM POS.V_InvoiceHeaderFooter 
+        WHERE RecID = ?";
+
+        $statement = $this->connect()->prepare($query);
+        $statement->execute([$recID]);
+        $resultSet = $statement->fetch();
+
+        if ($resultSet > 0) {
+            return $resultSet;
+        } else {
+            return false;
+        }
+    }
 }
