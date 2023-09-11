@@ -7,7 +7,6 @@ function getInvoicesOnHold() {
     fetch(`invoice-hold/getInvoicesByUser.php?start=${start}&range=${range}`)
         .then(r => r.json())
         .then(j => {
-            alert('got invoices')
             console.log(j)
             addInvoicesOnHoldJsonToTable(j);
         })
@@ -19,8 +18,10 @@ function addInvoicesOnHoldJsonToTable(j) {
     invoice_on_hold_table.innerHTML = ''
 
     var fields = ['RecID', 'Name', 'InvoiceNumber', 'InvoiceDate', 'GrandTotal'];
+    var sub_fields = ['ProductFullName', 'OrderQuantity', 'UnitAmount', 'TotalAmount'];
 
     j.forEach((x, i) => {
+        // display the invoice hold main record
         tr = document.createElement('tr');
 
         fields.forEach(y => {
@@ -45,6 +46,26 @@ function addInvoicesOnHoldJsonToTable(j) {
         })
 
         invoice_on_hold_table.appendChild(tr);
+
+
+        // display the invoice hold detail records of the main record after
+        x['InvoiceDetails'].forEach((invoiceDetail, k) => {
+            tr_sub = document.createElement('tr')
+            tr_sub.className = 'row__sub'
+
+            td = document.createElement('td')
+            tr_sub.appendChild(td)
+
+            sub_fields.forEach((m) => {
+                td = document.createElement('td');
+                td.id = `invoiceDetail${k}__${m}`;
+                td.innerHTML = invoiceDetail[m];
+                tr_sub.appendChild(td);
+            })
+
+            invoice_on_hold_table.appendChild(tr_sub)
+
+        })
     });
 }
 

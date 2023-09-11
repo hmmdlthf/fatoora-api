@@ -6,7 +6,7 @@ require_once $ROOT . "/app/database/Db.php";
 
 class InvoiceHold extends Db
 {
-    public function findInvoiceHoldRecordsByUser($limit_start = 0, $range = 100, $username)
+    public function findInvoiceHoldRecordsByUser($username)
     {
         $query = "SELECT [Code] AS CustomerCode,
                      [Name],
@@ -20,12 +20,10 @@ class InvoiceHold extends Db
                      [GrandTotal]
               FROM [saudipos].[POS].[V_InvoiceHold]
               WHERE [CreatedBy] = ? -- :username
-              ORDER BY RecID
-              OFFSET ? ROWS
-              FETCH NEXT ? ROWS ONLY";
+              ORDER BY RecID";
 
         $statement = $this->connect()->prepare($query);
-        $statement->execute([$username, $limit_start, $range]);
+        $statement->execute([$username]);
         $resultSet = $statement->fetchAll();
 
         if ($resultSet) {

@@ -1,0 +1,22 @@
+.invoice_on_hold__modal {
+    .box {
+        .body {
+            .table {
+                table {
+                    tbody {
+                        tr {
+                            &:nth-child(odd) {
+                                background-color: unset;
+                            }
+
+                            &.row__sub {
+                                background-color: var(--grey-5);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+    }
+}

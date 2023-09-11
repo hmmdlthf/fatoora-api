@@ -1,4 +1,4 @@
-<div class="invoice_on_hold_modal modal" id="invoice_on_hold_modal">
+<div class="invoice_on_hold__modal modal" id="invoice_on_hold_modal">
     <div class="backdrop" onclick="showInvoiceOnHoldModal()"></div>
     <div class="box">
         <div class="header">

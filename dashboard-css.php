@@ -27,6 +27,7 @@ session_check();
     <link rel="stylesheet" href="/sccs/inventory-modal.css">
     <link rel="stylesheet" href="/sccs/customer-modal.css">
     <link rel="stylesheet" href="/sccs/sales-modal.css">
+    <link rel="stylesheet" href="/sccs/invoice-hold-modal.css">
     <link rel="shortcut icon" href="/favicon.svg" type="image/x-icon">
 </head>
 
