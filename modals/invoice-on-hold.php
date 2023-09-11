@@ -127,9 +127,9 @@
         document.getElementById('invoice_on_hold_modal').classList.toggle('active');
         
         if (document.getElementById('invoice_on_hold_modal').classList.contains('active')) {
-            
+            getInvoicesOnHold()
         }
     }
 </script>
 
-<script src="/js/inventory.js"></script>
+<script src="/js/invoiceHold.js"></script>

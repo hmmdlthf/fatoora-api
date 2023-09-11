@@ -3,10 +3,11 @@ var start = 0;
 var range = 50;
 
 
-function getInvoices() {
+function getInvoicesOnHold() {
     fetch(`invoice-hold/getInvoicesByUser.php?start=${start}&range=${range}`)
         .then(r => r.json())
         .then(j => {
+            alert('got invoices')
             console.log(j)
             addInvoicesOnHoldJsonToTable(j);
         })

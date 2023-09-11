@@ -8,32 +8,33 @@ class InvoiceHold extends Db
 {
     public function findInvoiceHoldRecordsByUser($limit_start = 0, $range = 100, $username)
     {
-        $query = "SELECT [Code] CustomerCode
-        ,[Name]
-        ,[NameAR]
-        ,[RecID]
-        ,[CustomerRecID]
-        ,[PriceTypeRecID]
-        ,[InvoiceNumber]
-        ,[InvoiceDate]
-        ,[CashierPerson]
-        ,[GrandTotal]
-        FROM [saudipos].[POS].[V_InvoiceHold]
-        WHERE [CreatedBy] = '" . $username . "'
-        ORDER BY RecID
-        OFFSET ". $limit_start . " ROWS
-        FETCH NEXT ". ($range) . " ROWS ONLY";
+        $query = "SELECT [Code] AS CustomerCode,
+                     [Name],
+                     [NameAR],
+                     [RecID],
+                     [CustomerRecID],
+                     [PriceTypeRecID],
+                     [InvoiceNumber],
+                     [InvoiceDate],
+                     [CashierPerson],
+                     [GrandTotal]
+              FROM [saudipos].[POS].[V_InvoiceHold]
+              WHERE [CreatedBy] = ? -- :username
+              ORDER BY RecID
+              OFFSET ? ROWS
+              FETCH NEXT ? ROWS ONLY";
 
         $statement = $this->connect()->prepare($query);
-        $statement->execute();
+        $statement->execute([$username, $limit_start, $range]);
         $resultSet = $statement->fetchAll();
 
-        if ($resultSet > 0) {
+        if ($resultSet) {
             return $resultSet;
         } else {
             return false;
         }
     }
+
 
     public function findInvoiceRecordsByUserBySearchTerm($limit_start = 0, $range = 100, $userRecID, $term)
     {
@@ -50,8 +51,8 @@ class InvoiceHold extends Db
         FROM [saudipos].[POS].[V_InvoiceHold]
         WHERE [CashierPerson] = $userRecID
         ORDER BY RecID
-        OFFSET ". $limit_start . " ROWS
-        FETCH NEXT ". ($range) . " ROWS ONLY";
+        OFFSET " . $limit_start . " ROWS
+        FETCH NEXT " . ($range) . " ROWS ONLY";
 
         $statement = $this->connect()->prepare($query);
         $statement->execute();
@@ -63,5 +64,4 @@ class InvoiceHold extends Db
             return false;
         }
     }
-        
 }
