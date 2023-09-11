@@ -57,6 +57,12 @@ body .col-5 .top .header {
 body .col-5 .top .header .title {
   font-weight: bold;
 }
+body .col-5 .top .header > div {
+  display: flex;
+}
+body .col-5 .top .header > div > * + * {
+  margin-left: 0.5rem;
+}
 body .col-5 .top .table {
   width: 100%;
   overflow: auto;

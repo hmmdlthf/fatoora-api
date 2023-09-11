@@ -3,6 +3,17 @@ var start = 0;
 var range = 50;
 
 
+function holdInvoice() {
+    if (confirm('Confirm to hold invoice')) {
+        fetch(`invoice-temp/holdInvoice.php?recID=${invoiceTempRecID}`)
+            .then(r => {
+                initializeCartTable();
+                resetValue()
+            });
+    }
+}
+
+
 function getInvoicesOnHold() {
     fetch(`invoice-hold/getInvoicesByUser.php?start=${start}&range=${range}`)
         .then(r => r.json())
@@ -42,7 +53,7 @@ function addInvoicesOnHoldJsonToTable(j) {
 
         button.addEventListener('click', () => {
             selectInvoiceOnHold()
-            showSalesModal()
+            showInvoiceOnHoldModal()
         })
 
         invoice_on_hold_table.appendChild(tr);

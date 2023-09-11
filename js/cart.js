@@ -11,9 +11,9 @@ function emptyCart() {
 }
 
 
-function holdInvoice() {
-    if (confirm('Confirm hold invoice')) {
-        fetch(`invoice-temp/holdInvoice.php`)
+function clearInvoice() {
+    if (confirm('Confirm to clear invoice')) {
+        fetch(`invoice-temp/clearInvoice.php`)
             .then(r => {
                 initializeCartTable();
                 resetValue()
@@ -242,6 +242,6 @@ function copyTempToInvoice() {
     fetch(`invoice-temp/insertInvoiceTempToInvoice.php?recID=${invoiceTempRecID}`)
         .then(r => {
             alert('Temp invoice added to invoice')
-            holdInvoice()
+            clearInvoice()
         })
 }

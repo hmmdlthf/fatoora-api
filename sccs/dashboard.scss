@@ -43,6 +43,14 @@ body {
                 .title {
                     font-weight: bold;
                 }
+
+                >div {
+                    display: flex;
+
+                    >* + * {
+                        margin-left: .5rem;
+                    }
+                }
             }
 
             .table {

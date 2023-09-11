@@ -40,7 +40,10 @@ session_check();
         <div class="top">
             <div class="header">
                 <div class="title">Retail Price Selected | سعر التجزئة المحدد</div>
-                <div class="btn" onclick="holdInvoice()">HOLD INVOICE</div>
+                <div>
+                    <div class="btn" onclick="holdInvoice()">HOLD INVOICE</div>
+                    <div class="btn" onclick="clearInvoice()">Clear INVOICE</div>
+                </div>
             </div>
             <div class="table" id="cart__table">
                 <table>

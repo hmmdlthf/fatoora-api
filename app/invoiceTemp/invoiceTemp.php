@@ -276,4 +276,122 @@ class InvoiceTemp extends Db
 
         return true;
     }
+
+    public function InsertInvoiceTempToInvoiceHold($recId)
+    {
+        $queryInvoice = "INSERT INTO [saudipos].[POS].[InvoiceHold] (
+            [CustomerCode],
+            [CustomerRecID],
+            [PriceTypeRecID],
+            [InvoiceNumber],
+            [InvoiceDate],
+            [PaymentTermRecID],
+            [PaymentMethodRecID],
+            [CashierPerson],
+            [SalesPerson],
+            [TotalUnitAmount],
+            [TotalDiscountAmount],
+            [TotalSubTotal],
+            [TotalVATAmount],
+            [GrandTotal],
+            [BalanceAmount],
+            [CardAmount],
+            [CashAmount],
+            [Remarks],
+            [StatusRecID],
+            [CreatedBranchRecID],
+            [CreatedBy],
+            [CreatedDate],
+            [CreatedTime],
+            [ModifiedBy],
+            [ModifiedDate],
+            [ModifiedTime],
+            [CollectionBy],
+            [CollectionDate],
+            [CollectionTime]
+        )
+        OUTPUT Inserted.RecID
+        SELECT
+            [CustomerCode],
+            [CustomerRecID],
+            [PriceTypeRecID],
+            [InvoiceNumber],
+            [InvoiceDate],
+            [PaymentTermRecID],
+            [PaymentMethodRecID],
+            [CashierPerson],
+            [SalesPerson],
+            [TotalUnitAmount],
+            [TotalDiscountAmount],
+            [TotalSubTotal],
+            [TotalVATAmount],
+            [GrandTotal],
+            [BalanceAmount],
+            [CardAmount],
+            [CashAmount],
+            [Remarks],
+            [StatusRecID],
+            [CreatedBranchRecID],
+            [CreatedBy],
+            [CreatedDate],
+            [CreatedTime],
+            [ModifiedBy],
+            [ModifiedDate],
+            [ModifiedTime],
+            [CollectionBy],
+            [CollectionDate],
+            [CollectionTime]
+        FROM [saudipos].[POS].[InvoiceTemporary]
+        WHERE [saudipos].[POS].[InvoiceTemporary].[RecID] = '" . $recId . "'";
+
+        $statement = $this->connect()->prepare($queryInvoice);
+        $statement->execute();
+        $resultSet = $statement->fetch();
+        $newlyCreatedInvoiceHoldRecID = $resultSet['RecID'];
+
+
+        $queryInvoiceDetail = "INSERT INTO [saudipos].[POS].[InvoiceDetailHold] (
+            [InvoiceRecID],
+            [PriceTypeRecID],
+            [ProductRecID],
+            [OrderQuantity],
+            [UnitAmount],
+            [DiscountPercentage],
+            [DiscountAmount],
+            [TotalDiscountAmount],
+            [SalesTaxRecID],
+            [StatusRecID],
+            [Reference],
+            [CreatedBy],
+            [CreatedDate],
+            [CreatedBranchRecID],
+            [ModifiedBy],
+            [ModifiedDate]
+        )
+        SELECT
+            $newlyCreatedInvoiceHoldRecID,
+            [PriceTypeRecID],
+            [ProductRecID],
+            [OrderQuantity],
+            [UnitAmount],
+            [DiscountPercentage],
+            [DiscountAmount],
+            [TotalDiscountAmount],
+            [SalesTaxRecID],
+            [StatusRecID],
+            [Reference],
+            [CreatedBy],
+            [CreatedDate],
+            [CreatedBranchRecID],
+            [ModifiedBy],
+            [ModifiedDate]
+        FROM [saudipos].[POS].[InvoiceDetailTemporary]
+        WHERE [InvoiceRecID] = '". $recId ."'";
+
+        $statement = $this->connect()->prepare($queryInvoiceDetail);
+        // $statement->bindParam(':newlyInsertedRecID', $resultSet, PDO::PARAM_INT);
+        $statement->execute();
+
+        return true;
+    }
 }
