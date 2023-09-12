@@ -53,7 +53,7 @@ function addInvoicesJsonToTable(j) {
         })
 
         button_print.addEventListener('click', () => {
-            printInvoice()
+            printInvoice(x['RecID'])
             showSalesModal()
         })
 
@@ -62,6 +62,7 @@ function addInvoicesJsonToTable(j) {
 }
 
 
-function printInvoice() {
-    alert('print')
+function printInvoice(recID) {
+    const originUrl = window.location.origin;
+    window.open(`${originUrl}/other/print_invoice_html.php?invoiceRecID=${recID}`, 'Print Window', 'width=800,height=800' )
 }

@@ -94,4 +94,12 @@ class Invoice extends Db
             return false;
         }
     }
+
+    public function generateInvoiceNumber($recID) {
+        $prefix = "INV/";
+        // Use str_pad to ensure the recID is formatted with leading zeros (e.g., 00000136)
+        $formattedRecID = str_pad($recID, 8, '0', STR_PAD_LEFT);
+        
+        return $prefix . $formattedRecID;
+    }
 }

@@ -120,7 +120,7 @@ $Remarks        =  $invoice['Remarks'];
             window.print()
         }
     </script>
-    <div><img src="images/EmtLogo.png"></div>
+    <div><img src="/images/EmtLogo.png"></div>
 
     <p>العزيزية - شارع البسالة - خلف النقل الجماعي </p>
     <p>Al Azizia Behind Mass Transit.</p>
@@ -241,7 +241,11 @@ $Remarks        =  $invoice['Remarks'];
     <p class="right"><?php echo $Remarks; ?></p>
     <p class="right"><?php echo $CustomerVAT; ?> :الرقم الضريبي </p>
     <hr>
-    <img src="/other/barcode.php?text=<?php echo $invoiceNumber; ?>">
+    <svg id="barcode"></svg>
+    <script src="/js/JsBarcode.all.min.js"></script>
+    <script>
+        JsBarcode("#barcode", "<?php echo $invoiceNumber ; ?>");
+    </script>
     <!-- <p>THANK YOU FOR SHOPPING WITH EMTYAZ</p> 
     <p>نشكرك على التسوق مع امتياز</p> -->
     <hr>

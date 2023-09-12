@@ -3,6 +3,7 @@
 $ROOT = $_SERVER["DOCUMENT_ROOT"];
 require_once $ROOT . '/vendor/autoload.php';
 require_once $ROOT . "/app/database/Db.php";
+require_once $ROOT . "/app/invoice/Invoice.php";
 
 class InvoiceTemp extends Db
 {
@@ -85,6 +86,9 @@ class InvoiceTemp extends Db
         $resultSet = $statement->fetch();
 
         if ($resultSet > 0) {
+            $recID = $resultSet['RecID'];
+            $invoiceNumber = (new Invoice())->generateInvoiceNumber($recID);
+            $results = $this->updateInvoiceNumber($recID, $invoiceNumber);
             return $resultSet;
         } else {
             return false;
@@ -102,6 +106,18 @@ class InvoiceTemp extends Db
 
         $statement = $this->connect()->prepare($query);
         $result = $statement->execute([$totalSubTotal, $totalVATAmount, $grandTotal, $balanceAmount, $recId]);
+
+        return $result;
+    }
+
+    public function updateInvoiceNumber($recId, $invoiceNumber)
+    {
+        $query = "UPDATE [saudipos].[POS].[InvoiceTemporary]
+              SET [InvoiceNumber] = ?
+              WHERE [RecID] = ?";
+
+        $statement = $this->connect()->prepare($query);
+        $result = $statement->execute([$invoiceNumber, $recId]);
 
         return $result;
     }
@@ -161,6 +177,8 @@ class InvoiceTemp extends Db
 
     public function InsertInvoiceTempToInvoice($recId)
     {
+        $currentDate = date("Y-m-d");
+
         $queryInvoice = "INSERT INTO [saudipos].[POS].[Invoice] (
             [CustomerCode],
             [CustomerRecID],
@@ -198,7 +216,7 @@ class InvoiceTemp extends Db
             [CustomerRecID],
             [PriceTypeRecID],
             [InvoiceNumber],
-            [InvoiceDate],
+            '" . $currentDate . "',
             [PaymentTermRecID],
             [PaymentMethodRecID],
             [CashierPerson],
@@ -268,7 +286,7 @@ class InvoiceTemp extends Db
             [ModifiedBy],
             [ModifiedDate]
         FROM [saudipos].[POS].[InvoiceDetailTemporary]
-        WHERE [InvoiceRecID] = '". $recId ."'";
+        WHERE [InvoiceRecID] = '" . $recId . "'";
 
         $statement = $this->connect()->prepare($queryInvoiceDetail);
         // $statement->bindParam(':newlyInsertedRecID', $resultSet, PDO::PARAM_INT);
@@ -386,7 +404,7 @@ class InvoiceTemp extends Db
             [ModifiedBy],
             [ModifiedDate]
         FROM [saudipos].[POS].[InvoiceDetailTemporary]
-        WHERE [InvoiceRecID] = '". $recId ."'";
+        WHERE [InvoiceRecID] = '" . $recId . "'";
 
         $statement = $this->connect()->prepare($queryInvoiceDetail);
         // $statement->bindParam(':newlyInsertedRecID', $resultSet, PDO::PARAM_INT);

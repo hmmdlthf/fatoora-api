@@ -88,19 +88,19 @@ session_check();
             <div class="totals" id="totals">
                 <div class="total__card" id="totals_sub_total">
                     <div class="title">Sale (Retail) | أُوكَازيُون</div>
-                    <div class="amount">SAR. <span id="sub__total">280.00</span></div>
+                    <div class="amount">SAR. <span id="sub__total">0</span></div>
                 </div>
                 <div class="total__card" id="totals_vat_total">
                     <div class="title">VAT Amount | قيمة الضريبة</div>
-                    <div class="amount">SAR. <span id="vat__total">42.00</span></div>
+                    <div class="amount">SAR. <span id="vat__total">0</span></div>
                 </div>
                 <div class="total__card bg__green" id="totals_grand_total">
                     <div class="title">Grand Total | المجموع الإجمالي</div>
-                    <div class="amount">SAR. <span id="grand__total">322.00</span></div>
+                    <div class="amount">SAR. <span id="grand__total">0</span></div>
                 </div>
                 <div class="total__card bg__blue" id="totals_balance_total">
                     <div class="title">Balance | توازن</div>
-                    <div class="amount">SAR. <span id="balance__total">322.00</span></div>
+                    <div class="amount">SAR. <span id="balance__total">0</span></div>
                 </div>
             </div>
         </div>

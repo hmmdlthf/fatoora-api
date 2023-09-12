@@ -7,7 +7,6 @@ var invoiceTemp_CustomerRecID = 0;
 
 function emptyCart() {
     document.querySelector('#cart__table table tbody').innerHTML = '';
-
 }
 
 
@@ -19,6 +18,15 @@ function clearInvoice() {
                 resetValue()
             });
     }
+}
+
+
+function clearInvoiceNoConfirmation() {
+    fetch(`invoice-temp/clearInvoice.php`)
+        .then(r => {
+            initializeCartTable();
+            resetValue()
+        });
 }
 
 
@@ -78,9 +86,7 @@ function addProductToCart(j) {
 
             span.addEventListener('click', () => {
                 if (input.value) {
-                    if (confirm("Confirm Update")) {
-                        updateQuantity(j['InvoiceDetailRecID'], input.value)
-                    }
+                    updateQuantity(j['InvoiceDetailRecID'], input.value)
                 } else {
                     alert('Enter amount to update!')
                 }
@@ -242,6 +248,6 @@ function copyTempToInvoice() {
     fetch(`invoice-temp/insertInvoiceTempToInvoice.php?recID=${invoiceTempRecID}`)
         .then(r => {
             alert('Temp invoice added to invoice')
-            clearInvoice()
+            clearInvoiceNoConfirmation()
         })
 }

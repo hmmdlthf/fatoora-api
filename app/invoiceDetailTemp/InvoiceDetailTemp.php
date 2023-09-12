@@ -197,7 +197,7 @@ class InvoiceDetailTemp extends Db
                 return $this->updateQuantity($existingRecord['RecID'], $newQuantity);
             } else {
                 // If no record exists, create a new one
-                $dic = ['ProductRecID' => $product['RecID'], 'UnitAmount' => $product['RetailPrice'], 'OrderQuantity' => 1, 'PriceTypeRecID' => 1];
+                $dic = ['ProductRecID' => $product['RecID'], 'UnitAmount' => $product['WholesalePrice'], 'OrderQuantity' => 1, 'PriceTypeRecID' => 2];
                 return $this->create($invoiceRecID, $dic);
             }
         }
