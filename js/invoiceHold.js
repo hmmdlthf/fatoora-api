@@ -24,6 +24,18 @@ function getInvoicesOnHold() {
 }
 
 
+function getInvoiceDetailsOnHoldByInvoiceRecId(invoiceOnHoldElement) {
+    fetch(`invoice/getInvoiceDetailsByInvoiceRecId.php?invoiceRecID=${invoiceTempRecID}`)
+        .then(r => r.json())
+        .then(j => {
+            console.log(j)
+            j.forEach((x) => {
+                addProductToCart(x);
+            })
+        })
+}
+
+
 function addInvoicesOnHoldJsonToTable(j) {
     var invoice_on_hold_table = document.querySelector('#invoice_on_hold__table table tbody');
     invoice_on_hold_table.innerHTML = ''
@@ -57,7 +69,7 @@ function addInvoicesOnHoldJsonToTable(j) {
         })
 
         invoice_on_hold_table.appendChild(tr);
-
+        
 
         // display the invoice hold detail records of the main record after
         x['InvoiceDetails'].forEach((invoiceDetail, k) => {
@@ -84,3 +96,5 @@ function addInvoicesOnHoldJsonToTable(j) {
 function selectInvoiceOnHold() {
     alert('selected invoice on hold')
 }
+
+
