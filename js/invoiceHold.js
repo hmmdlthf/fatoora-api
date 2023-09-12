@@ -15,7 +15,7 @@ function holdInvoice() {
 
 
 function getInvoicesOnHold() {
-    fetch(`invoice-hold/getInvoicesByUser.php?start=${start}&range=${range}`)
+    fetch(`invoice/getInvoicesOnHoldByUser.php?start=${start}&range=${range}`)
         .then(r => r.json())
         .then(j => {
             console.log(j)

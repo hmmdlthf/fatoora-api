@@ -8,7 +8,10 @@ require_once $ROOT . "/login/utils.php";
 session_check();
 $credentials = session_get();
 
-if (!isset($_SESSION['InvoiceTempRecID'])) {
+if (isset($_GET['invoiceNumber'])) {
+    $invoiceTemp = (new InvoiceTemp)->findByInvoiceNumber($_GET['invoiceNumber']);
+}
+else if (!isset($_SESSION['InvoiceTempRecID'])) {
     $invoiceTemp = (new InvoiceTemp())->create($credentials['username']);
     $_SESSION['InvoiceTempRecID'] = $invoiceTemp;
 } else {

@@ -48,7 +48,59 @@ class Invoice extends Db
         ,[CashierPerson]
         ,[GrandTotal]
         FROM [saudipos].[POS].[V_Invoice]
-        WHERE [CashierPerson] = $userRecID
+        WHERE [CreatedBy] = '" . $userRecID . "'
+        ORDER BY RecID
+        OFFSET " . $limit_start . " ROWS
+        FETCH NEXT " . ($range) . " ROWS ONLY";
+
+        $statement = $this->connect()->prepare($query);
+        $statement->execute();
+        $resultSet = $statement->fetchAll();
+
+        if ($resultSet > 0) {
+            return $resultSet;
+        } else {
+            return false;
+        }
+    }
+
+    public function findInvoiceRecordsOnHoldByUser($username)
+    {
+        $query = "SELECT [Code] CustomerCode
+        ,[Name]
+        ,[NameAR]
+        ,[RecID]
+        ,[CustomerRecID]
+        ,[PriceTypeRecID]
+        ,[InvoiceNumber]
+        ,[InvoiceDate]
+        ,[CashierPerson]
+        ,[GrandTotal]
+        FROM [saudipos].[POS].[V_Invoice]
+        WHERE [CreatedBy] = ? AND [StatusRecID] = 4
+        ORDER BY RecID";
+
+        $statement = $this->connect()->prepare($query);
+        $statement->execute([$username]);
+        $resultSet = $statement->fetchAll();
+
+        return ($resultSet) ? $resultSet : false;
+    }
+
+    public function findInvoiceRecordsOnHoldByUserBySearchTerm($limit_start = 0, $range = 100, $userRecID, $term)
+    {
+        $query = "SELECT [Code] CustomerCode
+        ,[Name]
+        ,[NameAR]
+        ,[RecID]
+        ,[CustomerRecID]
+        ,[PriceTypeRecID]
+        ,[InvoiceNumber]
+        ,[InvoiceDate]
+        ,[CashierPerson]
+        ,[GrandTotal]
+        FROM [saudipos].[POS].[V_Invoice]
+        WHERE [CreatedBy] = '" . $userRecID . "', [StatusRecID] = 4
         ORDER BY RecID
         OFFSET " . $limit_start . " ROWS
         FETCH NEXT " . ($range) . " ROWS ONLY";
@@ -95,11 +147,22 @@ class Invoice extends Db
         }
     }
 
-    public function generateInvoiceNumber($recID) {
+    public function generateInvoiceNumber($recID)
+    {
         $prefix = "INV/";
         // Use str_pad to ensure the recID is formatted with leading zeros (e.g., 00000136)
-        $formattedRecID = str_pad($recID, 8, '0', STR_PAD_LEFT);
-        
-        return $prefix . $formattedRecID;
+        return $prefix . '00000' . $recID;
+    }
+
+    public function makeInvoiceHold($recID)
+    {
+        $query = "UPDATE [saudipos].[POS].[Invoice]
+        SET StatusRecID = 4
+        WHERE RecID = ?";
+
+        $statement = $this->connect()->prepare($query);
+        $statement->execute([$recID]);
+
+        return $recID;
     }
 }
