@@ -1,8 +1,10 @@
 var start = 0;
 var range = 100;
+var inventoryModes = {WAREHOUSE: 'WAREHOUSE', SHOWROOM: 'SHOWROOM'}
+var currentInventoryMode = inventoryModes.WAREHOUSE;
 
 function getProducts() {
-    fetch(`inventory/getProducts.php?start=${start}&range=${range}`)
+    fetch(`inventory/getProducts.php?start=${start}&range=${range}&mode=${currentInventoryMode}`)
         .then(r => r.json())
         .then(j => {
             addProductsJsonToTable(j);
@@ -10,7 +12,7 @@ function getProducts() {
 }
 
 function getProductsFromSearch(searchTerm) {
-    fetch(`inventory/getProducts.php?q=${searchTerm}&start=${start}&range=${range}`)
+    fetch(`inventory/getProducts.php?q=${searchTerm}&start=${start}&range=${range}&mode=${currentInventoryMode}`)
         .then(r => r.json())
         .then(j => {
             addProductsJsonToTable(j);
@@ -25,7 +27,7 @@ function addProductsJsonToTable(j) {
     var inventory_table = document.querySelector('#inventory__table table tbody');
     inventory_table.innerHTML = ''
 
-    var fields = ['RecID', 'Warehouse', 'UPC', 'SKU', 'ProductName', 'ProductPackageTypeCode', 'ProductNameAR', 'ProductPackageTypeCodeAR', 'RetailPrice', 'WholesalePrice', 'StockOnHand'];
+    var fields = [ currentInventoryMode == inventoryModes.WAREHOUSE ? 'RecID' : 'ProductRecID', 'Warehouse', 'UPC', 'SKU', 'ProductName', 'ProductPackageTypeCode', 'ProductNameAR', 'ProductPackageTypeCodeAR', 'RetailPrice', 'WholesalePrice', 'StockOnHand'];
 
     j.forEach((x, i) => {
         tr = document.createElement('tr');
@@ -63,3 +65,8 @@ document.getElementById('inventory__search').addEventListener('input', (e) => {
     let searchValue = document.getElementById('inventory__search').value
     getProductsFromSearch(e.target.value);
 })
+
+function changeMode(mode) {
+    console.log(mode)
+    currentInventoryMode = mode;
+}

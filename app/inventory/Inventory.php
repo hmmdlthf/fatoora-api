@@ -3,13 +3,16 @@
 $ROOT = $_SERVER["DOCUMENT_ROOT"];
 require_once $ROOT . '/vendor/autoload.php';
 require_once $ROOT . "/app/database/Db.php";
+require_once $ROOT . "/app/constants/Constants.php";
 
 class Inventory extends Db
 {
-    public function findInventoryRecords($limit_start = 0, $range = 100)
+    public function findInventoryRecords($limit_start = 0, $range = 100, $mode = InventoryModes::WAREHOUSE)
     {
+        $table = $mode == InventoryModes::WAREHOUSE ? '[saudipos].[POS].[V_ProductRetail_InventoryW]' : '[saudipos].[POS].[V_ProductRetail_InventoryR]';
+        $recID_columnName = $mode == InventoryModes::WAREHOUSE ? '[RecID]' : '[ProductRecID]';
         $query = "SELECT [Warehouse]
-        ,[RecID]
+        ,$recID_columnName
         ,[UPC]
         ,[SKU]
         ,[ProductName]
@@ -19,8 +22,8 @@ class Inventory extends Db
         ,[ProductPackageTypeCode]
         ,[ProductPackageTypeCodeAR]
         ,[StockOnHand]
-        FROM [saudipos].[POS].[V_ProductRetail_Inventory_No_WE]
-        ORDER BY RecID
+        FROM $table
+        ORDER BY $recID_columnName
         OFFSET ". $limit_start . " ROWS
         FETCH NEXT ". ($range) . " ROWS ONLY";
 
@@ -35,10 +38,12 @@ class Inventory extends Db
         }
     }
 
-    public function findInventoryRecordsBySearchTerm($searchTerm, $limit_start = 0, $range = 100)
+    public function findInventoryRecordsBySearchTerm($searchTerm, $limit_start = 0, $range = 100, $mode = InventoryModes::WAREHOUSE)
     {
+        $table = $mode == InventoryModes::WAREHOUSE ? '[saudipos].[POS].[V_ProductRetail_InventoryW]' : '[saudipos].[POS].[V_ProductRetail_InventoryR]';
+        $recID_columnName = $mode == InventoryModes::WAREHOUSE ? '[RecID]' : '[ProductRecID]';
         $query = "SELECT [Warehouse]
-        ,[RecID]
+        ,$recID_columnName
         ,[UPC]
         ,[SKU]
         ,[ProductName]
@@ -48,9 +53,9 @@ class Inventory extends Db
         ,[ProductPackageTypeCode]
         ,[ProductPackageTypeCodeAR]
         ,[StockOnHand]
-        FROM [saudipos].[POS].[V_ProductRetail_Inventory_No_WE]
+        FROM $table
         WHERE [ProductName] LIKE '%". $searchTerm . "%' 
-        ORDER BY RecID
+        ORDER BY $recID_columnName
         OFFSET ". $limit_start . " ROWS
         FETCH NEXT ". ($range) . " ROWS ONLY";
 

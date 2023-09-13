@@ -130,8 +130,8 @@ session_check();
                 </div>
                 <div class="col">
                     <div class="menu__btn">Discount | تخفيض</div>
-                    <div class="menu__btn" onclick="showInventoryModal()">Inventory | جرد</div>
-                    <div class="menu__btn">Other | آخر</div>
+                    <div class="menu__btn" onclick="changeMode(inventoryModes.WAREHOUSE); showInventoryModal();">Inventory | جرد</div>
+                    <div class="menu__btn" onclick="changeMode(inventoryModes.SHOWROOM); showInventoryModal();">Showroom Inventory | آخر</div>
                 </div>
             </div>
         </div>

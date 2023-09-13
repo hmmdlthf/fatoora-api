@@ -64,7 +64,7 @@ function addInvoicesOnHoldJsonToTable(j) {
         tr.appendChild(td);
 
         button.addEventListener('click', () => {
-            selectInvoiceOnHold()
+            selectInvoiceOnHold(x['RecID'])
             showInvoiceOnHoldModal()
         })
 
@@ -93,8 +93,12 @@ function addInvoicesOnHoldJsonToTable(j) {
 }
 
 
-function selectInvoiceOnHold() {
-    alert('selected invoice on hold')
+function selectInvoiceOnHold(recID) {
+    fetch(`invoice/InsertInvoiceToInvoiceTemp.php?recID=${recID}`)
+        .then(r =>  {
+            initializeCartTable();
+            resetValue();
+        })
 }
 
 
