@@ -147,11 +147,53 @@ class Invoice extends Db
         }
     }
 
-    public function generateInvoiceNumber($recID)
+    public function findByInvoiceNumber($invoiceNumber)
     {
-        $prefix = "INV/";
-        // Use str_pad to ensure the recID is formatted with leading zeros (e.g., 00000136)
-        return $prefix . '00000' . $recID;
+        $query = "SELECT [Code] CustomerCode
+        ,[Name]
+        ,[NameAR]
+        ,[RecID]
+        ,[CustomerRecID]
+        ,[PriceTypeRecID]
+        ,[InvoiceNumber]
+        ,[InvoiceDate]
+        ,[CashierPerson]
+        ,[GrandTotal]
+        FROM [saudipos].[POS].[V_Invoice] 
+        WHERE [InvoiceNumber] = ?";
+
+        $statement = $this->connect()->prepare($query);
+        $statement->execute([$invoiceNumber]);
+        $resultSet = $statement->fetch();
+
+        if ($resultSet > 0) {
+            return $resultSet;
+        } else {
+            return false;
+        }
+    }
+
+    public function generateInvoiceNumber()
+    {
+        // Query for the last entered invoice number
+        $query = "SELECT TOP 1 [InvoiceNumber]
+                  FROM [saudipos].[POS].[Invoice]
+                  ORDER BY [RecID] DESC";
+    
+        $statement = $this->connect()->prepare($query);
+        $statement->execute();
+        $lastInvoiceNumber = $statement->fetchColumn();
+    
+        // Extract the integer part of the invoice number using regex
+        if (preg_match('/(\d+)/', $lastInvoiceNumber, $matches)) {
+            $lastInvoiceNumberInt = (int)$matches[0];
+            // Add 1 to the integer part
+            $newInvoiceNumberInt = $lastInvoiceNumberInt + 1;
+            // Format the new invoice number with leading zeros
+            $prefix = 'INV/';
+            $formattedInvoiceNumber = $prefix . '00000' . $newInvoiceNumberInt;
+            return $formattedInvoiceNumber;
+        }
     }
 
     public function makeInvoiceHold($recID)

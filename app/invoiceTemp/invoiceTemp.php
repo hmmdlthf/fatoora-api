@@ -4,6 +4,8 @@ $ROOT = $_SERVER["DOCUMENT_ROOT"];
 require_once $ROOT . '/vendor/autoload.php';
 require_once $ROOT . "/app/database/Db.php";
 require_once $ROOT . "/app/invoice/Invoice.php";
+require_once $ROOT . "/app/invoiceDetail/InvoiceDetail.php";
+require_once $ROOT . "/app/invoiceDetailTemp/InvoiceDetailTemp.php";
 
 class InvoiceTemp extends Db
 {
@@ -11,6 +13,7 @@ class InvoiceTemp extends Db
     {
         $query = "SELECT
         [RecID]
+        ,[InvoiceNumber]
         ,[CustomerRecID]
         ,[PriceTypeRecID]
         ,[TotalSubTotal]
@@ -110,9 +113,6 @@ class InvoiceTemp extends Db
         $resultSet = $statement->fetch();
 
         if ($resultSet > 0) {
-            $recID = $resultSet['RecID'];
-            $invoiceNumber = (new Invoice())->generateInvoiceNumber($recID);
-            $results = $this->updateInvoiceNumber($recID, $invoiceNumber);
             return $resultSet;
         } else {
             return false;
@@ -201,6 +201,16 @@ class InvoiceTemp extends Db
 
     public function InsertInvoiceTempToInvoice($recId)
     {
+        $invoiceTemp = $this->findById($recId);
+        $invoiceNumber = $invoiceTemp['InvoiceNumber'];
+        $invoice = (new Invoice())->findByInvoiceNumber($invoiceNumber);
+        $invoiceNumber = $invoiceNumber ? $invoice['InvoiceNumber'] : null;
+        if ($invoiceNumber) {
+            return $this->UpdateInvoiceWithInvoiceTempByInvoiceTemp($invoice, $invoiceTemp);
+        }
+
+        $invoiceNumber = (new Invoice())->generateInvoiceNumber();
+
         $currentDate = date("Y-m-d");
 
         $queryInvoice = "INSERT INTO [saudipos].[POS].[Invoice] (
@@ -239,7 +249,7 @@ class InvoiceTemp extends Db
             [CustomerCode],
             [CustomerRecID],
             [PriceTypeRecID],
-            [InvoiceNumber],
+            '" . $invoiceNumber . "',
             '" . $currentDate . "',
             [PaymentTermRecID],
             [PaymentMethodRecID],
@@ -273,48 +283,7 @@ class InvoiceTemp extends Db
         $resultSet = $statement->fetch();
         $newlyCreatedInvoiceRecID = $resultSet['RecID'];
 
-
-        $queryInvoiceDetail = "INSERT INTO [saudipos].[POS].[InvoiceDetail] (
-            [InvoiceRecID],
-            [PriceTypeRecID],
-            [ProductRecID],
-            [OrderQuantity],
-            [UnitAmount],
-            [DiscountPercentage],
-            [DiscountAmount],
-            [TotalDiscountAmount],
-            [SalesTaxRecID],
-            [StatusRecID],
-            [Reference],
-            [CreatedBy],
-            [CreatedDate],
-            [CreatedBranchRecID],
-            [ModifiedBy],
-            [ModifiedDate]
-        )
-        SELECT
-            $newlyCreatedInvoiceRecID,
-            [PriceTypeRecID],
-            [ProductRecID],
-            [OrderQuantity],
-            [UnitAmount],
-            [DiscountPercentage],
-            [DiscountAmount],
-            [TotalDiscountAmount],
-            [SalesTaxRecID],
-            [StatusRecID],
-            [Reference],
-            [CreatedBy],
-            [CreatedDate],
-            [CreatedBranchRecID],
-            [ModifiedBy],
-            [ModifiedDate]
-        FROM [saudipos].[POS].[InvoiceDetailTemporary]
-        WHERE [InvoiceRecID] = '" . $recId . "'";
-
-        $statement = $this->connect()->prepare($queryInvoiceDetail);
-        // $statement->bindParam(':newlyInsertedRecID', $resultSet, PDO::PARAM_INT);
-        $statement->execute();
+        $invoiceDetail = (new InvoiceDetailTemp())->insertInvoiceDetailTempToInvoiceDetailByInvoiceRecId($recId, $newlyCreatedInvoiceRecID);
 
         return $newlyCreatedInvoiceRecID;
     }
@@ -324,5 +293,131 @@ class InvoiceTemp extends Db
         $newInvoice = $this->InsertInvoiceTempToInvoice($recId);
         $invoice = (new Invoice())->makeInvoiceHold($newInvoice);
         return $invoice;
+    }
+
+    public function InsertInvoiceToInvoiceTemp($recId)
+    {
+        $queryInvoice = "INSERT INTO [saudipos].[POS].[InvoiceTemporary] (
+            [CustomerCode],
+            [CustomerRecID],
+            [PriceTypeRecID],
+            [InvoiceNumber],
+            [InvoiceDate],
+            [PaymentTermRecID],
+            [PaymentMethodRecID],
+            [CashierPerson],
+            [SalesPerson],
+            [TotalUnitAmount],
+            [TotalDiscountAmount],
+            [TotalSubTotal],
+            [TotalVATAmount],
+            [GrandTotal],
+            [BalanceAmount],
+            [CardAmount],
+            [CashAmount],
+            [Remarks],
+            [StatusRecID],
+            [CreatedBranchRecID],
+            [CreatedBy],
+            [CreatedDate],
+            [CreatedTime],
+            [ModifiedBy],
+            [ModifiedDate],
+            [ModifiedTime],
+            [CollectionBy],
+            [CollectionDate],
+            [CollectionTime]
+        )
+        OUTPUT Inserted.RecID
+        SELECT
+            [CustomerCode],
+            [CustomerRecID],
+            [PriceTypeRecID],
+            [InvoiceNumber],
+            [InvoiceDate],
+            [PaymentTermRecID],
+            [PaymentMethodRecID],
+            [CashierPerson],
+            [SalesPerson],
+            [TotalUnitAmount],
+            [TotalDiscountAmount],
+            [TotalSubTotal],
+            [TotalVATAmount],
+            [GrandTotal],
+            [BalanceAmount],
+            [CardAmount],
+            [CashAmount],
+            [Remarks],
+            [StatusRecID],
+            [CreatedBranchRecID],
+            [CreatedBy],
+            [CreatedDate],
+            [CreatedTime],
+            [ModifiedBy],
+            [ModifiedDate],
+            [ModifiedTime],
+            [CollectionBy],
+            [CollectionDate],
+            [CollectionTime]
+        FROM [saudipos].[POS].[Invoice]
+        WHERE [saudipos].[POS].[Invoice].[RecID] = '" . $recId . "'";
+
+        $statement = $this->connect()->prepare($queryInvoice);
+        $statement->execute();
+        $resultSet = $statement->fetch();
+        $newlyCreatedInvoiceRecID = $resultSet['RecID'];
+
+        $invoiceDetailTemp = (new InvoiceDetailTemp())->insertInvoiceDetailToInvoiceDetailTempByInvoiceTempRecId($recId, $newlyCreatedInvoiceRecID);
+
+        return $resultSet;
+    }
+
+    public function UpdateInvoiceWithInvoiceTempByInvoiceTemp($invoice, $invoiceTemp)
+    {
+        $currentDate = date("Y-m-d");
+        $invoiceNumber = $invoiceTemp['InvoiceNumber'];
+
+        // First, update the existing invoice record
+        $updateInvoiceQuery = "UPDATE [saudipos].[POS].[Invoice]
+                            SET [CustomerCode] = it.[CustomerCode],
+                                [CustomerRecID] = it.[CustomerRecID],
+                                [PriceTypeRecID] = it.[PriceTypeRecID],
+                                [InvoiceDate] = it.[InvoiceDate],
+                                [PaymentTermRecID] = it.[PaymentTermRecID],
+                                [PaymentMethodRecID] = it.[PaymentMethodRecID],
+                                [CashierPerson] = it.[CashierPerson],
+                                [SalesPerson] = it.[SalesPerson],
+                                [TotalUnitAmount] = it.[TotalUnitAmount],
+                                [TotalDiscountAmount] = it.[TotalDiscountAmount],
+                                [TotalSubTotal] = it.[TotalSubTotal],
+                                [TotalVATAmount] = it.[TotalVATAmount],
+                                [GrandTotal] = it.[GrandTotal],
+                                [BalanceAmount] = it.[BalanceAmount],
+                                [CardAmount] = it.[CardAmount],
+                                [CashAmount] = it.[CashAmount],
+                                [Remarks] = it.[Remarks],
+                                [StatusRecID] = it.[StatusRecID],
+                                [CreatedBranchRecID] = it.[CreatedBranchRecID],
+                                [CreatedBy] = it.[CreatedBy],
+                                [CreatedDate] = it.[CreatedDate],
+                                [CreatedTime] = it.[CreatedTime],
+                                [ModifiedBy] = it.[ModifiedBy],
+                                [ModifiedDate] = it.[ModifiedDate],
+                                [CollectionBy] = it.[CollectionBy],
+                                [CollectionDate] = it.[CollectionDate],
+                                [CollectionTime] = it.[CollectionTime]
+                            FROM [saudipos].[POS].[InvoiceTemporary] AS it
+                            WHERE [saudipos].[POS].[Invoice].[InvoiceNumber] = it.[InvoiceNumber]";
+
+        $updateInvoiceStatement = $this->connect()->prepare($updateInvoiceQuery);
+        $updateInvoiceStatement->execute([$invoiceNumber, $invoiceNumber]);
+
+        $invoiceRecID = (new Invoice())->findByInvoiceNumber($invoiceNumber);
+
+        (new InvoiceDetail())->deleteAllByInvoiceNumber($invoiceNumber);
+
+        (new InvoiceDetailTemp())->insertInvoiceDetailTempToInvoiceDetailByInvoiceRecId($invoiceTemp['RecID'], $invoice['RecID']);
+
+        return true;
     }
 }

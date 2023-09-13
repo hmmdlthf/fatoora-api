@@ -61,4 +61,16 @@ class InvoiceDetail extends Db
             return false;
         }
     }
+
+    public function deleteAllByInvoiceNumber($invoiceNumber)
+    {
+        $query = "DELETE FROM [saudipos].[POS].[InvoiceDetail]
+        WHERE [saudipos].[POS].[InvoiceDetail].[InvoiceRecID] = 
+            (SELECT [RecID] FROM [saudipos].[POS].[Invoice] WHERE [InvoiceNumber] = ?)";
+
+        $statement = $this->connect()->prepare($query);
+        $statement->execute([$invoiceNumber]);
+
+        return true;
+    }
 }

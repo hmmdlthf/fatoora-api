@@ -217,4 +217,94 @@ class InvoiceDetailTemp extends Db
 
         return $result;
     }
+
+    public function insertInvoiceDetailTempToInvoiceDetailByInvoiceRecId($invoiceTempRecID, $invoiceRecID)
+    {
+        $queryInvoiceDetail = "INSERT INTO [saudipos].[POS].[InvoiceDetail] (
+            [InvoiceRecID],
+            [PriceTypeRecID],
+            [ProductRecID],
+            [OrderQuantity],
+            [UnitAmount],
+            [DiscountPercentage],
+            [DiscountAmount],
+            [TotalDiscountAmount],
+            [SalesTaxRecID],
+            [StatusRecID],
+            [Reference],
+            [CreatedBy],
+            [CreatedDate],
+            [CreatedBranchRecID],
+            [ModifiedBy],
+            [ModifiedDate]
+        )
+        SELECT
+            $invoiceRecID,
+            [PriceTypeRecID],
+            [ProductRecID],
+            [OrderQuantity],
+            [UnitAmount],
+            [DiscountPercentage],
+            [DiscountAmount],
+            [TotalDiscountAmount],
+            [SalesTaxRecID],
+            [StatusRecID],
+            [Reference],
+            [CreatedBy],
+            [CreatedDate],
+            [CreatedBranchRecID],
+            [ModifiedBy],
+            [ModifiedDate]
+        FROM [saudipos].[POS].[InvoiceDetailTemporary]
+        WHERE [InvoiceRecID] = '" . $invoiceTempRecID . "'";
+
+        $statement = $this->connect()->prepare($queryInvoiceDetail);
+        $statement->execute();
+        return true;
+    }
+
+    public function insertInvoiceDetailToInvoiceDetailTempByInvoiceTempRecId($invoiceRecID, $invoiceTempRecID)
+    {
+        $queryInvoiceDetail = "INSERT INTO [saudipos].[POS].[InvoiceDetailTemporary] (
+            [InvoiceRecID],
+            [PriceTypeRecID],
+            [ProductRecID],
+            [OrderQuantity],
+            [UnitAmount],
+            [DiscountPercentage],
+            [DiscountAmount],
+            [TotalDiscountAmount],
+            [SalesTaxRecID],
+            [StatusRecID],
+            [Reference],
+            [CreatedBy],
+            [CreatedDate],
+            [CreatedBranchRecID],
+            [ModifiedBy],
+            [ModifiedDate]
+        )
+        SELECT
+            $invoiceTempRecID,
+            [PriceTypeRecID],
+            [ProductRecID],
+            [OrderQuantity],
+            [UnitAmount],
+            [DiscountPercentage],
+            [DiscountAmount],
+            [TotalDiscountAmount],
+            [SalesTaxRecID],
+            [StatusRecID],
+            [Reference],
+            [CreatedBy],
+            [CreatedDate],
+            [CreatedBranchRecID],
+            [ModifiedBy],
+            [ModifiedDate]
+        FROM [saudipos].[POS].[InvoiceDetail]
+        WHERE [InvoiceRecID] = '" . $invoiceRecID . "'";
+
+        $statement = $this->connect()->prepare($queryInvoiceDetail);
+        $statement->execute();
+        return true;
+    }
 }

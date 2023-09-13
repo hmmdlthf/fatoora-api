@@ -15,6 +15,8 @@ $credentials = session_get();
 
 
 
-$invoiceNumber = (new InvoiceTemp())->updateInvoiceNumber(9916, 'INV/00009916');
+// $invoiceNumber = (new InvoiceTemp())->updateInvoiceNumber(9916, 'INV/00009916');
+
+$invoiceNumber = (new Invoice())->generateInvoiceNumber();
 
 echo $invoiceNumber;

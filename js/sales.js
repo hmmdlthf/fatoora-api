@@ -48,7 +48,7 @@ function addInvoicesJsonToTable(j) {
         tr.appendChild(td_print);
 
         button.addEventListener('click', () => {
-            addToCartByBarcode(x['UPC'])
+            selectInvoice(x['RecID'])
             showSalesModal()
         })
 
@@ -65,4 +65,13 @@ function addInvoicesJsonToTable(j) {
 function printInvoice(recID) {
     const originUrl = window.location.origin;
     window.open(`${originUrl}/other/print_invoice_html.php?invoiceRecID=${recID}`, 'Print Window', 'width=800,height=800' )
+}
+
+
+function selectInvoice(recID) {
+    fetch(`invoice/InsertInvoiceToInvoiceTemp.php?recID=${recID}`)
+        .then(r =>  {
+            initializeCartTable();
+            resetValue()
+        })
 }
