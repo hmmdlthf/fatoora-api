@@ -1,0 +1,27 @@
+.payment_add__modal {
+    .box {
+        max-width: 400px;
+
+        form.form {
+
+            .form__group:first-child {
+                flex-direction: column;
+                .form__control {
+                    flex-direction: row;
+                    align-items: center;
+
+                    >* + * {
+                        margin-left: .5rem;
+                        margin-top: 0;
+                    }
+
+                    input {
+                        width: unset;
+                        outline: unset;
+                        border: unset;
+                    }
+                }
+            }
+        }
+    }
+}

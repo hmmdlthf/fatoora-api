@@ -1,8 +1,8 @@
-<div class="customer__add__modal modal" id="customer__add__modal">
+<div class="payment_add__modal modal" id="payment_add__modal">
     <div class="backdrop" onclick="showPaymentModal()"></div>
     <div class="box">
         <div class="header">
-            <div class="title">Customer Details | تفاصيل العميل</div>
+            <div class="title">Payment Via Cash / Card | الدفع نقدا / بطاقة</div>
             <div class="close__btn" onclick="showPaymentModal()">
                 <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 384 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
                     <path d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z" fill="currentColor" />
@@ -10,26 +10,21 @@
             </div>
         </div>
         <div class="body">
-            <form action="" class="form" id="customer_search_form">
+            <form action="" class="form" id="payment_add_form">
                 <div class="form__group">
                     <div class="form__control">
-                        <label for="customer_code">Customer Code</label>
-                        <input type="text" name="customer_code" id="customer_code" placeholder="Customer Code | رمز العميل">
+                        <input type="radio" name="payment_method" id="pay_by_cash" checked>
+                        <label for="pay_by_cash">Pay By Cash | الدفع نقدا</label>
+                    </div>
+                    <div class="form__control">
+                        <input type="radio" name="payment_method" id="pay_by_card">
+                        <label for="pay_by_card">Pay By Card | الدفع عن طريق البطاقة</label>
                     </div>
                 </div>
                 <div class="form__group">
                     <div class="form__control">
-                        <label for="customer_phone">Customer Phone No</label>
-                        <input type="text" name="customer_phone" id="customer_phone" placeholder="Customer Phone No | رقم هاتف العميل">
-                    </div>
-                </div>
-                <div class="form__group">
-                    <div class="form__control">
-                        <label for="customer_name">Customer Name</label>
-                        <input type="text" name="customer_name" id="customer_name" placeholder="Customer Name | اسم الزبون">
-                        <div class="customer__search__results" id="customer__search__results">
-
-                        </div>
+                        <label for="payment_amount">Amount</label>
+                        <input type="text" name="payment_amount" id="payment_amount" placeholder="Enter Amount | أدخل المبلغ">
                     </div>
                 </div>
                 <div class="form__group">
@@ -70,7 +65,7 @@
                 </div>
                 <div class="form__group">
                     <div class="form__control">
-                        <button type="submit" class="btn">Add Customer To Cart</button>
+                        <button type="submit" class="btn">Apply</button>
                     </div>
                 </div>
             </form>
@@ -80,9 +75,9 @@
 
 <script>
     function showPaymentModal() {
-        document.getElementById('customer__add__modal').classList.toggle('active');
+        document.getElementById('payment_add__modal').classList.toggle('active');
 
-        if (document.getElementById('customer__add__modal').classList.contains('active')) {
+        if (document.getElementById('payment_add__modal').classList.contains('active')) {
             // getProducts();
         }
     }

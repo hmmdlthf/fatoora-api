@@ -6,6 +6,8 @@ require_once $ROOT . "/app/database/Db.php";
 require_once $ROOT . "/app/invoice/Invoice.php";
 require_once $ROOT . "/app/invoiceDetail/InvoiceDetail.php";
 require_once $ROOT . "/app/invoiceDetailTemp/InvoiceDetailTemp.php";
+require_once $ROOT . "/app/constants/Constants.php";
+
 
 class InvoiceTemp extends Db
 {
@@ -418,6 +420,33 @@ class InvoiceTemp extends Db
 
         (new InvoiceDetailTemp())->insertInvoiceDetailTempToInvoiceDetailByInvoiceRecId($invoiceTemp['RecID'], $invoice['RecID']);
 
+        return true;
+    }
+
+    public function addPayment($recId, $method, $amount)
+    {
+        // Set PaymentMethodRecID based on payment method
+        if ($method === PaymentMethods::CASH) {
+            $paymentMethodRecID = 1;
+            $condition = "[CashAmount]";
+        } else if ($method === PaymentMethods::CARD) {
+            $paymentMethodRecID = 2;
+            $condition = "[CardAmount]";
+        }
+
+        $queryGetGrandTotal = "SELECT [GrandTotal] FROM [saudipos].[POS].[InvoiceTemporary] WHERE [RecID] = ?";
+        $statementGetGrandTotal = $this->connect()->prepare($queryGetGrandTotal);
+        $statementGetGrandTotal->execute([$recId]);
+        $grandTotalResult = $statementGetGrandTotal->fetch()['GrandTotal'];
+        $grandTotal = $grandTotalResult ? $grandTotalResult : 0;
+        $balanceAmount = $amount - $grandTotal;
+
+        $query = "UPDATE [saudipos].[POS].[InvoiceTemporary]
+            SET [PaymentMethodRecID] = ?, $condition = ?, [BalanceAmount] = ?
+          WHERE [RecID] = ?";
+
+        $statement = $this->connect()->prepare($query);
+        $statement->execute([$paymentMethodRecID, $amount, $balanceAmount, $recId]);
         return true;
     }
 }

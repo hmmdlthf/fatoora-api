@@ -1,0 +1,19 @@
+.payment_add__modal .box {
+  max-width: 400px;
+}
+.payment_add__modal .box form.form .form__group:first-child {
+  flex-direction: column;
+}
+.payment_add__modal .box form.form .form__group:first-child .form__control {
+  flex-direction: row;
+  align-items: center;
+}
+.payment_add__modal .box form.form .form__group:first-child .form__control > * + * {
+  margin-left: 0.5rem;
+  margin-top: 0;
+}
+.payment_add__modal .box form.form .form__group:first-child .form__control input {
+  width: unset;
+  outline: unset;
+  border: unset;
+}/*# sourceMappingURL=payment-modal.css.map */
