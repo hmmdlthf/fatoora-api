@@ -228,7 +228,7 @@ $Remarks        =  $invoice['Remarks'];
     </div>
     <div class="justify">
         <p>Balance Amount: </p>
-        <p><?php echo number_format($card, 2); ?> SAR</p> <!-- this was original -> $balance -->
+        <p><?php echo number_format($balance, 2); ?> SAR</p> <!-- this was original -> $balance -->
     </div>
     <hr>
     <p>All the above mentioned items were completely received in</p>

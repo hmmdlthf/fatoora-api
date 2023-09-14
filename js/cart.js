@@ -75,12 +75,20 @@ function addProductToCart(j) {
             upbtn.addEventListener('click', () => {
                 input_value++
                 input.value = input_value
+                updateQuantity(j['InvoiceDetailRecID'], input.value, div)
             })
 
             downbtn.addEventListener('click', () => {
                 if (input_value > 1) {
                     input_value--
                     input.value = input_value
+                    updateQuantity(j['InvoiceDetailRecID'], input.value, div)
+                }
+            })
+
+            input.addEventListener('input', (e) => {
+                if (input.value) {
+                    updateQuantity(j['InvoiceDetailRecID'], input.value, div)
                 }
             })
 
