@@ -9,6 +9,7 @@ $limit_start = $_GET['start'] ?? null;
 $range = $_GET['range'] ?? null;
 $q = $_GET['q'] ?? null;
 $mode = $_GET['mode'] ?? null;
+$productType = $_GET['productType'] ?? null;
 
 $credentials = session_get();
 
