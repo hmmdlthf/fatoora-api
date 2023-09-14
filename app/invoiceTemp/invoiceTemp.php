@@ -420,33 +420,41 @@ class InvoiceTemp extends Db
 
         (new InvoiceDetailTemp())->insertInvoiceDetailTempToInvoiceDetailByInvoiceRecId($invoiceTemp['RecID'], $invoice['RecID']);
 
-        return true;
+        return $invoiceRecID['RecID'];
     }
 
-    public function addPayment($recId, $method, $amount)
+    public function addPayment($recId, $cashAmount, $cardAmount)
     {
+        $condition = '';
+        $total_amount_given = 0;
         // Set PaymentMethodRecID based on payment method
-        if ($method === PaymentMethods::CASH) {
+        if ($cashAmount) {
             $paymentMethodRecID = 1;
-            $condition = "[CashAmount]";
-        } else if ($method === PaymentMethods::CARD) {
+            $total_amount_given += $cashAmount;
+            $condition = $condition . ", [CashAmount] = $cashAmount";
+        } 
+        if ($cardAmount) {
             $paymentMethodRecID = 2;
-            $condition = "[CardAmount]";
+            $total_amount_given += $cardAmount;
+            $condition = $condition . ", [CardAmount] = $cardAmount";
+        }
+        if ($cashAmount && $cardAmount) {
+            $paymentMethodRecID = 5;
         }
 
         $queryGetGrandTotal = "SELECT [GrandTotal] FROM [saudipos].[POS].[InvoiceTemporary] WHERE [RecID] = ?";
         $statementGetGrandTotal = $this->connect()->prepare($queryGetGrandTotal);
         $statementGetGrandTotal->execute([$recId]);
-        $grandTotalResult = $statementGetGrandTotal->fetch()['GrandTotal'];
+        $grandTotalResult = $statementGetGrandTotal->fetch()['GrandTotal'] ?? null;
         $grandTotal = $grandTotalResult ? $grandTotalResult : 0;
-        $balanceAmount = $amount - $grandTotal;
+        $balanceAmount = $total_amount_given - $grandTotal;
 
         $query = "UPDATE [saudipos].[POS].[InvoiceTemporary]
-            SET [PaymentMethodRecID] = ?, $condition = ?, [BalanceAmount] = ?
+            SET [PaymentMethodRecID] = ?, [BalanceAmount] = ? $condition
           WHERE [RecID] = ?";
 
         $statement = $this->connect()->prepare($query);
-        $statement->execute([$paymentMethodRecID, $amount, $balanceAmount, $recId]);
+        $statement->execute([$paymentMethodRecID, $balanceAmount, $recId]);
         return true;
     }
 }

@@ -13,19 +13,30 @@
             <form action="" class="form" id="payment_add_form">
                 <div class="form__group">
                     <div class="form__control">
-                        <input type="radio" name="payment_method" id="pay_by_cash" checked>
+                        <div class="switch switch-on" id="switch">
+                            <input type="checkbox" name="pay_by_cash" id="pay_by_cash" checked>
+                        </div>
                         <label for="pay_by_cash">Pay By Cash | الدفع نقدا</label>
                     </div>
-                    <div class="form__control">
-                        <input type="radio" name="payment_method" id="pay_by_card">
-                        <label for="pay_by_card">Pay By Card | الدفع عن طريق البطاقة</label>
+                    <div class="form__control" id="cash_amount_form_control">
+                        <label for="cash_amount">Cash Amount</label>
+                        <input type="text" name="cash_amount" id="cash_amount" placeholder="Enter Amount | أدخل المبلغ">
                     </div>
                 </div>
                 <div class="form__group">
                     <div class="form__control">
-                        <label for="payment_amount">Amount</label>
-                        <input type="text" name="payment_amount" id="payment_amount" placeholder="Enter Amount | أدخل المبلغ">
+                        <div class="switch" id="switch">
+                            <input type="checkbox" name="pay_by_card" id="pay_by_card">
+                        </div>
+                        <label for="pay_by_card">Pay By Card</label>
                     </div>
+                    <div class="form__control hidden" id="card_amount_form_control">
+                        <label for="card_amount">Card Amount</label>
+                        <input type="text" name="card_amount" id="card_amount" placeholder="Enter Amount | أدخل المبلغ">
+                    </div>
+                </div>
+                <div class="form__group">
+
                 </div>
                 <div class="form__group">
                     <div class="calc">

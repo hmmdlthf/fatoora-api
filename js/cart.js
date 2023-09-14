@@ -247,8 +247,10 @@ function updateQuantity(recID, orderQuantity, div) {
 function copyTempToInvoice() {
     if (confirm("Confirm to proceed")) {
         fetch(`invoice-temp/insertInvoiceTempToInvoice.php?recID=${invoiceTempRecID}`)
-        .then(r => {
+        .then(r => r.json())
+        .then(j => {
             clearInvoiceNoConfirmation()
+            printInvoice(j)
         })
     }
 }

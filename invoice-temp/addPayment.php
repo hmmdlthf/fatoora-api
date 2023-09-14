@@ -7,11 +7,11 @@ require_once $ROOT . "/app/invoiceTemp/invoiceTemp.php";
 require_once $ROOT . "/app/constants/Constants.php";
 
 try {
-    if (isset($_GET['recID']) && isset($_GET['paymentMethod']) && isset($_GET['paymentAmount'])) {
+    if (isset($_GET['recID']) && (isset($_GET['cardAmount']) || isset($_GET['cashAmount']))) {
         $recID = $_GET['recID'];
-        $method = $_GET['paymentMethod'];
-        $amount = $_GET['paymentAmount'];
-        $invoiceTemp = (new InvoiceTemp())->addPayment($recID, $method, $amount);
+        $cashAmount = $_GET['cashAmount'];
+        $cardAmount = $_GET['cardAmount'];
+        $invoiceTemp = (new InvoiceTemp())->addPayment($recID, $cashAmount, $cardAmount);
     }
 } catch (Exception $e) {
     die("$e");

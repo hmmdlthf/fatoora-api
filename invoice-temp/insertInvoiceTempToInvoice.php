@@ -11,7 +11,8 @@ try {
     if (isset($_GET['recID'])) {
         $recId = $_GET['recID'];
         $invoiceTemp = (new InvoiceTemp())->InsertInvoiceTempToInvoice($recId);
-        echo "success";
+        header('Content-type: application/json');
+        echo json_encode($invoiceTemp);
     }
 } catch(Exception $e) {
     die("$e");

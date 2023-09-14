@@ -4,9 +4,14 @@
 
         form.form {
 
-            .form__group:first-child {
+            .form__group:first-child, .form__group:nth-child(2) {
                 flex-direction: column;
-                .form__control {
+
+                >* + * {
+                    margin-top: .5rem;
+                }
+
+                .form__control:first-child {
                     flex-direction: row;
                     align-items: center;
 

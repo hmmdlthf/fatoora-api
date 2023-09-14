@@ -1,18 +1,21 @@
 .payment_add__modal .box {
   max-width: 400px;
 }
-.payment_add__modal .box form.form .form__group:first-child {
+.payment_add__modal .box form.form .form__group:first-child, .payment_add__modal .box form.form .form__group:nth-child(2) {
   flex-direction: column;
 }
-.payment_add__modal .box form.form .form__group:first-child .form__control {
+.payment_add__modal .box form.form .form__group:first-child > * + *, .payment_add__modal .box form.form .form__group:nth-child(2) > * + * {
+  margin-top: 0.5rem;
+}
+.payment_add__modal .box form.form .form__group:first-child .form__control:first-child, .payment_add__modal .box form.form .form__group:nth-child(2) .form__control:first-child {
   flex-direction: row;
   align-items: center;
 }
-.payment_add__modal .box form.form .form__group:first-child .form__control > * + * {
+.payment_add__modal .box form.form .form__group:first-child .form__control:first-child > * + *, .payment_add__modal .box form.form .form__group:nth-child(2) .form__control:first-child > * + * {
   margin-left: 0.5rem;
   margin-top: 0;
 }
-.payment_add__modal .box form.form .form__group:first-child .form__control input {
+.payment_add__modal .box form.form .form__group:first-child .form__control:first-child input, .payment_add__modal .box form.form .form__group:nth-child(2) .form__control:first-child input {
   width: unset;
   outline: unset;
   border: unset;
