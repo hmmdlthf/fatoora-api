@@ -86,7 +86,7 @@ function addProductToCart(j) {
 
             span.addEventListener('click', () => {
                 if (input.value) {
-                    updateQuantity(j['InvoiceDetailRecID'], input.value)
+                    updateQuantity(j['InvoiceDetailRecID'], input.value, div)
                 } else {
                     alert('Enter amount to update!')
                 }
@@ -233,7 +233,7 @@ function wholePriceToggle(div) {
 }
 
 
-function updateQuantity(recID, orderQuantity) {
+function updateQuantity(recID, orderQuantity, div) {
     fetch(`invoice-temp/updateQuantity.php?recID=${recID}&orderQuantity=${orderQuantity}`)
         .then(r => {
             emptyCart()

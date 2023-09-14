@@ -5,9 +5,9 @@ require_once $ROOT . '/vendor/autoload.php';
 require_once $ROOT . "/login/utils.php";
 require_once $ROOT . "/app/invoice/Invoice.php";
 
-$limit_start = $_GET['start'];
-$range = $_GET['range'];
-$q = $_GET['q'];
+$limit_start = $_GET['start'] ?? null;
+$range = $_GET['range'] ?? null;
+$q = $_GET['q'] ?? null;
 
 $credentials = session_get();
 

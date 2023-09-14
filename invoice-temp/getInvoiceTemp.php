@@ -5,7 +5,6 @@ require_once $ROOT . '/vendor/autoload.php';
 require_once $ROOT . "/app/invoiceTemp/invoiceTemp.php";
 require_once $ROOT . "/login/utils.php";
 
-session_check();
 $credentials = session_get();
 
 if (isset($_GET['invoiceNumber'])) {

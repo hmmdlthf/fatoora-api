@@ -57,7 +57,7 @@ if (isset($_POST['submit'])) {
             <div>رقم ضريبة القيمة المضافة</div>
         </div>
         <form action="index.php" method="post">
-            <?php if ($error_message) { ?>
+            <?php if (!empty($error_message)) { ?>
                 <div class="login__message" id="login__message">
                     Failed! Wrong User id or password
                 </div>

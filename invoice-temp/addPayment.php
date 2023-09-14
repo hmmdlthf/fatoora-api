@@ -6,9 +6,6 @@ require_once $ROOT . "/login/utils.php";
 require_once $ROOT . "/app/invoiceTemp/invoiceTemp.php";
 require_once $ROOT . "/app/constants/Constants.php";
 
-
-
-
 try {
     if (isset($_GET['recID']) && isset($_GET['paymentMethod']) && isset($_GET['paymentAmount'])) {
         $recID = $_GET['recID'];

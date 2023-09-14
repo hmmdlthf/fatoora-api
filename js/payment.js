@@ -5,7 +5,7 @@ var paymentAmount = 0;
 function addPaymentToInvoice() {
     let amount = document.querySelector('#payment_amount').value;
 
-    fetch(`invoice/addPaymentToInvoice.php?recID=${invoiceTempRecID}&paymentMethod=${paymentMethod}&paymentAmount=${amount}`)
+    fetch(`invoice-temp/addPayment.php?recID=${invoiceTempRecID}&paymentMethod=${paymentMethod}&paymentAmount=${amount}`)
         .then(r => {
             console.log(r)
             showPaymentModal()

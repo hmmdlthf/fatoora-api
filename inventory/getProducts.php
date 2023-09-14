@@ -5,10 +5,10 @@ require_once $ROOT . '/vendor/autoload.php';
 require_once $ROOT . "/login/utils.php";
 require_once $ROOT . "/app/inventory/Inventory.php";
 
-$limit_start = $_GET['start'];
-$range = $_GET['range'];
-$q = $_GET['q'];
-$mode = $_GET['mode'];
+$limit_start = $_GET['start'] ?? null;
+$range = $_GET['range'] ?? null;
+$q = $_GET['q'] ?? null;
+$mode = $_GET['mode'] ?? null;
 
 $credentials = session_get();
 

@@ -14,6 +14,9 @@ class User extends Db
         $statement->execute();
         $resultSet = $statement->fetch();
 
+        if (!$resultSet) {
+            return false;
+        }
         if ($resultSet > 0) {
             return $resultSet;
         } else {
@@ -23,7 +26,8 @@ class User extends Db
 
     public function checkForPassword($login, $password)
     {
-        $passwordHashStored = $this->getPasswordHash($login)['pswd'];
+        $passwordHashStored = $this->getPasswordHash($login)['pswd'] ?? null;
+
         $passwordHash = hash("sha256", $password);
 
         if ($passwordHashStored == $passwordHash) {
