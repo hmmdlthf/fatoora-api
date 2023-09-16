@@ -131,8 +131,8 @@ session_check();
                 </div>
                 <div class="col">
                     <div class="menu__btn">Discount | تخفيض</div>
-                    <div class="menu__btn" onclick="changeMode(inventoryModes.WAREHOUSE); showInventoryModal();">Inventory | جرد</div>
-                    <div class="menu__btn" onclick="changeMode(inventoryModes.SHOWROOM); showInventoryModal();">Showroom Inventory | آخر</div>
+                    <div class="menu__btn" onclick="changeMode(inventoryModes.WAREHOUSE); currentProductTypeRecID = 0; showInventoryModal();">Inventory | جرد</div>
+                    <div class="menu__btn" onclick="changeMode(inventoryModes.SHOWROOM); currentProductTypeRecID = 0; showInventoryModal();">Showroom Inventory | آخر</div>
                 </div>
             </div>
         </div>
@@ -202,17 +202,11 @@ session_check();
             <div class="text">Sign Out</div>
             <div class="text__arabic">خروج</div>
         </div>
-        <div class="category__btns">
+        <div class="category__btns" id="product_types">
             <div class="category__btn">Bakery & Bread</div>
             <div class="category__btn">Baby</div>
             <div class="category__btn">Beverages</div>
             <div class="category__btn">Dairy, Egg and Cheese</div>
-            <div class="category__btn">Frozen</div>
-            <div class="category__btn">Frozen</div>
-            <div class="category__btn">Frozen</div>
-            <div class="category__btn">Frozen</div>
-            <div class="category__btn">Frozen</div>
-            <div class="category__btn">Frozen</div>
         </div>
     </div>
 

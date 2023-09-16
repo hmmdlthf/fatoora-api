@@ -2,9 +2,10 @@ var start = 0;
 var range = 100;
 var inventoryModes = {WAREHOUSE: 'WAREHOUSE', SHOWROOM: 'SHOWROOM'}
 var currentInventoryMode = inventoryModes.WAREHOUSE;
+var currentProductTypeRecID = 0;
 
 function getProducts() {
-    fetch(`inventory/getProducts.php?start=${start}&range=${range}&mode=${currentInventoryMode}`)
+    fetch(`inventory/getProducts.php?start=${start}&range=${range}&mode=${currentInventoryMode}&productTypeRecID=${currentProductTypeRecID}`)
         .then(r => r.json())
         .then(j => {
             addProductsJsonToTable(j);
@@ -69,4 +70,66 @@ document.getElementById('inventory__search').addEventListener('input', (e) => {
 function changeMode(mode) {
     console.log(mode)
     currentInventoryMode = mode;
+}
+
+function getProductTypes() {
+    fetch(`inventory/getProductTypes.php`)
+        .then(r => r.json())
+        .then(j => {
+            addProductTypesToDashboard(j);
+        })   
+}
+
+function addProductTypesToDashboard(j) {
+    var product_types_element = document.getElementById('product_types');
+    product_types_element.innerHTML = ''
+
+    j.forEach((x, i) => {
+        var product_type = document.createElement('div');
+        product_type.id = `product_type_${x['RecID']}`
+        product_type.className = 'category__btn';
+        product_type.innerHTML = x['Name']
+
+        product_types_element.appendChild(product_type);
+
+        product_type.addEventListener('click', () => {
+            currentProductTypeRecID = x['RecID']
+            showInventoryModal()
+        })
+    })
+}
+
+function getSubstituteProductsByBarcode(barcode) {
+    fetch(`inventory/getSubstituteProductsByBarcode.php?barcode=${barcode}&mode=${currentInventoryMode}`)
+        .then(r => r.json())
+        .then(j => {
+            addProductsJsonToTable(j);
+        })   
+}
+
+function getSubstituteProductsByInvoiceDetailTempRecID(invoiceDetailTempRecID) {
+    fetch(`inventory/getSubstituteProductsByInvoiceDetailTempRecID.php?invoiceDetailTempRecID=${invoiceDetailTempRecID}&mode=${currentInventoryMode}`)
+        .then(r => r.json())
+        .then(j => {
+            addProductsJsonToTable(j);
+        })   
+}
+
+function addSubstituteProductsToModal(barcode) {
+    showInventoryModalWithoutDefault()
+    document.getElementById('inventory__modal__title').innerHTML = `Substitute Products for Item: ${barcode} | منتجات بديلة للصنف: ${barcode}`
+    getSubstituteProductsByBarcode(barcode)
+}
+
+function addSubstituteProductsByInvoiceDetailToModal(invoiceDetailTempRecID) {
+    showInventoryModalWithoutDefault()
+    document.getElementById('inventory__modal__title').innerHTML = `Substitute Products for Item: ${invoiceDetailTempRecID} | منتجات بديلة للصنف: ${invoiceDetailTempRecID}`
+    getSubstituteProductsByInvoiceDetailTempRecID(invoiceDetailTempRecID)
+}
+
+function showInventoryModalWithoutDefault() {
+    document.getElementById('inventory__modal').classList.toggle('active');
+    
+    if (document.getElementById('inventory__modal').classList.contains('active')) {
+    }
 }

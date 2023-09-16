@@ -9,7 +9,7 @@ $limit_start = $_GET['start'] ?? null;
 $range = $_GET['range'] ?? null;
 $q = $_GET['q'] ?? null;
 $mode = $_GET['mode'] ?? null;
-$productType = $_GET['productType'] ?? null;
+$productTypeRecID = $_GET['productTypeRecID'] ?? null;
 
 $credentials = session_get();
 
@@ -18,7 +18,7 @@ $inventory = new Inventory();
 if (isset($q)) {
     $records = $inventory->findInventoryRecordsBySearchTerm($q, $limit_start, $range, $mode);
 } else {
-    $records = $inventory->findInventoryRecords($limit_start, $range, $mode);
+    $records = $inventory->findInventoryRecords($limit_start, $range, $mode, $productTypeRecID);
 }
 
 header('Content-type: application/json');

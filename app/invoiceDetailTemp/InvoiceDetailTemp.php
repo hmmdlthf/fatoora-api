@@ -5,6 +5,7 @@ require_once $ROOT . '/vendor/autoload.php';
 require_once $ROOT . "/app/database/Db.php";
 require_once $ROOT . "/app/inventory/Inventory.php";
 require_once $ROOT . "/app/invoiceTemp/invoiceTemp.php";
+require_once $ROOT . "/app/invoice/Invoice.php";
 
 class InvoiceDetailTemp extends Db
 {
@@ -141,13 +142,14 @@ class InvoiceDetailTemp extends Db
 
     public function updateQuantity($recId, $newQuantity)
     {
-        // Check if the record exists
-        $existingRecord = $this->findById($recId);
-        if ($existingRecord === false) {
-            return false; // Record not found
-        }
+        $record = $this->findById($recId);
+        $hasStock = (new Inventory())->hasEnoughStock($record['ProductRecID'], $newQuantity);
 
-        // $totalAmount = $this->calculateTotalAmount($existingRecord['UnitAmount'], $newQuantity);
+        if (!$hasStock) {
+            header('Content-type: application/json');
+            echo json_encode(['status'=> 'unsuccess', 'type'=> 'no-stock']);
+            exit();
+        }
 
         $query = "UPDATE [saudipos].[POS].[InvoiceDetailTemporary]
                   SET [OrderQuantity] = ?
@@ -186,6 +188,13 @@ class InvoiceDetailTemp extends Db
     public function addByBarcode($invoiceRecID, $barcode)
     {
         $product = (new Inventory())->findInventoryRecordsByBarcode($barcode);
+        $hasStock = (new Inventory())->hasEnoughStock($product['RecID'], 1);
+
+        if (!$hasStock) {
+            header('Content-type: application/json');
+            echo json_encode(['status'=> 'unsuccess', 'type'=> 'no-stock']);
+            exit();
+        }
 
         if ($product) {
             // Check if a record with the same ProductRecID already exists

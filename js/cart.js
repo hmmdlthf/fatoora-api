@@ -178,6 +178,7 @@ function initializeCartTable() {
 
 document.body.onload = () => {
     initializeCartTable()
+    getProductTypes()
 };
 
 
@@ -205,8 +206,16 @@ function getInvoiceDetailByInvoiceRecId() {
 
 function addToCartByBarcode(barcode) {
     fetch(`invoice-temp/addToCartByBarcode.php?invoiceRecID=${invoiceTempRecID}&barcode=${barcode}`)
-        .then(r => r.json())
+        .then(r => {
+            // console.log(r.text())
+            return r.json()
+        })
         .then(j => {
+            if (j['status'] == 'unsuccess' && j['type'] == 'no-stock') {
+                if (confirm('There is not enough stock for this product \nDo you want to see substitute products?')) {
+                    addSubstituteProductsToModal(barcode)
+                }
+            }
             emptyCart()
             getInvoiceDetailByInvoiceRecId()
             getCartTotals()
@@ -244,6 +253,15 @@ function wholePriceToggle(div) {
 function updateQuantity(recID, orderQuantity, div) {
     fetch(`invoice-temp/updateQuantity.php?recID=${recID}&orderQuantity=${orderQuantity}`)
         .then(r => {
+            // console.log(r.text())
+            return r.json()
+        })
+        .then(j => {
+            if (j['status'] == 'unsuccess' && j['type'] == 'no-stock') {
+                if (confirm('There is not enough stock for this product \nDo you want to see substitute products?')) {
+                    addSubstituteProductsByInvoiceDetailToModal(recID)
+                }
+            }
             emptyCart()
             getInvoiceDetailByInvoiceRecId()
             getCartTotals()
