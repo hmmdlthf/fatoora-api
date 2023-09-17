@@ -53,6 +53,19 @@ function addProductsJsonToTable(j) {
             showInventoryModal()
         })
 
+        td_substitute_products = document.createElement('td');
+        td_substitute_products.id = `product${i}__ActionSubstituteProducts`
+        button_substitute_products = document.createElement('button')
+        button_substitute_products.className = 'btn'
+        button_substitute_products.innerHTML = 'Sub Pro'
+        td_substitute_products.appendChild(button_substitute_products)
+        tr.appendChild(td_substitute_products);
+
+        button_substitute_products.addEventListener('click', () => {
+            showInventoryModal()
+            addSubstituteProductsToModal(x['UPC'])
+        })
+
         inventory_table.appendChild(tr);
     });
 }

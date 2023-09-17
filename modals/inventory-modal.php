@@ -11,18 +11,22 @@
         </div>
         <div class="body">
             <div class="top">
-                <div class="entries__limit">
-                    show
-                    <span>
-                        <select name="entries" id="inventory__table__entries">
-                            <option value="10">10</option>
-                            <option value="25">25</option>
-                            <option value="50">50</option>
-                            <option value="100" selected>100</option>
-                        </select>
-                    </span>
-                    enteries
+                <div style="display: flex; align-items: center; justify-content: center;">
+                    <div class="btn" onclick="getProducts()" style="margin-right: 1rem;">All</div>
+                    <div class="entries__limit">
+                        show
+                        <span>
+                            <select name="entries" id="inventory__table__entries">
+                                <option value="10">10</option>
+                                <option value="25">25</option>
+                                <option value="50">50</option>
+                                <option value="100" selected>100</option>
+                            </select>
+                        </span>
+                        enteries
+                    </div>
                 </div>
+
                 <form method="get" class="search" id="inventory__searchForm">
                     Search:
                     <input type="search" name="inventory__search" id="inventory__search">
@@ -35,7 +39,7 @@
                             <th id="products__RecID">
                                 <div class="th__content">
                                     <div class="text">ID</div>
-                                    <div class="sort__icon" >
+                                    <div class="sort__icon">
                                         <svg xmlns="http://www.w3.org/2000/svg" class="sort__down active" height=".7em" viewBox="0 0 320 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
                                             <path d="M182.6 470.6c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-9.2-9.2-11.9-22.9-6.9-34.9s16.6-19.8 29.6-19.8H288c12.9 0 24.6 7.8 29.6 19.8s2.2 25.7-6.9 34.9l-128 128z" fill="currentColor" />
                                         </svg>
@@ -210,6 +214,8 @@
                             </th>
                             <th id="products__Action">Action
                             </th>
+                            <th id="products__ActionSubstititeProducts">
+                            </th>
                         </tr>
                     </thead>
                     <tbody>
@@ -239,7 +245,7 @@
 <script>
     function showInventoryModal() {
         document.getElementById('inventory__modal').classList.toggle('active');
-        
+
         if (document.getElementById('inventory__modal').classList.contains('active')) {
             getProducts();
         }

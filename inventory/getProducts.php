@@ -15,11 +15,17 @@ $credentials = session_get();
 
 $inventory = new Inventory();
 
-if (isset($q)) {
-    $records = $inventory->findInventoryRecordsBySearchTerm($q, $limit_start, $range, $mode);
-} else {
-    $records = $inventory->findInventoryRecords($limit_start, $range, $mode, $productTypeRecID);
+try {
+    if (isset($q)) {
+        $records = $inventory->findInventoryRecordsBySearchTerm($q, $limit_start, $range, $mode);
+    } else {
+        $records = $inventory->findInventoryRecords($limit_start, $range, $mode, $productTypeRecID);
+    }
+} catch (Exception $e) {
+    die("$e");
 }
+
+
 
 header('Content-type: application/json');
 echo json_encode($records);

@@ -12,7 +12,7 @@ class Inventory extends Db
     {
         $table = getTableNameByMode($mode);
         $recID_columnName = getRecIDColumnName($mode);
-        $condition = $productTypeRecID ? "WHERE [ProductTypeRecID] = $productTypeRecID" : '';
+        $condition = $productTypeRecID ? "AND WHERE [ProductTypeRecID] = $productTypeRecID" : '';
         $query = "SELECT [Warehouse]
         ,$recID_columnName AS RecID
         ,[UPC]
@@ -24,10 +24,11 @@ class Inventory extends Db
         ,[ProductPackageTypeCode]
         ,[ProductPackageTypeCodeAR]
         ,[StockOnHand]
-        FROM $table $condition
+        FROM $table 
+        WHERE SalableQuantityMaximum >= 1 $condition
         ORDER BY $recID_columnName
-        OFFSET ". $limit_start . " ROWS
-        FETCH NEXT ". ($range) . " ROWS ONLY";
+        OFFSET " . $limit_start . " ROWS
+        FETCH NEXT " . ($range) . " ROWS ONLY";
 
         $statement = $this->connect()->prepare($query);
         $statement->execute();
@@ -56,10 +57,10 @@ class Inventory extends Db
         ,[ProductPackageTypeCodeAR]
         ,[StockOnHand]
         FROM $table
-        WHERE [ProductName] LIKE '%". $searchTerm . "%' 
+        WHERE SalableQuantityMaximum >= 1 AND [ProductName] LIKE '%" . $searchTerm . "%'
         ORDER BY $recID_columnName
-        OFFSET ". $limit_start . " ROWS
-        FETCH NEXT ". ($range) . " ROWS ONLY";
+        OFFSET " . $limit_start . " ROWS
+        FETCH NEXT " . ($range) . " ROWS ONLY";
 
         $statement = $this->connect()->prepare($query);
         $statement->execute();
@@ -88,7 +89,7 @@ class Inventory extends Db
         ,[ProductPackageTypeCodeAR]
         ,[StockOnHand]
         FROM $table
-        WHERE [UPC] LIKE '". $barcode . "' ";
+        WHERE [UPC] LIKE '" . $barcode . "' ";
 
         $statement = $this->connect()->prepare($query);
         $statement->execute();
@@ -127,18 +128,31 @@ class Inventory extends Db
         $recID_columnName = getRecIDColumnName($mode);
 
         // Query the database to get the current stock quantity for the product with the given RecID.
-        $query = "SELECT [StockOnHand] FROM $table WHERE $recID_columnName = ?";
+        $query = "SELECT [StockOnHand], [SalableQuantityMaximum], [WholesalePrice], [CostPrice] FROM $table WHERE $recID_columnName = ?";
         $statement = $this->connect()->prepare($query);
         $statement->execute([$productRecID]);
         $row = $statement->fetch();
 
         if ($row && isset($row['StockOnHand'])) {
             $currentStock = $row['StockOnHand'];
+            $sellableMax = $row['SalableQuantityMaximum'];
+            $costPrice = $row['CostPrice'];
+            $wholesalePrice = $row['WholesalePrice'];
 
-            // Check if there is enough stock.
-            if ($currentStock >= $quantity) {
-                return true; // There is enough stock.
+            // check if the quantity is under sellabla quantity maximum
+            if ($wholesalePrice < $costPrice) {
+                header('Content-type: application/json');
+                echo json_encode(['status' => 'unsuccess', 'type' => 'higher-cost-price']);
+                exit();
             }
+            else if ($quantity > $sellableMax) {
+                header('Content-type: application/json');
+                echo json_encode(['status' => 'unsuccess', 'type' => 'exceeds-sellable-max']);
+                exit();
+            // Check if there is enough stock.
+            } else if ($currentStock >= $quantity) {
+                return true; // There is enough stock.
+            } 
         }
 
         return false; // Not enough stock.

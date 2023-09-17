@@ -217,6 +217,14 @@ function addToCartByBarcode(barcode) {
                 if (confirm('There is not enough stock for this product \nDo you want to see substitute products?')) {
                     addSubstituteProductsToModal(barcode)
                 }
+            } else if (j['status'] == 'unsuccess' && j['type'] == 'exceeds-sellable-max') {
+                if (confirm('This exceeds the maximum allowd sellable quantity')) {
+                    // console.log('this exceeds the max')
+                }
+            } else if (j['status'] == 'unsuccess' && j['type'] == 'higher-cost-price') {
+                if (confirm('The cost price of this product is higher than the selling price')) {
+                    // console.log('higher cost price')
+                }
             }
             emptyCart()
             getInvoiceDetailByInvoiceRecId()
@@ -262,6 +270,14 @@ function updateQuantity(recID, orderQuantity, div) {
             if (j['status'] == 'unsuccess' && j['type'] == 'no-stock') {
                 if (confirm('There is not enough stock for this product \nDo you want to see substitute products?')) {
                     addSubstituteProductsByInvoiceDetailToModal(recID)
+                }
+            } else if (j['status'] == 'unsuccess' && j['type'] == 'exceeds-sellable-max') {
+                if (confirm('This exceeds the maximum allowd sellable quantity')) {
+                    // console.log('this exceeds the max')
+                }
+            } else if (j['status'] == 'unsuccess' && j['type'] == 'higher-cost-price') {
+                if (confirm('The cost price of this product is higher than the selling price')) {
+                    // console.log('higher cost price')
                 }
             }
             emptyCart()
