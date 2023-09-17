@@ -6,6 +6,7 @@ require_once $ROOT . "/app/database/Db.php";
 require_once $ROOT . "/app/inventory/Inventory.php";
 require_once $ROOT . "/app/invoiceTemp/invoiceTemp.php";
 require_once $ROOT . "/app/invoice/Invoice.php";
+require_once $ROOT . "/app/utils/productSource.php";
 
 class InvoiceDetailTemp extends Db
 {
@@ -20,6 +21,7 @@ class InvoiceDetailTemp extends Db
         ,[RetailPrice]
         ,[WholesalePrice]
         ,[TotalAmount]
+        ,[ProductSourceRecID]
         FROM [saudipos].[POS].[V_InvoiceDetailTemporary]
         WHERE [InvoiceDetailRecID] = '" . $recId . "'";
 
@@ -74,6 +76,7 @@ class InvoiceDetailTemp extends Db
         ,vidt.[WholesalePrice]
         ,vidt.[TotalAmount]
         ,idt.[PriceTypeRecID]
+        ,idt.[ProductSourceRecID]
         FROM [saudipos].[POS].[V_InvoiceDetailTemporary] vidt
         INNER JOIN [saudipos].[POS].[InvoiceDetailTemporary] idt ON vidt.InvoiceDetailRecID = idt.RecID
         WHERE vidt.InvoiceRecID = ? 
@@ -104,10 +107,11 @@ class InvoiceDetailTemp extends Db
         ,[ProductRecID]
         ,[UnitAmount]
         ,[OrderQuantity]
-        ,[PriceTypeRecID])
-        VALUES (?, ?, ?, ?, ?)";
+        ,[PriceTypeRecID]
+        ,[ProductSourceRecID])
+        VALUES (?, ?, ?, ?, ?, ?)";
         $statement = $this->connect()->prepare($query);
-        $statement->execute([$invoiceTempId, $dic['ProductRecID'], $dic['UnitAmount'], $dic['OrderQuantity'], $dic['PriceTypeRecID']]);
+        $statement->execute([$invoiceTempId, $dic['ProductRecID'], $dic['UnitAmount'], $dic['OrderQuantity'], $dic['PriceTypeRecID'], $dic['ProductSourceRecID']]);
 
         $invoiceTemp = (new InvoiceTemp())->calculateTotalsAndUpdate($invoiceTempId);
         return $invoiceTemp;
@@ -143,7 +147,7 @@ class InvoiceDetailTemp extends Db
     public function updateQuantity($recId, $newQuantity)
     {
         $record = $this->findById($recId);
-        $hasStock = (new Inventory())->hasEnoughStock($record['ProductRecID'], $newQuantity);
+        $hasStock = (new Inventory())->hasEnoughStock($record['ProductRecID'], $newQuantity, getModeByProductSourceRecID($record['ProductSourceRecID']));
 
         if (!$hasStock) {
             header('Content-type: application/json');
@@ -185,10 +189,10 @@ class InvoiceDetailTemp extends Db
         return $invoiceTemp;
     }
 
-    public function addByBarcode($invoiceRecID, $barcode)
+    public function addByBarcode($invoiceRecID, $barcode, $mode)
     {
-        $product = (new Inventory())->findInventoryRecordsByBarcode($barcode);
-        $hasStock = (new Inventory())->hasEnoughStock($product['RecID'], 1);
+        $product = (new Inventory())->findInventoryRecordsByBarcode($barcode, $mode);
+        $hasStock = (new Inventory())->hasEnoughStock($product['RecID'], 1, $mode);
 
         if (!$hasStock) {
             header('Content-type: application/json');
@@ -198,7 +202,7 @@ class InvoiceDetailTemp extends Db
 
         if ($product) {
             // Check if a record with the same ProductRecID already exists
-            $existingRecord = $this->findRecordByProductRecID($invoiceRecID, $product['RecID']);
+            $existingRecord = $this->findRecordByProductRecID($invoiceRecID, $product['RecID'], $mode);
 
             if ($existingRecord) {
                 // If record already exists, update the quantity
@@ -206,7 +210,7 @@ class InvoiceDetailTemp extends Db
                 return $this->updateQuantity($existingRecord['RecID'], $newQuantity);
             } else {
                 // If no record exists, create a new one
-                $dic = ['ProductRecID' => $product['RecID'], 'UnitAmount' => $product['WholesalePrice'], 'OrderQuantity' => 1, 'PriceTypeRecID' => 2];
+                $dic = ['ProductRecID' => $product['RecID'], 'UnitAmount' => $product['WholesalePrice'], 'OrderQuantity' => 1, 'PriceTypeRecID' => 2, 'ProductSourceRecID' => getProductSourceRecIDByMode($mode)];
                 return $this->create($invoiceRecID, $dic);
             }
         }
@@ -214,14 +218,15 @@ class InvoiceDetailTemp extends Db
         return false;
     }
 
-    private function findRecordByProductRecID($invoiceRecID, $productRecID)
+    private function findRecordByProductRecID($invoiceRecID, $productRecID, $mode)
     {
+        $productSourceRecID = getProductSourceRecIDByMode($mode);
         $query = "SELECT [RecID], [OrderQuantity]
                   FROM [saudipos].[POS].[InvoiceDetailTemporary]
-                  WHERE [InvoiceRecID] = ? AND [ProductRecID] = ?";
+                  WHERE [InvoiceRecID] = ? AND [ProductRecID] = ? AND [ProductSourceRecID] = ?";
 
         $statement = $this->connect()->prepare($query);
-        $statement->execute([$invoiceRecID, $productRecID]);
+        $statement->execute([$invoiceRecID, $productRecID, $productSourceRecID]);
         $result = $statement->fetch();
 
         return $result;
@@ -245,7 +250,8 @@ class InvoiceDetailTemp extends Db
             [CreatedDate],
             [CreatedBranchRecID],
             [ModifiedBy],
-            [ModifiedDate]
+            [ModifiedDate],
+            [ProductSourceRecID]
         )
         SELECT
             $invoiceRecID,
@@ -263,7 +269,8 @@ class InvoiceDetailTemp extends Db
             [CreatedDate],
             [CreatedBranchRecID],
             [ModifiedBy],
-            [ModifiedDate]
+            [ModifiedDate],
+            [ProductSourceRecID]
         FROM [saudipos].[POS].[InvoiceDetailTemporary]
         WHERE [InvoiceRecID] = '" . $invoiceTempRecID . "'";
 
@@ -290,7 +297,8 @@ class InvoiceDetailTemp extends Db
             [CreatedDate],
             [CreatedBranchRecID],
             [ModifiedBy],
-            [ModifiedDate]
+            [ModifiedDate],
+            [ProductSourceRecID]
         )
         SELECT
             $invoiceTempRecID,
@@ -308,7 +316,8 @@ class InvoiceDetailTemp extends Db
             [CreatedDate],
             [CreatedBranchRecID],
             [ModifiedBy],
-            [ModifiedDate]
+            [ModifiedDate],
+            [ProductSourceRecID]
         FROM [saudipos].[POS].[InvoiceDetail]
         WHERE [InvoiceRecID] = '" . $invoiceRecID . "'";
 

@@ -38,6 +38,7 @@ function addProductToCart(j) {
 
 
     tr = document.createElement('tr');
+    tr.className = j['ProductSourceRecID'] ? j['ProductSourceRecID'] == 2 ? 'showroom__record' : '' : null
 
     fields.forEach(y => {
         td = document.createElement('td');
@@ -205,9 +206,10 @@ function getInvoiceDetailByInvoiceRecId() {
 
 
 function addToCartByBarcode(barcode) {
-    fetch(`invoice-temp/addToCartByBarcode.php?invoiceRecID=${invoiceTempRecID}&barcode=${barcode}`)
+    fetch(`invoice-temp/addToCartByBarcode.php?invoiceRecID=${invoiceTempRecID}&barcode=${barcode}&mode=${currentInventoryMode}`)
         .then(r => {
             // console.log(r.text())
+            console.log(r)
             return r.json()
         })
         .then(j => {

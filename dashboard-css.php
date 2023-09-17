@@ -22,6 +22,7 @@ session_check();
     <link rel="stylesheet" href="/sccs/forms.css">
     <link rel="stylesheet" href="/sccs/table.css">
     <link rel="stylesheet" href="/sccs/dashboard.css">
+    <link rel="stylesheet" href="/sccs/cart_table.css">
     <link rel="stylesheet" href="/sccs/calculator.css">
     <link rel="stylesheet" href="/sccs/modal.css">
     <link rel="stylesheet" href="/sccs/inventory-modal.css">
@@ -46,7 +47,7 @@ session_check();
                     <div class="btn" onclick="clearInvoice()">Clear INVOICE</div>
                 </div>
             </div>
-            <div class="table" id="cart__table">
+            <div class="table cart__table" id="cart__table">
                 <table>
                     <thead style="position: sticky;">
                         <tr>

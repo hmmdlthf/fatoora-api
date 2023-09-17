@@ -28,7 +28,7 @@ function addProductsJsonToTable(j) {
     var inventory_table = document.querySelector('#inventory__table table tbody');
     inventory_table.innerHTML = ''
 
-    var fields = [ currentInventoryMode == inventoryModes.WAREHOUSE ? 'RecID' : 'ProductRecID', 'Warehouse', 'UPC', 'SKU', 'ProductName', 'ProductPackageTypeCode', 'ProductNameAR', 'ProductPackageTypeCodeAR', 'RetailPrice', 'WholesalePrice', 'StockOnHand'];
+    var fields = ['RecID', 'Warehouse', 'UPC', 'SKU', 'ProductName', 'ProductPackageTypeCode', 'ProductNameAR', 'ProductPackageTypeCodeAR', 'RetailPrice', 'WholesalePrice', 'StockOnHand'];
 
     j.forEach((x, i) => {
         tr = document.createElement('tr');

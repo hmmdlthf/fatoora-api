@@ -10,11 +10,11 @@ class Inventory extends Db
 {
     public function findInventoryRecords($limit_start = 0, $range = 100, $mode = InventoryModes::WAREHOUSE, $productTypeRecID)
     {
-        $table = $mode == InventoryModes::WAREHOUSE ? '[saudipos].[POS].[V_ProductRetail_InventoryW]' : '[saudipos].[POS].[V_ProductRetail_InventoryR]';
-        $recID_columnName = $mode == InventoryModes::WAREHOUSE ? '[RecID]' : '[ProductRecID]';
+        $table = getTableNameByMode($mode);
+        $recID_columnName = getRecIDColumnName($mode);
         $condition = $productTypeRecID ? "WHERE [ProductTypeRecID] = $productTypeRecID" : '';
         $query = "SELECT [Warehouse]
-        ,$recID_columnName
+        ,$recID_columnName AS RecID
         ,[UPC]
         ,[SKU]
         ,[ProductName]
@@ -42,10 +42,10 @@ class Inventory extends Db
 
     public function findInventoryRecordsBySearchTerm($searchTerm, $limit_start = 0, $range = 100, $mode = InventoryModes::WAREHOUSE)
     {
-        $table = $mode == InventoryModes::WAREHOUSE ? '[saudipos].[POS].[V_ProductRetail_InventoryW]' : '[saudipos].[POS].[V_ProductRetail_InventoryR]';
-        $recID_columnName = $mode == InventoryModes::WAREHOUSE ? '[RecID]' : '[ProductRecID]';
+        $table = getTableNameByMode($mode);
+        $recID_columnName = getRecIDColumnName($mode);
         $query = "SELECT [Warehouse]
-        ,$recID_columnName
+        ,$recID_columnName AS RecID
         ,[UPC]
         ,[SKU]
         ,[ProductName]
@@ -72,10 +72,12 @@ class Inventory extends Db
         }
     }
 
-    public function findInventoryRecordsByBarcode($barcode)
+    public function findInventoryRecordsByBarcode($barcode, $mode = InventoryModes::WAREHOUSE)
     {
+        $table = getTableNameByMode($mode);
+        $recID_columnName = getRecIDColumnName($mode);
         $query = "SELECT [Warehouse]
-        ,[RecID]
+        ,$recID_columnName AS RecID
         ,[UPC]
         ,[SKU]
         ,[ProductName]
@@ -85,7 +87,7 @@ class Inventory extends Db
         ,[ProductPackageTypeCode]
         ,[ProductPackageTypeCodeAR]
         ,[StockOnHand]
-        FROM [saudipos].[POS].[V_ProductRetail_Inventory_No_WE]
+        FROM $table
         WHERE [UPC] LIKE '". $barcode . "' ";
 
         $statement = $this->connect()->prepare($query);
@@ -119,10 +121,13 @@ class Inventory extends Db
         }
     }
 
-    public function hasEnoughStock($productRecID, $quantity)
+    public function hasEnoughStock($productRecID, $quantity, $mode)
     {
+        $table = getTableNameByMode($mode);
+        $recID_columnName = getRecIDColumnName($mode);
+
         // Query the database to get the current stock quantity for the product with the given RecID.
-        $query = "SELECT [StockOnHand] FROM [saudipos].[POS].[V_ProductRetail_InventoryW] WHERE [RecID] = ?";
+        $query = "SELECT [StockOnHand] FROM $table WHERE $recID_columnName = ?";
         $statement = $this->connect()->prepare($query);
         $statement->execute([$productRecID]);
         $row = $statement->fetch();
@@ -141,31 +146,44 @@ class Inventory extends Db
 
     public function findSubstituteProductsByBarcode($barcode, $mode = InventoryModes::WAREHOUSE)
     {
-        $table = $mode == InventoryModes::WAREHOUSE ? '[saudipos].[POS].[V_ProductRetail_InventoryW]' : '[saudipos].[POS].[V_ProductRetail_InventoryR]';
-        $recID_columnName = $mode == InventoryModes::WAREHOUSE ? '[RecID]' : '[ProductRecID]';
-        $query = "SELECT TOP(50) [Warehouse]
-        ,$recID_columnName
-        ,[UPC]
-        ,[SKU]
-        ,[ProductName]
-        ,[ProductNameAR]
-        ,[WholesalePrice]
-        ,[RetailPrice]
-        ,[ProductPackageTypeCode]
-        ,[ProductPackageTypeCodeAR]
-        ,[ProductTypeRecID]
-		,[ProductCategoryRecID]
-        ,[StockOnHand]
-        FROM $table
-        WHERE [ProductCategoryRecID] = 
-            (SELECT [ProductCategoryRecID] 
-			FROM $table 
-			WHERE [UPC] = ? )
-        AND [StockOnHand] > 0
-        ORDER BY [StockOnHand]";
+        $table = getTableNameByMode($mode);
+        $recID_columnName = getRecIDColumnName($mode);
+        $query = "SELECT DISTINCT
+        psd.ProductSubstituteRecID, 
+        priw.$recID_columnName AS RecID,
+        priw.Warehouse,
+        priw.UPC, 
+        priw.SKU, 
+        priw.ProductName, 
+        priw.ProductNameAR, 
+        priw.WholesalePrice, 
+        priw.RetailPrice, 
+        priw.ProductPackageTypeCode, 
+        priw.ProductPackageTypeCodeAR,
+        priw.ProductTypeRecID,
+		priw.ProductCategoryRecID,
+        priw.StockOnHand
+        FROM
+            $table AS priw
+            INNER JOIN
+            Inventory.ProductSubstituteDetail AS psd
+            ON 
+                priw.$recID_columnName = psd.ProductRecID
+        WHERE psd.ProductSubstituteRecID IN 
+        ((SELECT
+            psd.ProductSubstituteRecID
+            FROM Inventory.ProductSubstituteDetail AS psd
+            INNER JOIN    
+            Inventory.Product AS p
+            ON psd.ProductRecID = p.RecID
+            WHERE p.UPC = ?)) 
+        AND
+        priw.UPC <> ?
+        AND
+        priw.StockOnHand >= 1";
 
         $statement = $this->connect()->prepare($query);
-        $statement->execute([$barcode]);
+        $statement->execute([$barcode, $barcode]);
         $resultSet = $statement->fetchAll();
 
         if ($resultSet > 0) {
@@ -177,31 +195,52 @@ class Inventory extends Db
 
     public function findSubstituteProductsByInvoiceDetailTempRecID($invoiceDetailTempRecID, $mode = InventoryModes::WAREHOUSE)
     {
-        $table = $mode == InventoryModes::WAREHOUSE ? '[saudipos].[POS].[V_ProductRetail_InventoryW]' : '[saudipos].[POS].[V_ProductRetail_InventoryR]';
-        $recID_columnName = $mode == InventoryModes::WAREHOUSE ? '[RecID]' : '[ProductRecID]';
-        $query = "SELECT TOP(50) [Warehouse]
-        ,$recID_columnName
-        ,[UPC]
-        ,[SKU]
-        ,[ProductName]
-        ,[ProductNameAR]
-        ,[WholesalePrice]
-        ,[RetailPrice]
-        ,[ProductPackageTypeCode]
-        ,[ProductPackageTypeCodeAR]
-        ,[ProductTypeRecID]
-		,[ProductCategoryRecID]
-        ,[StockOnHand]
-        FROM $table
-        WHERE [ProductCategoryRecID] = 
-            (SELECT [ProductCategoryRecID] 
-			FROM $table 
-			WHERE $recID_columnName = (SELECT [ProductRecID] FROM [saudipos].[POS].[V_InvoiceDetailTemporary] WHERE [InvoiceDetailRecID] = ?))
-        AND [StockOnHand] > 0
-        ORDER BY [StockOnHand]";
+        $table = getTableNameByMode($mode);
+        $recID_columnName = getRecIDColumnName($mode);
+        $query = "SELECT DISTINCT
+        psd.ProductSubstituteRecID, 
+        priw.$recID_columnName AS RecID,
+        priw.Warehouse,
+        priw.UPC, 
+        priw.SKU, 
+        priw.ProductName, 
+        priw.ProductNameAR, 
+        priw.WholesalePrice, 
+        priw.RetailPrice, 
+        priw.ProductPackageTypeCode, 
+        priw.ProductPackageTypeCodeAR,
+        priw.ProductTypeRecID,
+		priw.ProductCategoryRecID,
+        priw.StockOnHand
+        FROM
+            $table AS priw
+            INNER JOIN
+            Inventory.ProductSubstituteDetail AS psd
+            ON priw.$recID_columnName = psd.ProductRecID
+        WHERE
+            psd.ProductSubstituteRecID IN 
+            ((SELECT
+                    psd.ProductSubstituteRecID
+                    FROM Inventory.ProductSubstituteDetail AS psd
+                    INNER JOIN
+                    Inventory.Product AS p
+                    ON psd.ProductRecID = p.RecID
+                    WHERE
+                        p.RecID = (SELECT
+                                    idt.ProductRecID
+                                    FROM POS.InvoiceDetailTemporary AS idt
+                                    WHERE idt.RecID = ?)
+                )) 
+            AND
+            priw.$recID_columnName <> (SELECT
+                            idt.ProductRecID
+                            FROM POS.InvoiceDetailTemporary AS idt
+                            WHERE idt.RecID = ?)
+            AND
+            priw.StockOnHand >= 1";
 
         $statement = $this->connect()->prepare($query);
-        $statement->execute([$invoiceDetailTempRecID]);
+        $statement->execute([$invoiceDetailTempRecID, $invoiceDetailTempRecID]);
         $resultSet = $statement->fetchAll();
 
         if ($resultSet > 0) {
