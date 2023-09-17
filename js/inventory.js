@@ -5,6 +5,7 @@ var currentInventoryMode = inventoryModes.WAREHOUSE;
 var currentProductTypeRecID = 0;
 
 function getProducts() {
+    changeInventoryModalTitle('All Inventory | كل المخزون')
     fetch(`inventory/getProducts.php?start=${start}&range=${range}&mode=${currentInventoryMode}&productTypeRecID=${currentProductTypeRecID}`)
         .then(r => r.json())
         .then(j => {
@@ -130,13 +131,13 @@ function getSubstituteProductsByInvoiceDetailTempRecID(invoiceDetailTempRecID) {
 
 function addSubstituteProductsToModal(barcode) {
     showInventoryModalWithoutDefault()
-    document.getElementById('inventory__modal__title').innerHTML = `Substitute Products for Item: ${barcode} | منتجات بديلة للصنف: ${barcode}`
+    changeInventoryModalTitle(`Substitute Products for Item: ${barcode} | منتجات بديلة للصنف: ${barcode}`)
     getSubstituteProductsByBarcode(barcode)
 }
 
 function addSubstituteProductsByInvoiceDetailToModal(invoiceDetailTempRecID) {
     showInventoryModalWithoutDefault()
-    document.getElementById('inventory__modal__title').innerHTML = `Substitute Products for Item: ${invoiceDetailTempRecID} | منتجات بديلة للصنف: ${invoiceDetailTempRecID}`
+    changeInventoryModalTitle(`Substitute Products for Item: ${invoiceDetailTempRecID} | منتجات بديلة للصنف: ${invoiceDetailTempRecID}`)
     getSubstituteProductsByInvoiceDetailTempRecID(invoiceDetailTempRecID)
 }
 
@@ -145,4 +146,9 @@ function showInventoryModalWithoutDefault() {
     
     if (document.getElementById('inventory__modal').classList.contains('active')) {
     }
+}
+
+function changeInventoryModalTitle(title) {
+    document.getElementById('inventory__tableBody').innerHTML = '';
+    document.getElementById('inventory__modal__title').innerHTML = title;
 }

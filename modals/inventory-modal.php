@@ -218,7 +218,7 @@
                             </th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody id="inventory__tableBody">
                         <!-- <tr>
                             <td scope="col">1</td>
                             <td>W</td>
