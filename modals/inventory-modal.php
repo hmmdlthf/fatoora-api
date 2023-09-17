@@ -237,6 +237,8 @@
                         </tr> -->
                     </tbody>
                 </table>
+                <div class="inventory__loading__message" id="inventory__loading__message">loading......</div>
+                <div class="inventory__empty__message" id="inventory__empty__message">No Items to Show</div>
             </div>
         </div>
     </div>

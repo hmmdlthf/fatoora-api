@@ -91,6 +91,22 @@
 .inventory__modal .box .body .table table tbody tr:nth-child(odd) {
   background-color: var(--grey-5);
 }
+.inventory__modal .box .body .table .inventory__empty__message,
+.inventory__modal .box .body .table .inventory__loading__message,
+.inventory__modal .box .body .table .inventory__message {
+  width: 100%;
+  padding-block: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  display: none;
+}
+.inventory__modal .box .body .table .inventory__empty__message.active,
+.inventory__modal .box .body .table .inventory__loading__message.active,
+.inventory__modal .box .body .table .inventory__message.active {
+  display: flex;
+}
 .inventory__modal .box .body .table::-webkit-scrollbar {
   width: 7px;
 }

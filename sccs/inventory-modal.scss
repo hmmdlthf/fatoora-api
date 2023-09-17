@@ -104,6 +104,22 @@
 
                 }
 
+                .inventory__empty__message, 
+                .inventory__loading__message,
+                .inventory__message {
+                    width: 100%;
+                    padding-block: 1rem;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    text-align: center;
+                    display: none;
+
+                    &.active {
+                        display: flex;
+                    }
+                }
+
                 &::-webkit-scrollbar {
                     width: 7px;
                 }

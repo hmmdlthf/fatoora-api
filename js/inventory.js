@@ -21,10 +21,6 @@ function getProductsFromSearch(searchTerm) {
         })
 }
 
-function addLoadingBar() {
-
-}
-
 function addProductsJsonToTable(j) {
     var inventory_table = document.querySelector('#inventory__table table tbody');
     inventory_table.innerHTML = ''
@@ -69,6 +65,8 @@ function addProductsJsonToTable(j) {
 
         inventory_table.appendChild(tr);
     });
+
+    inventoryModalMessage('No items to show')
 }
 
 document.getElementById('inventory__table__entries').addEventListener('change', (e) => {
@@ -151,4 +149,13 @@ function showInventoryModalWithoutDefault() {
 function changeInventoryModalTitle(title) {
     document.getElementById('inventory__tableBody').innerHTML = '';
     document.getElementById('inventory__modal__title').innerHTML = title;
+    inventoryModalMessage('Loading......')
+}
+
+function inventoryModalMessage(message) {
+    var inventory_table = document.querySelector('#inventory__table table tbody');
+    var message_element = document.getElementById('inventory__empty__message');
+    let length = inventory_table.children.length;
+    length == 0 ? message_element.classList.add('active') : message_element.classList.remove('active')
+    message_element.innerHTML = message;
 }
