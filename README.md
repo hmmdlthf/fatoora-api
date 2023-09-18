@@ -1,5 +1,7 @@
 # Point Of Sale Project For Emtyaz
 
+![POS Screen 1](images/screen1.jpeg)
+
 ## Introduction
 
 This README provides an overview of the project setup and highlights the changes made to the database structure. It also includes SQL update statements to apply these changes and insert statements to add new records to specific database tables.
