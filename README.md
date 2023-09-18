@@ -8,6 +8,37 @@ This README provides an overview of the project setup and highlights the changes
 
 ## Project Setup
 
+### Table of Contents
+
+- Installing Composer
+- Installing Project Dependencies
+- Database Configuration
+
+### Installing Composer
+
+Composer is a dependency manager for PHP. To install it, follow these steps:
+
+1. Visit Composer's official website for detailed installation instructions.
+2. Once Composer is installed, open a command prompt or terminal window.
+3. Verify that Composer is installed by running:
+
+```bash
+composer --version
+
+```
+
+You should see the version number if Composer was installed successfully.
+
+### Installing Project Dependencies
+
+Before running the project, you need to install its dependencies. In your project directory, run:
+
+```bash
+composer install
+```
+
+This will download and install all the required packages specified in the composer.json file.
+
 ### Setting Up pdo_sqlsrv Extension
 
 To use the `pdo_sqlsrv` extension in PHP for SQL Server database connections, follow these steps:
@@ -22,7 +53,8 @@ Ensure that you have the SQL Server drivers installed and properly configured on
 
 ## Database Changes
 
-### [POS].[V_ProductRetail_InventoryR] View, 
+### [POS].[V_ProductRetail_InventoryR] View,
+
 ### [POS].[V_ProductRetail_InventoryR] View
 
 - Added a new column: `RetailPrice`.
