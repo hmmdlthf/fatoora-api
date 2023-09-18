@@ -32,7 +32,8 @@ Ensure that you have the SQL Server drivers installed and properly configured on
 
 ## Database Changes
 
-### [POS].[V_ProductRetail_InventoryR] View, [POS].[V_ProductRetail_InventoryR] View
+### [POS].[V_ProductRetail_InventoryR] View, 
+### [POS].[V_ProductRetail_InventoryR] View
 
 - Added a new column: `RetailPrice`.
 
