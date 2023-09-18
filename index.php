@@ -52,9 +52,7 @@ if (isset($_POST['submit'])) {
     <!-- signin box -->
     <div class="login__box" id="login__box">
         <div class="header">
-            <div>شركة امتياز لخدمات التموين</div>
-            <div>emtyaz for catering company</div>
-            <div>رقم ضريبة القيمة المضافة</div>
+            <img src="/images/EmtyazLogo.png" alt="">
         </div>
         <form action="index.php" method="post">
             <?php if (!empty($error_message)) { ?>

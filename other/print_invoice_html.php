@@ -120,7 +120,7 @@ $Remarks        =  $invoice['Remarks'];
             window.print()
         }
     </script>
-    <div><img src="/images/EmtLogo.png"></div>
+    <div><img src="/images/EmtyazLogo.png"></div>
 
     <p>العزيزية - شارع البسالة - خلف النقل الجماعي </p>
     <p>Al Azizia Behind Mass Transit.</p>

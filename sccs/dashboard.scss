@@ -324,6 +324,10 @@ body {
             padding-block: 1rem;
             border: var(--border);
 
+            img {
+                width: 100%;
+            }
+
             >div {
                 font-size: 1.5rem;
                 font-weight: bold;

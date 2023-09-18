@@ -296,6 +296,9 @@ body .col-3 .header {
   padding-block: 1rem;
   border: var(--border);
 }
+body .col-3 .header img {
+  width: 100%;
+}
 body .col-3 .header > div {
   font-size: 1.5rem;
   font-weight: bold;

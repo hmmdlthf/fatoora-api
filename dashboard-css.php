@@ -176,9 +176,10 @@ session_check();
     </div>
     <div class="col-3">
         <div class="header">
-            <div>شركة امتياز لخدمات التموين</div>
+            <img src="/images//EmtyazLogo.png" alt="">
+            <!-- <div>شركة امتياز لخدمات التموين</div>
             <div>emtyaz for catering company</div>
-            <div>رقم ضريبة القيمة المضافة</div>
+            <div>رقم ضريبة القيمة المضافة</div> -->
         </div>
         <div class="btn payments__btn" onclick="showPaymentModal()">
             <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 320 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
