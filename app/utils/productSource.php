@@ -23,3 +23,13 @@ function getRecIDColumnName($mode)
 {
     return $mode == InventoryModes::WAREHOUSE ? '[RecID]' : '[ProductRecID]';
 }
+
+function getNextProductSourceRecID($productSourceRecID)
+{
+    return $productSourceRecID == 1 ? 2 : 1; 
+}
+
+function getNextProductSourceRecIDByMode($mode)
+{
+    return $mode == InventoryModes::WAREHOUSE ? 2 : 1; 
+}

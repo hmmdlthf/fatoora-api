@@ -39,6 +39,7 @@ function addProductToCart(j) {
 
     tr = document.createElement('tr');
     tr.className = j['ProductSourceRecID'] ? j['ProductSourceRecID'] == 2 ? 'showroom__record' : '' : null
+    let productSourceMode = j['ProductSourceRecID'] ? j['ProductSourceRecID'] == 2 ? inventoryModes.SHOWROOM : inventoryModes.WAREHOUSE : inventoryModes.WAREHOUSE
 
     fields.forEach(y => {
         td = document.createElement('td');
@@ -76,26 +77,26 @@ function addProductToCart(j) {
             upbtn.addEventListener('click', () => {
                 input_value++
                 input.value = input_value
-                updateQuantity(j['InvoiceDetailRecID'], input.value, div)
+                updateQuantity(j['InvoiceDetailRecID'], input.value, div, productSourceMode)
             })
 
             downbtn.addEventListener('click', () => {
                 if (input_value > 1) {
                     input_value--
                     input.value = input_value
-                    updateQuantity(j['InvoiceDetailRecID'], input.value, div)
+                    updateQuantity(j['InvoiceDetailRecID'], input.value, div, productSourceMode)
                 }
             })
 
             input.addEventListener('input', (e) => {
                 if (input.value) {
-                    updateQuantity(j['InvoiceDetailRecID'], input.value, div)
+                    updateQuantity(j['InvoiceDetailRecID'], input.value, div, productSourceMode)
                 }
             })
 
             span.addEventListener('click', () => {
                 if (input.value) {
-                    updateQuantity(j['InvoiceDetailRecID'], input.value, div)
+                    updateQuantity(j['InvoiceDetailRecID'], input.value, div, productSourceMode)
                 } else {
                     alert('Enter amount to update!')
                 }
@@ -260,7 +261,8 @@ function wholePriceToggle(div) {
 }
 
 
-function updateQuantity(recID, orderQuantity, div) {
+function updateQuantity(recID, orderQuantity, div, productSourceMode) {
+    currentInventoryMode = productSourceMode
     fetch(`invoice-temp/updateQuantity.php?recID=${recID}&orderQuantity=${orderQuantity}`)
         .then(r => {
             // console.log(r.text())

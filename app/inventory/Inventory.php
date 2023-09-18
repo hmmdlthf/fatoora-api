@@ -102,6 +102,36 @@ class Inventory extends Db
         }
     }
 
+    public function findInventoryRecordsByRecID($recID, $mode = InventoryModes::WAREHOUSE)
+    {
+        $table = getTableNameByMode($mode);
+        $recID_columnName = getRecIDColumnName($mode);
+        $query = "SELECT [Warehouse]
+        ,$recID_columnName AS RecID
+        ,[UPC]
+        ,[SKU]
+        ,[ProductName]
+        ,[ProductNameAR]
+        ,[WholesalePrice]
+        ,[RetailPrice]
+        ,[ProductPackageTypeCode]
+        ,[ProductPackageTypeCodeAR]
+        ,[StockOnHand]
+        FROM $table
+        WHERE $recID_columnName = ?";
+
+        $statement = $this->connect()->prepare($query);
+        $statement->execute([$recID]);
+        $resultSet = $statement->fetch();
+
+        if ($resultSet > 0) {
+            return $resultSet;
+        } else {
+            return false;
+        }
+    }
+
+
     public function findProductTypes()
     {
         $query = "SELECT [RecID]
@@ -151,8 +181,10 @@ class Inventory extends Db
                 exit();
             // Check if there is enough stock.
             } else if ($currentStock >= $quantity) {
-                return true; // There is enough stock.
-            } 
+                return ['status'=> true]; // There is enough stock.
+            } else {
+                return ['status'=> false, 'StockOnHand'=> $currentStock];
+            }
         }
 
         return false; // Not enough stock.

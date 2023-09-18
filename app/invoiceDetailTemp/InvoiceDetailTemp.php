@@ -147,11 +147,36 @@ class InvoiceDetailTemp extends Db
     public function updateQuantity($recId, $newQuantity)
     {
         $record = $this->findById($recId);
-        $hasStock = (new Inventory())->hasEnoughStock($record['ProductRecID'], $newQuantity, getModeByProductSourceRecID($record['ProductSourceRecID']));
+        $totalCheckedModes = 0;
+        $mode = getModeByProductSourceRecID($record['ProductSourceRecID']);
+        $hasStock = (new Inventory())->hasEnoughStock($record['ProductRecID'], $newQuantity, $mode);
 
-        if (!$hasStock) {
+
+        if ($hasStock['status'] == false) {
+            // update the quantity to current stock
+            $currentStock = $hasStock['StockOnHand'];
+            $this->updateQuantity($recId, $currentStock);
+            $newQuantity = $newQuantity - $currentStock;
+
+            if ($totalCheckedModes < 1) {
+                $totalCheckedModes += 1;
+                $mode = getModeByProductSourceRecID(getNextProductSourceRecIDByMode($mode));
+                $hasStock = (new Inventory())->hasEnoughStock($record['ProductRecID'], $newQuantity, $mode);
+                $productSourceRecID = getProductSourceRecIDByMode($mode);
+                $existingRecord = $this->findRecordByProductRecID($record['InvoiceRecID'], $record['ProductRecID'], $mode);
+
+                if (!$hasStock || $existingRecord) {
+                    header('Content-type: application/json');
+                    echo json_encode(['status' => 'unsuccess', 'type' => 'no-stock']);
+                    exit();
+                }
+
+                $dic = ['ProductRecID' => $record['ProductRecID'], 'UnitAmount' => $record['WholesalePrice'], 'OrderQuantity' => 1, 'PriceTypeRecID' => 2, 'ProductSourceRecID' => getProductSourceRecIDByMode($mode)];
+                return $this->create($record['InvoiceRecID'], $dic);
+            }
+
             header('Content-type: application/json');
-            echo json_encode(['status'=> 'unsuccess', 'type'=> 'no-stock']);
+            echo json_encode(['status' => 'unsuccess', 'type' => 'no-stock']);
             exit();
         }
 
@@ -194,9 +219,9 @@ class InvoiceDetailTemp extends Db
         $product = (new Inventory())->findInventoryRecordsByBarcode($barcode, $mode);
         $hasStock = (new Inventory())->hasEnoughStock($product['RecID'], 1, $mode);
 
-        if (!$hasStock) {
+        if ($hasStock['status'] == false) {
             header('Content-type: application/json');
-            echo json_encode(['status'=> 'unsuccess', 'type'=> 'no-stock']);
+            echo json_encode(['status' => 'unsuccess', 'type' => 'no-stock']);
             exit();
         }
 
