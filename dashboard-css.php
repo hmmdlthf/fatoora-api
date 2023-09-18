@@ -30,7 +30,7 @@ session_check();
     <link rel="stylesheet" href="/sccs/sales-modal.css">
     <link rel="stylesheet" href="/sccs/invoice-hold-modal.css">
     <link rel="stylesheet" href="/sccs/payment-modal.css">
-    <link rel="shortcut icon" href="/favicon.svg" type="image/x-icon">
+    <link rel="shortcut icon" href="/favicon.png" type="image/x-icon">
 </head>
 
 <body>

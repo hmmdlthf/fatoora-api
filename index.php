@@ -44,7 +44,7 @@ if (isset($_POST['submit'])) {
     <link rel="stylesheet" href="/sccs/common.css">
     <link rel="stylesheet" href="/sccs/login.css">
 
-    <link rel="shortcut icon" href="/favicon.svg" type="image/x-icon">
+    <link rel="shortcut icon" href="/favicon.png" type="image/x-icon">
 </head>
 
 <body>
