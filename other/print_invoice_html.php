@@ -120,7 +120,7 @@ $Remarks        =  $invoice['Remarks'];
             window.print()
         }
     </script>
-    <div><img src="images/EmtyazLogo.png"></div>
+    <div><img src="/pos/images/EmtyazLogo.png"></div>
 
     <p>العزيزية - شارع البسالة - خلف النقل الجماعي </p>
     <p>Al Azizia Behind Mass Transit.</p>
@@ -242,9 +242,9 @@ $Remarks        =  $invoice['Remarks'];
     <p class="right"><?php echo $CustomerVAT; ?> :الرقم الضريبي </p>
     <hr>
     <svg id="barcode"></svg>
-    <script src="js/JsBarcode.all.min.js"></script>
+    <script src="/pos/js/JsBarcode.all.min.js"></script>
     <script>
-        JsBarcode("#barcode", "<?php echo $invoiceNumber ; ?>");
+        JsBarcode("#barcode", "<?php echo $invoiceNumber ; ?>", {width: 1.8});
     </script>
     <!-- <p>THANK YOU FOR SHOPPING WITH EMTYAZ</p> 
     <p>نشكرك على التسوق مع امتياز</p> -->
@@ -285,7 +285,7 @@ $Remarks        =  $invoice['Remarks'];
     <script src="http:"></script>
 
     <canvas width="100%" id="qrcode-2"></canvas>
-    <script src="js/qrious.js"></script>
+    <script src="/pos/js/qrious.js"></script>
     <script type="text/javascript">
         var qrcode = new QRious({
             element: document.getElementById("qrcode-2"),

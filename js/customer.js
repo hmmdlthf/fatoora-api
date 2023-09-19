@@ -63,7 +63,7 @@ function addCustomerToInvoice() {
     fetch(`customer/addCustomerToInvoiceTemp.php?recID=${invoiceTempRecID}${customer_code_input.value ? `&code=${customer_code_input.value}` : ''}${customer_phone_input.value ? `&phone=${customer_phone_input.value}` : ''}${customer_name_input.value ? `&name=${customer_name_input.value}` : ''}`)
         .then(r => r.json())
         .then(j => {
-            console.log(j)
+            // console.log(j)
             getCustomerByInvoiceTemp(invoiceTempRecID)
             showCustomerAddModal()
         })

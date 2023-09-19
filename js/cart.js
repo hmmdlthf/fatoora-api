@@ -192,7 +192,7 @@ function initializeCartTable() {
         .then(r => r.json())
         .then(j => {
             invoiceTempRecID = j.RecID;
-            console.log(invoiceTempRecID)
+            // console.log(invoiceTempRecID)
             invoiceTemp_CustomerRecID = j.CustomerRecID
             invoiceTemp_PriceTypeRecID = j.PriceTypeID
             emptyCart()
@@ -213,7 +213,7 @@ function getCartTotals() {
     fetch(`invoice-temp/getInvoiceTempData.php?invoiceRecID=${invoiceTempRecID}`)
         .then(r => r.json())
         .then(j => {
-            console.log(j)
+            // console.log(j)
             addTotalsToCart(j)
         })
 }
@@ -223,7 +223,7 @@ function getInvoiceDetailByInvoiceRecId() {
     fetch(`invoice-temp/getInvoiceDetailsByInvoiceRecId.php?invoiceRecID=${invoiceTempRecID}`)
         .then(r => r.json())
         .then(j => {
-            console.log(j)
+            // console.log(j)
             j.forEach((x) => {
                 addProductToCart(x);
             })
@@ -235,7 +235,7 @@ function addToCartByBarcode(barcode) {
     fetch(`invoice-temp/addToCartByBarcode.php?invoiceRecID=${invoiceTempRecID}&barcode=${barcode}&mode=${currentInventoryMode}`)
         .then(r => {
             // console.log(r.text())
-            console.log(r)
+            // console.log(r)
             return r.json()
         })
         .then(j => {
@@ -252,7 +252,7 @@ function addToCartByBarcode(barcode) {
                     // console.log('higher cost price')
                 }
             }
-            emptyCart()
+            // emptyCart()
             getInvoiceDetailByInvoiceRecId()
             getCartTotals()
         })

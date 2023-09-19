@@ -80,7 +80,7 @@ document.getElementById('inventory__search').addEventListener('input', (e) => {
 })
 
 function changeMode(mode) {
-    console.log(mode)
+    // console.log(mode)
     currentInventoryMode = mode;
 }
 
