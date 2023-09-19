@@ -31,7 +31,6 @@ function clearInvoiceNoConfirmation() {
 
 
 function addProductToCart(j) {
-    // debugger
     var cart_table = document.querySelector('#cart__table table tbody');
 
     var fields = ['Barcode', 'ProductFullName', 'ProductPackageTypeCodeAR', 'OrderQuantity', 'UnitAmount', 'TotalAmount', 'Action'];
@@ -40,13 +39,24 @@ function addProductToCart(j) {
 
     const existing_tr = document.getElementById(`invoiceDetailRecID__${j['InvoiceDetailRecID']}`);
     if (existing_tr) {
+        // debugger
         document.getElementById(`quantity_${j['InvoiceDetailRecID']}`).value = j['OrderQuantity']
 
-        if (j['PriceTypeRecID'] = "2") {
+        if (j['PriceTypeRecID'] == "2") {
             document.getElementById(`switch__${j['InvoiceDetailRecID']}`).classList.add('switch-on');
         } else {
             document.getElementById(`switch__${j['InvoiceDetailRecID']}`).classList.remove('switch-on');
         }
+
+        // Add event listener to change the price type
+        const existing_price_type_switch_input = document.getElementById(`is__wholesale__${j['InvoiceDetailRecID']}`);
+        // const existing_price_type_switch_input_listener = existing_price_type_switch_input.eventListeners.filter(eventListener => eventListener.type === 'change')[0];
+        // if (existing_price_type_switch_input_listener) {
+        //     existingElement.removeEventListener('change', existing_price_type_switch_input_listener);
+        // }
+        existing_price_type_switch_input.addEventListener('change', (e) => {
+            togglePriceType(j['InvoiceDetailRecID'], j['PriceTypeRecID']);
+        }, {once: true})
 
         document.getElementById(`unitAmount_${j['InvoiceDetailRecID']}`).innerHTML = j['UnitAmount'];
         document.getElementById(`cartRecord${j['InvoiceDetailRecID']}__TotalAmount`).innerHTML = j['TotalAmount']
@@ -145,14 +155,13 @@ function addProductToCart(j) {
             td.appendChild(span)
 
             input.addEventListener('change', (e) => {
-                togglePriceType(div, j['InvoiceDetailRecID'], j['PriceTypeRecID'])
-            })
+                togglePriceType(j['InvoiceDetailRecID'], j['PriceTypeRecID'])
+            }, {once: true})
+
+            span0.innerHTML = `${j['UnitAmount']}`
 
             if (j['PriceTypeRecID'] == "2") {
-                span0.innerHTML = `${j['WholesalePrice']}`
                 div.classList.add('switch-on')
-            } else {
-                span0.innerHTML = `${j['UnitAmount']}`
             }
 
         } else if (y == 'Action') {
@@ -167,7 +176,7 @@ function addProductToCart(j) {
     cart_table.appendChild(tr);
 
     cart_record_index++
-    
+
     is_curor_to_quantity_input ? null : resetValue()
 }
 
@@ -267,14 +276,13 @@ function deleteInvoiceDetail(recID) {
 }
 
 
-function togglePriceType(div, recID, priceTypeID) {
+function togglePriceType(recID, priceTypeID) {
     fetch(`invoice-temp/togglePriceType.php?recID=${recID}&priceTypeID=${priceTypeID}`)
         .then(r => {
             // alert(r)
-            emptyCart()
+            // emptyCart()
             getInvoiceDetailByInvoiceRecId()
             getCartTotals()
-            div.classList.toggle('switch-on')
         })
 }
 
@@ -315,10 +323,10 @@ function updateQuantity(recID, orderQuantity, div, productSourceMode) {
 function copyTempToInvoice() {
     if (confirm("Confirm to proceed")) {
         fetch(`invoice-temp/insertInvoiceTempToInvoice.php?recID=${invoiceTempRecID}`)
-        .then(r => r.json())
-        .then(j => {
-            clearInvoiceNoConfirmation()
-            printInvoice(j)
-        })
+            .then(r => r.json())
+            .then(j => {
+                clearInvoiceNoConfirmation()
+                printInvoice(j)
+            })
     }
 }
