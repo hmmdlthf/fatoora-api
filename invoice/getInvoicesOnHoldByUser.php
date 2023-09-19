@@ -1,10 +1,10 @@
 <?php
 
 $ROOT = $_SERVER["DOCUMENT_ROOT"];
-require_once $ROOT . '/vendor/autoload.php';
-require_once $ROOT . "/login/utils.php";
-require_once $ROOT . "/app/invoice/Invoice.php";
-require_once $ROOT . "/app/invoiceDetail/InvoiceDetail.php";
+require_once $ROOT . '/pos/vendor/autoload.php';
+require_once $ROOT . "/pos/login/utils.php";
+require_once $ROOT . "/pos/app/invoice/Invoice.php";
+require_once $ROOT . "/pos/app/invoiceDetail/InvoiceDetail.php";
 
 $credentials = session_get();
 

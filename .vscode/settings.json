@@ -1,0 +1,4 @@
+{
+    "debug.allowBreakpointsEverywhere": true,
+    "php.debug.executablePath": "E:\\installed_applications\\xampp\\php\\php.exe"
+}

@@ -1,10 +1,10 @@
 <?php
 
 $ROOT = $_SERVER["DOCUMENT_ROOT"];
-require_once $ROOT . '/vendor/autoload.php';
-require_once $ROOT . "/login/utils.php";
-require_once $ROOT . "/app/invoiceTemp/invoiceTemp.php";
-require_once $ROOT . "/app/constants/Constants.php";
+require_once $ROOT . '/pos/vendor/autoload.php';
+require_once $ROOT . "/pos/login/utils.php";
+require_once $ROOT . "/pos/app/invoiceTemp/invoiceTemp.php";
+require_once $ROOT . "/pos/app/constants/Constants.php";
 
 try {
     if (isset($_GET['recID']) && (isset($_GET['cardAmount']) || isset($_GET['cashAmount']))) {

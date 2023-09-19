@@ -1,8 +1,8 @@
 <?php
 
 $ROOT = $_SERVER["DOCUMENT_ROOT"];
-require_once $ROOT . '/vendor/autoload.php';
-require_once $ROOT . "/app/invoiceDetail/InvoiceDetail.php";
+require_once $ROOT . '/pos/vendor/autoload.php';
+require_once $ROOT . "/pos/app/invoiceDetail/InvoiceDetail.php";
 
 $invoiceRecId = $_GET['invoiceRecID'];
 

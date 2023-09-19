@@ -254,4 +254,4 @@
     }
 </script>
 
-<script src="/js/inventory.js"></script>
+<script src="js/inventory.js"></script>

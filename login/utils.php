@@ -1,7 +1,7 @@
 <?php
 
 $ROOT = $_SERVER["DOCUMENT_ROOT"];
-require_once $ROOT . '/app/utils/encrypt.php';
+require_once $ROOT . '/pos/app/utils/encrypt.php';
 
 function session_check()
 {
@@ -12,10 +12,10 @@ function session_check()
             session_destroy();
             $_SESSION['username'] = '';
             $_SESSION['password'] = '';
-            header("Location: /dashboard-css.php");
+            header("Location: /pos/dashboard-css.php");
         }
     } else {
-        header("Location: /index.php");
+        header("Location: /pos/index.php");
     }
 }
 

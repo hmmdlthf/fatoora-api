@@ -1,7 +1,7 @@
 <?php
 
 $ROOT = $_SERVER["DOCUMENT_ROOT"];
-require_once $ROOT . '/login/utils.php';
+require_once $ROOT . '/pos/login/utils.php';
 
 session_check();
 
@@ -17,20 +17,20 @@ session_check();
     <title>POS | Dashoard</title>
 
 
-    <link rel="stylesheet" href="/sccs/styles.css">
-    <link rel="stylesheet" href="/sccs/common.css">
-    <link rel="stylesheet" href="/sccs/forms.css">
-    <link rel="stylesheet" href="/sccs/table.css">
-    <link rel="stylesheet" href="/sccs/dashboard.css">
-    <link rel="stylesheet" href="/sccs/cart_table.css">
-    <link rel="stylesheet" href="/sccs/calculator.css">
-    <link rel="stylesheet" href="/sccs/modal.css">
-    <link rel="stylesheet" href="/sccs/inventory-modal.css">
-    <link rel="stylesheet" href="/sccs/customer-modal.css">
-    <link rel="stylesheet" href="/sccs/sales-modal.css">
-    <link rel="stylesheet" href="/sccs/invoice-hold-modal.css">
-    <link rel="stylesheet" href="/sccs/payment-modal.css">
-    <link rel="shortcut icon" href="/favicon.png" type="image/x-icon">
+    <link rel="stylesheet" href="sccs/styles.css">
+    <link rel="stylesheet" href="sccs/common.css">
+    <link rel="stylesheet" href="sccs/forms.css">
+    <link rel="stylesheet" href="sccs/table.css">
+    <link rel="stylesheet" href="sccs/dashboard.css">
+    <link rel="stylesheet" href="sccs/cart_table.css">
+    <link rel="stylesheet" href="sccs/calculator.css">
+    <link rel="stylesheet" href="sccs/modal.css">
+    <link rel="stylesheet" href="sccs/inventory-modal.css">
+    <link rel="stylesheet" href="sccs/customer-modal.css">
+    <link rel="stylesheet" href="sccs/sales-modal.css">
+    <link rel="stylesheet" href="sccs/invoice-hold-modal.css">
+    <link rel="stylesheet" href="sccs/payment-modal.css">
+    <link rel="shortcut icon" href="favicon.png" type="image/x-icon">
 </head>
 
 <body>
@@ -176,7 +176,7 @@ session_check();
     </div>
     <div class="col-3">
         <div class="header">
-            <img src="/images//EmtyazLogo.png" alt="">
+            <img src="images//EmtyazLogo.png" alt="">
             <!-- <div>شركة امتياز لخدمات التموين</div>
             <div>emtyaz for catering company</div>
             <div>رقم ضريبة القيمة المضافة</div> -->
@@ -213,26 +213,26 @@ session_check();
     </div>
 
 
-    <?php include $ROOT . '/modals/invoice-on-hold.php'; ?>
+    <?php include $ROOT . '/pos/modals/invoice-on-hold.php'; ?>
 
-    <?php include $ROOT . '/modals/sales-modal.php'; ?>
+    <?php include $ROOT . '/pos/modals/sales-modal.php'; ?>
     
-    <?php include $ROOT . '/modals/customer-modal.php'; ?>
+    <?php include $ROOT . '/pos/modals/customer-modal.php'; ?>
 
-    <?php include $ROOT . '/modals/payment-modal.php'; ?>
+    <?php include $ROOT . '/pos/modals/payment-modal.php'; ?>
     
-    <script src="/js/inventory.js"></script>
+    <script src="js/inventory.js"></script>
 
-    <?php include $ROOT . '/modals/inventory-modal.php'; ?>
+    <?php include $ROOT . '/pos/modals/inventory-modal.php'; ?>
     
-    <script src="/js/script.js"></script>
-    <script src="/js/scroll.js"></script>
-    <script src="/js/calculator.js"></script>
-    <script src="/js/session.js"></script>
-    <script src="/js/cart.js"></script>
-    <script src="/js/customer.js"></script>
-    <script src="/js/sales.js"></script>
-    <script src="/js/payment.js"></script>
+    <script src="js/script.js"></script>
+    <script src="js/scroll.js"></script>
+    <script src="js/calculator.js"></script>
+    <script src="js/session.js"></script>
+    <script src="js/cart.js"></script>
+    <script src="js/customer.js"></script>
+    <script src="js/sales.js"></script>
+    <script src="js/payment.js"></script>
 </body>
 
 </html>

@@ -2,9 +2,9 @@
 
 if (isset($_POST['submit'])) {
     $ROOT = $_SERVER["DOCUMENT_ROOT"];
-    require_once $ROOT . '/vendor/autoload.php';
-    require_once $ROOT . '/app/user/User.php';
-    require_once $ROOT . '/login/utils.php';
+    require_once $ROOT . '/pos/vendor/autoload.php';
+    require_once $ROOT . '/pos/app/user/User.php';
+    require_once $ROOT . '/pos/login/utils.php';
     
     $user = new User();
     
@@ -23,7 +23,7 @@ if (isset($_POST['submit'])) {
     
     if ($check) {
         session_config($username, $password);
-        header('Location: /dashboard-css.php');
+        header('Location: /pos/dashboard-css.php');
     } else {
         $error_message = "Login failed! wrong login or password";
     }
@@ -40,11 +40,11 @@ if (isset($_POST['submit'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>POS | Login</title>
 
-    <link rel="stylesheet" href="/sccs/styles.css">
-    <link rel="stylesheet" href="/sccs/common.css">
-    <link rel="stylesheet" href="/sccs/login.css">
+    <link rel="stylesheet" href="sccs/styles.css">
+    <link rel="stylesheet" href="sccs/common.css">
+    <link rel="stylesheet" href="sccs/login.css">
 
-    <link rel="shortcut icon" href="/favicon.png" type="image/x-icon">
+    <link rel="shortcut icon" href="favicon.png" type="image/x-icon">
 </head>
 
 <body>
@@ -52,7 +52,7 @@ if (isset($_POST['submit'])) {
     <!-- signin box -->
     <div class="login__box" id="login__box">
         <div class="header">
-            <img src="/images/EmtyazLogo.png" alt="">
+            <img src="images/EmtyazLogo.png" alt="">
         </div>
         <form action="index.php" method="post">
             <?php if (!empty($error_message)) { ?>

@@ -1,9 +1,9 @@
 <?php
 
 $ROOT = $_SERVER["DOCUMENT_ROOT"];
-require_once $ROOT . '/vendor/autoload.php';
-require_once $ROOT . "/login/utils.php";
-require_once $ROOT . "/app/inventory/Inventory.php";
+require_once $ROOT . '/pos/vendor/autoload.php';
+require_once $ROOT . "/pos/login/utils.php";
+require_once $ROOT . "/pos/app/inventory/Inventory.php";
 
 $limit_start = $_GET['start'] ?? null;
 $range = $_GET['range'] ?? null;

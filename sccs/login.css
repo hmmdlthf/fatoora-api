@@ -29,7 +29,7 @@ body::after {
   left: 0;
   right: 0;
   content: "";
-  background-image: url("/images/bg.webp");
+  background-image: url("/pos/images/bg.webp");
   background-repeat: no-repeat;
   background-size: cover;
   z-index: -1;

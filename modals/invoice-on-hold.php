@@ -132,4 +132,4 @@
     }
 </script>
 
-<script src="/js/invoiceHold.js"></script>
+<script src="js/invoiceHold.js"></script>
