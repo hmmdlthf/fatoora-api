@@ -47,16 +47,7 @@ function addProductToCart(j) {
         } else {
             document.getElementById(`switch__${j['InvoiceDetailRecID']}`).classList.remove('switch-on');
         }
-
-        // Add event listener to change the price type
-        const existing_price_type_switch_input = document.getElementById(`is__wholesale__${j['InvoiceDetailRecID']}`);
-        // const existing_price_type_switch_input_listener = existing_price_type_switch_input.eventListeners.filter(eventListener => eventListener.type === 'change')[0];
-        // if (existing_price_type_switch_input_listener) {
-        //     existingElement.removeEventListener('change', existing_price_type_switch_input_listener);
-        // }
-        existing_price_type_switch_input.addEventListener('change', (e) => {
-            togglePriceType(j['InvoiceDetailRecID'], j['PriceTypeRecID']);
-        }, {once: true})
+        document.getElementById(`is__wholesale__${j['InvoiceDetailRecID']}`).dataset.priceTypeRecId = `${j['PriceTypeRecID']}`;
 
         document.getElementById(`unitAmount_${j['InvoiceDetailRecID']}`).innerHTML = j['UnitAmount'];
         document.getElementById(`cartRecord${j['InvoiceDetailRecID']}__TotalAmount`).innerHTML = j['TotalAmount']
@@ -146,6 +137,7 @@ function addProductToCart(j) {
             input.className = `is__wholesale__switch`;
             input.setAttribute('type', 'checkbox')
             input.setAttribute('name', 'is__wholesale')
+            input.setAttribute('data-price-type-rec-id', `${j['PriceTypeRecID']}`)
 
             span0.id = `unitAmount_${j['InvoiceDetailRecID']}`;
 
@@ -154,9 +146,10 @@ function addProductToCart(j) {
             td.appendChild(span0)
             td.appendChild(span)
 
+            // debugger
             input.addEventListener('change', (e) => {
-                togglePriceType(j['InvoiceDetailRecID'], j['PriceTypeRecID'])
-            }, {once: true})
+                togglePriceType(j['InvoiceDetailRecID'], parseInt(input.dataset.priceTypeRecId))
+            })
 
             span0.innerHTML = `${j['UnitAmount']}`
 
@@ -173,7 +166,7 @@ function addProductToCart(j) {
         tr.appendChild(td);
     });
 
-    cart_table.appendChild(tr);
+    cart_table.prepend(tr);
 
     cart_record_index++
 
