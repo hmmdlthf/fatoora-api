@@ -5,6 +5,10 @@ require_once $ROOT . '/pos/vendor/autoload.php';
 
 class Db
 {
+    private $conn;
+    private $statement;
+    private $query;
+
     public function connect()
     {
         $servername = '(local)';
@@ -12,13 +16,53 @@ class Db
         $username = 'posadmin';
         $password = '123';
 
-        try {
-            $pdo = new PDO("sqlsrv:server=$servername ; Database=$dbname", $username, $password);
-            $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $connectionOptions = array(
+            "Database" => $dbname,
+            "Uid" => $username,
+            "PWD" => $password,
+            "CharacterSet" => "UTF-8"
+        );
 
-            return $pdo;
-        } catch (PDOException $th) {
-            //echo "Connection Failed " . $th->getMessage() . "<br>";
+        $conn = sqlsrv_connect($servername, $connectionOptions);
+
+        if (!$conn) {
+            die("Connection failed: " . print_r(sqlsrv_errors(), true));
         }
+
+        $this->conn = $conn;
+
+        return $this;
+    }
+
+    public function prepare($query)
+    {
+        $this->query = $query;
+        return $this;
+    }
+
+    public function execute($params = [])
+    {
+        $stmt = sqlsrv_prepare($this->conn, $this->query, $params);
+        $this->statement = $stmt;
+        $result = sqlsrv_execute($this->statement);
+        return $result;
+    }
+
+    public function fetch()
+    {
+        $row = sqlsrv_fetch_array($this->statement, SQLSRV_FETCH_ASSOC);
+
+        return $row;
+    }
+
+    public function fetchAll()
+    {
+        $rows = [];
+
+        while ($row = $this->fetch()) {
+            $rows[] = $row;
+        }
+
+        return $rows;
     }
 }

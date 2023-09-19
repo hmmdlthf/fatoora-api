@@ -31,19 +31,36 @@ function clearInvoiceNoConfirmation() {
 
 
 function addProductToCart(j) {
-
+    // debugger
     var cart_table = document.querySelector('#cart__table table tbody');
 
     var fields = ['Barcode', 'ProductFullName', 'ProductPackageTypeCodeAR', 'OrderQuantity', 'UnitAmount', 'TotalAmount', 'Action'];
 
+    var is_curor_to_quantity_input = false;
+
+    const existing_tr = document.getElementById(`invoiceDetailRecID__${j['InvoiceDetailRecID']}`);
+    if (existing_tr) {
+        document.getElementById(`quantity_${j['InvoiceDetailRecID']}`).value = j['OrderQuantity']
+
+        if (j['PriceTypeRecID'] = "2") {
+            document.getElementById(`switch__${j['InvoiceDetailRecID']}`).classList.add('switch-on');
+        } else {
+            document.getElementById(`switch__${j['InvoiceDetailRecID']}`).classList.remove('switch-on');
+        }
+
+        document.getElementById(`unitAmount_${j['InvoiceDetailRecID']}`).innerHTML = j['UnitAmount'];
+        document.getElementById(`cartRecord${j['InvoiceDetailRecID']}__TotalAmount`).innerHTML = j['TotalAmount']
+        return;
+    }
 
     tr = document.createElement('tr');
+    tr.id = `invoiceDetailRecID__${j['InvoiceDetailRecID']}`
     tr.className = j['ProductSourceRecID'] ? j['ProductSourceRecID'] == 2 ? 'showroom__record' : '' : null
     let productSourceMode = j['ProductSourceRecID'] ? j['ProductSourceRecID'] == 2 ? inventoryModes.SHOWROOM : inventoryModes.WAREHOUSE : inventoryModes.WAREHOUSE
 
     fields.forEach(y => {
         td = document.createElement('td');
-        td.id = `cartRecord${cart_record_index}__${y}`;
+        td.id = `cartRecord${j['InvoiceDetailRecID']}__${y}`;
 
         if (y == 'OrderQuantity') {
             let div = document.createElement('div');
@@ -90,7 +107,10 @@ function addProductToCart(j) {
 
             input.addEventListener('input', (e) => {
                 if (input.value) {
-                    updateQuantity(j['InvoiceDetailRecID'], input.value, div, productSourceMode)
+                    updateQuantity(j['InvoiceDetailRecID'], input.value, div, productSourceMode).then(() => {
+                        is_curor_to_quantity_input = true
+                        input.focus();
+                    })
                 }
             })
 
@@ -116,6 +136,9 @@ function addProductToCart(j) {
             input.className = `is__wholesale__switch`;
             input.setAttribute('type', 'checkbox')
             input.setAttribute('name', 'is__wholesale')
+
+            span0.id = `unitAmount_${j['InvoiceDetailRecID']}`;
+
             div.appendChild(input)
             span.appendChild(div)
             td.appendChild(span0)
@@ -144,8 +167,8 @@ function addProductToCart(j) {
     cart_table.appendChild(tr);
 
     cart_record_index++
-
-    resetValue() // reset calculator value
+    
+    is_curor_to_quantity_input ? null : resetValue()
 }
 
 
@@ -263,7 +286,7 @@ function wholePriceToggle(div) {
 
 function updateQuantity(recID, orderQuantity, div, productSourceMode) {
     currentInventoryMode = productSourceMode
-    fetch(`invoice-temp/updateQuantity.php?recID=${recID}&orderQuantity=${orderQuantity}`)
+    return fetch(`invoice-temp/updateQuantity.php?recID=${recID}&orderQuantity=${orderQuantity}`)
         .then(r => {
             // console.log(r.text())
             return r.json()
@@ -282,10 +305,9 @@ function updateQuantity(recID, orderQuantity, div, productSourceMode) {
                     // console.log('higher cost price')
                 }
             }
-            emptyCart()
+            // emptyCart()
             getInvoiceDetailByInvoiceRecId()
             getCartTotals()
-            div.classList.toggle('switch-on')
         })
 }
 

@@ -182,7 +182,7 @@ class Invoice extends Db
     
         $statement = $this->connect()->prepare($query);
         $statement->execute();
-        $lastInvoiceNumber = $statement->fetchColumn();
+        $lastInvoiceNumber = $statement->fetch()['InvoiceNumber'];
     
         // Extract the integer part of the invoice number using regex
         if (preg_match('/(\d+)/', $lastInvoiceNumber, $matches)) {

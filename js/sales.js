@@ -64,7 +64,7 @@ function addInvoicesJsonToTable(j) {
 
 function printInvoice(recID) {
     const originUrl = window.location.origin;
-    window.open(`${originUrl}/other/print_invoice_html.php?invoiceRecID=${recID}`, 'Print Window', 'width=800,height=800' )
+    window.open(`${originUrl}/pos/other/print_invoice_html.php?invoiceRecID=${recID}`, 'Print Window', 'width=800,height=800' )
 }
 
 

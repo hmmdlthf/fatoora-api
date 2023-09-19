@@ -171,7 +171,7 @@ class InvoiceDetailTemp extends Db
                     exit();
                 }
 
-                $dic = ['ProductRecID' => $record['ProductRecID'], 'UnitAmount' => $record['WholesalePrice'], 'OrderQuantity' => 1, 'PriceTypeRecID' => 2, 'ProductSourceRecID' => getProductSourceRecIDByMode($mode)];
+                $dic = ['ProductRecID' => $record['ProductRecID'], 'UnitAmount' => $record['WholesalePrice'], 'OrderQuantity' => $newQuantity, 'PriceTypeRecID' => 2, 'ProductSourceRecID' => getProductSourceRecIDByMode($mode)];
                 return $this->create($record['InvoiceRecID'], $dic);
             }
 
