@@ -7,7 +7,7 @@ function getInvoices() {
     fetch(`invoice/getInvoicesByUser.php?start=${start}&range=${range}`)
         .then(r => r.json())
         .then(j => {
-            // console.log(j)
+            console.log(j)
             addInvoicesJsonToTable(j);
         })
 }

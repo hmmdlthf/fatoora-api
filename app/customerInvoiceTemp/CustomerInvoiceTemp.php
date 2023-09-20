@@ -53,9 +53,9 @@ class CustomerInvoiceTemp extends Db
 		,c.[Name]
 		,c.[NameAR]
 		,c.[Phone]
-        FROM [saudipos].[POS].[InvoiceTemporary] it
-        INNER JOIN [saudipos].[Business].[Customer] c ON c.[RecID] = it.[CustomerRecID]
-        INNER JOIN [saudipos].[CodeMaster].[PriceType] pt ON it.[PriceTypeRecID] = pt.[RecID]
+        FROM [Emtyaz].[POS].[InvoiceTemporary] it
+        INNER JOIN [Emtyaz].[Business].[Customer] c ON c.[RecID] = it.[CustomerRecID]
+        INNER JOIN [Emtyaz].[CodeMaster].[PriceType] pt ON it.[PriceTypeRecID] = pt.[RecID]
         WHERE it.[RecID] = '" . $recID . "'";
 
         $statement = $this->connect()->prepare($query);

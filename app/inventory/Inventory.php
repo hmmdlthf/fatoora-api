@@ -139,7 +139,7 @@ class Inventory extends Db
         ,[Code]
         ,[Name]
         ,[NameAR]
-        FROM [saudipos].[CodeMaster].[ProductType]";
+        FROM [Emtyaz].[CodeMaster].[ProductType]";
 
         $statement = $this->connect()->prepare($query);
         $statement->execute();

@@ -46,8 +46,8 @@ class InvoiceDetail extends Db
         ,vidt.[WholesalePrice]
         ,vidt.[TotalAmount]
         ,idt.[PriceTypeRecID]
-        FROM [saudipos].[POS].[V_InvoiceDetail] vidt
-        INNER JOIN [saudipos].[POS].[InvoiceDetail] idt ON vidt.InvoiceRecID = idt.RecID
+        FROM [Emtyaz].[POS].[V_InvoiceDetail] vidt
+        INNER JOIN [Emtyaz].[POS].[InvoiceDetail] idt ON vidt.InvoiceRecID = idt.RecID
         WHERE vidt.InvoiceRecID = ? 
         ORDER BY idt.RecID DESC";
 
@@ -64,9 +64,9 @@ class InvoiceDetail extends Db
 
     public function deleteAllByInvoiceNumber($invoiceNumber)
     {
-        $query = "DELETE FROM [saudipos].[POS].[InvoiceDetail]
-        WHERE [saudipos].[POS].[InvoiceDetail].[InvoiceRecID] = 
-            (SELECT [RecID] FROM [saudipos].[POS].[Invoice] WHERE [InvoiceNumber] = ?)";
+        $query = "DELETE FROM [Emtyaz].[POS].[InvoiceDetail]
+        WHERE [Emtyaz].[POS].[InvoiceDetail].[InvoiceRecID] = 
+            (SELECT [RecID] FROM [Emtyaz].[POS].[Invoice] WHERE [InvoiceNumber] = ?)";
 
         $statement = $this->connect()->prepare($query);
         $statement->execute([$invoiceNumber]);

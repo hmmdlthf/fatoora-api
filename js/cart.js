@@ -192,7 +192,7 @@ function initializeCartTable() {
         .then(r => r.json())
         .then(j => {
             invoiceTempRecID = j.RecID;
-            // console.log(invoiceTempRecID)
+            console.log(invoiceTempRecID)
             invoiceTemp_CustomerRecID = j.CustomerRecID
             invoiceTemp_PriceTypeRecID = j.PriceTypeID
             emptyCart()
@@ -213,7 +213,7 @@ function getCartTotals() {
     fetch(`invoice-temp/getInvoiceTempData.php?invoiceRecID=${invoiceTempRecID}`)
         .then(r => r.json())
         .then(j => {
-            // console.log(j)
+            console.log(j)
             addTotalsToCart(j)
         })
 }
@@ -223,7 +223,7 @@ function getInvoiceDetailByInvoiceRecId() {
     fetch(`invoice-temp/getInvoiceDetailsByInvoiceRecId.php?invoiceRecID=${invoiceTempRecID}`)
         .then(r => r.json())
         .then(j => {
-            // console.log(j)
+            console.log(j)
             j.forEach((x) => {
                 addProductToCart(x);
             })
@@ -234,8 +234,8 @@ function getInvoiceDetailByInvoiceRecId() {
 function addToCartByBarcode(barcode) {
     fetch(`invoice-temp/addToCartByBarcode.php?invoiceRecID=${invoiceTempRecID}&barcode=${barcode}&mode=${currentInventoryMode}`)
         .then(r => {
-            // console.log(r.text())
-            // console.log(r)
+            // not console.log(r.text())
+            // not console.log(r)
             return r.json()
         })
         .then(j => {
@@ -245,11 +245,11 @@ function addToCartByBarcode(barcode) {
                 }
             } else if (j['status'] == 'unsuccess' && j['type'] == 'exceeds-sellable-max') {
                 if (confirm('This exceeds the maximum allowd sellable quantity')) {
-                    // console.log('this exceeds the max')
+                    console.log('this exceeds the max')
                 }
             } else if (j['status'] == 'unsuccess' && j['type'] == 'higher-cost-price') {
                 if (confirm('The cost price of this product is higher than the selling price')) {
-                    // console.log('higher cost price')
+                    console.log('higher cost price')
                 }
             }
             // emptyCart()
@@ -289,7 +289,7 @@ function updateQuantity(recID, orderQuantity, div, productSourceMode) {
     currentInventoryMode = productSourceMode
     return fetch(`invoice-temp/updateQuantity.php?recID=${recID}&orderQuantity=${orderQuantity}`)
         .then(r => {
-            // console.log(r.text())
+            // not console.log(r.text())
             return r.json()
         })
         .then(j => {
@@ -299,11 +299,11 @@ function updateQuantity(recID, orderQuantity, div, productSourceMode) {
                 }
             } else if (j['status'] == 'unsuccess' && j['type'] == 'exceeds-sellable-max') {
                 if (confirm('This exceeds the maximum allowd sellable quantity')) {
-                    // console.log('this exceeds the max')
+                    console.log('this exceeds the max')
                 }
             } else if (j['status'] == 'unsuccess' && j['type'] == 'higher-cost-price') {
                 if (confirm('The cost price of this product is higher than the selling price')) {
-                    // console.log('higher cost price')
+                    console.log('higher cost price')
                 }
             }
             // emptyCart()

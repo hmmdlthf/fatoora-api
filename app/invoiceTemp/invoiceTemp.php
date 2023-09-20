@@ -22,7 +22,7 @@ class InvoiceTemp extends Db
         ,[TotalVATAmount]
         ,[GrandTotal]
         ,[BalanceAmount]
-        FROM [saudipos].[POS].[InvoiceTemporary]
+        FROM [Emtyaz].[POS].[InvoiceTemporary]
         WHERE [RecID] = '" . $recId . "'";
 
         $statement = $this->connect()->prepare($query);
@@ -46,7 +46,7 @@ class InvoiceTemp extends Db
         ,[TotalVATAmount]
         ,[GrandTotal]
         ,[BalanceAmount]
-        FROM [saudipos].[POS].[InvoiceTemporary]
+        FROM [Emtyaz].[POS].[InvoiceTemporary]
         WHERE [InvoiceNumber] = '" . $invoiceNumber . "'";
 
         $statement = $this->connect()->prepare($query);
@@ -92,7 +92,7 @@ class InvoiceTemp extends Db
         ,[CollectionBy]
         ,[CollectionDate]
         ,[CollectionTime]
-        FROM [saudipos].[POS].[InvoiceTemporary]
+        FROM [Emtyaz].[POS].[InvoiceTemporary]
         WHERE [RecID] = '" . $recId . "'";
 
         $statement = $this->connect()->prepare($query);
@@ -108,7 +108,7 @@ class InvoiceTemp extends Db
 
     public function create($username)
     {
-        $query = "INSERT INTO [saudipos].[POS].[InvoiceTemporary] ([CreatedBy]) OUTPUT Inserted.RecID VALUES (?)";
+        $query = "INSERT INTO [Emtyaz].[POS].[InvoiceTemporary] ([CreatedBy]) OUTPUT Inserted.RecID VALUES (?)";
 
         $statement = $this->connect()->prepare($query);
         $statement->execute([$username]);
@@ -123,7 +123,7 @@ class InvoiceTemp extends Db
 
     public function updateTotals($recId, $totalSubTotal, $totalVATAmount, $grandTotal, $balanceAmount)
     {
-        $query = "UPDATE [saudipos].[POS].[InvoiceTemporary]
+        $query = "UPDATE [Emtyaz].[POS].[InvoiceTemporary]
               SET [TotalSubTotal] = ?,
                   [TotalVATAmount] = ?,
                   [GrandTotal] = ?,
@@ -138,7 +138,7 @@ class InvoiceTemp extends Db
 
     public function updateInvoiceNumber($recId, $invoiceNumber)
     {
-        $query = "UPDATE [saudipos].[POS].[InvoiceTemporary]
+        $query = "UPDATE [Emtyaz].[POS].[InvoiceTemporary]
               SET [InvoiceNumber] = ?
               WHERE [RecID] = ?";
 
@@ -150,7 +150,7 @@ class InvoiceTemp extends Db
 
     public function delete($recId)
     {
-        $query = "DELETE FROM [saudipos].[POS].[InvoiceTemporary] WHERE [RecID] = ?";
+        $query = "DELETE FROM [Emtyaz].[POS].[InvoiceTemporary] WHERE [RecID] = ?";
 
         $statement = $this->connect()->prepare($query);
         $result = $statement->execute([$recId]);
@@ -215,7 +215,7 @@ class InvoiceTemp extends Db
 
         $currentDate = date("Y-m-d");
 
-        $queryInvoice = "INSERT INTO [saudipos].[POS].[Invoice] (
+        $queryInvoice = "INSERT INTO [Emtyaz].[POS].[Invoice] (
             [CustomerCode],
             [CustomerRecID],
             [PriceTypeRecID],
@@ -277,8 +277,8 @@ class InvoiceTemp extends Db
             [CollectionBy],
             [CollectionDate],
             [CollectionTime]
-        FROM [saudipos].[POS].[InvoiceTemporary]
-        WHERE [saudipos].[POS].[InvoiceTemporary].[RecID] = '" . $recId . "'";
+        FROM [Emtyaz].[POS].[InvoiceTemporary]
+        WHERE [Emtyaz].[POS].[InvoiceTemporary].[RecID] = '" . $recId . "'";
 
         $statement = $this->connect()->prepare($queryInvoice);
         $statement->execute();
@@ -299,7 +299,7 @@ class InvoiceTemp extends Db
 
     public function InsertInvoiceToInvoiceTemp($recId)
     {
-        $queryInvoice = "INSERT INTO [saudipos].[POS].[InvoiceTemporary] (
+        $queryInvoice = "INSERT INTO [Emtyaz].[POS].[InvoiceTemporary] (
             [CustomerCode],
             [CustomerRecID],
             [PriceTypeRecID],
@@ -361,8 +361,8 @@ class InvoiceTemp extends Db
             [CollectionBy],
             [CollectionDate],
             [CollectionTime]
-        FROM [saudipos].[POS].[Invoice]
-        WHERE [saudipos].[POS].[Invoice].[RecID] = '" . $recId . "'";
+        FROM [Emtyaz].[POS].[Invoice]
+        WHERE [Emtyaz].[POS].[Invoice].[RecID] = '" . $recId . "'";
 
         $statement = $this->connect()->prepare($queryInvoice);
         $statement->execute();
@@ -380,7 +380,7 @@ class InvoiceTemp extends Db
         $invoiceNumber = $invoiceTemp['InvoiceNumber'];
 
         // First, update the existing invoice record
-        $updateInvoiceQuery = "UPDATE [saudipos].[POS].[Invoice]
+        $updateInvoiceQuery = "UPDATE [Emtyaz].[POS].[Invoice]
                             SET [CustomerCode] = it.[CustomerCode],
                                 [CustomerRecID] = it.[CustomerRecID],
                                 [PriceTypeRecID] = it.[PriceTypeRecID],
@@ -408,8 +408,8 @@ class InvoiceTemp extends Db
                                 [CollectionBy] = it.[CollectionBy],
                                 [CollectionDate] = it.[CollectionDate],
                                 [CollectionTime] = it.[CollectionTime]
-                            FROM [saudipos].[POS].[InvoiceTemporary] AS it
-                            WHERE [saudipos].[POS].[Invoice].[InvoiceNumber] = it.[InvoiceNumber]";
+                            FROM [Emtyaz].[POS].[InvoiceTemporary] AS it
+                            WHERE [Emtyaz].[POS].[Invoice].[InvoiceNumber] = it.[InvoiceNumber]";
 
         $updateInvoiceStatement = $this->connect()->prepare($updateInvoiceQuery);
         $updateInvoiceStatement->execute([$invoiceNumber, $invoiceNumber]);
@@ -442,14 +442,14 @@ class InvoiceTemp extends Db
             $paymentMethodRecID = 5;
         }
 
-        $queryGetGrandTotal = "SELECT [GrandTotal] FROM [saudipos].[POS].[InvoiceTemporary] WHERE [RecID] = ?";
+        $queryGetGrandTotal = "SELECT [GrandTotal] FROM [Emtyaz].[POS].[InvoiceTemporary] WHERE [RecID] = ?";
         $statementGetGrandTotal = $this->connect()->prepare($queryGetGrandTotal);
         $statementGetGrandTotal->execute([$recId]);
         $grandTotalResult = $statementGetGrandTotal->fetch()['GrandTotal'] ?? null;
         $grandTotal = $grandTotalResult ? $grandTotalResult : 0;
         $balanceAmount = $total_amount_given - $grandTotal;
 
-        $query = "UPDATE [saudipos].[POS].[InvoiceTemporary]
+        $query = "UPDATE [Emtyaz].[POS].[InvoiceTemporary]
             SET [PaymentMethodRecID] = ?, [BalanceAmount] = ? $condition
           WHERE [RecID] = ?";
 

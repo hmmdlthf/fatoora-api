@@ -8,7 +8,7 @@ class User extends Db
 {
     public function getPasswordHash($login)
     {
-        $query = "SELECT [login],[pswd] FROM [saudipos].[POS].[V_POS_Operator] WHERE [login] = '". $login ."'";
+        $query = "SELECT [login],[pswd] FROM [Emtyaz].[POS].[V_POS_Operator] WHERE [login] = '". $login ."'";
 
         $statement = $this->connect()->prepare($query);
         $statement->execute();

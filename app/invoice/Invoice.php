@@ -18,7 +18,7 @@ class Invoice extends Db
         ,[InvoiceDate]
         ,[CashierPerson]
         ,[GrandTotal]
-        FROM [saudipos].[POS].[V_Invoice]
+        FROM [Emtyaz].[POS].[V_Invoice]
         WHERE [CreatedBy] = '" . $username . "'
         ORDER BY RecID
         OFFSET " . $limit_start . " ROWS
@@ -47,7 +47,7 @@ class Invoice extends Db
         ,[InvoiceDate]
         ,[CashierPerson]
         ,[GrandTotal]
-        FROM [saudipos].[POS].[V_Invoice]
+        FROM [Emtyaz].[POS].[V_Invoice]
         WHERE [CreatedBy] = '" . $userRecID . "'
         ORDER BY RecID
         OFFSET " . $limit_start . " ROWS
@@ -76,7 +76,7 @@ class Invoice extends Db
         ,[InvoiceDate]
         ,[CashierPerson]
         ,[GrandTotal]
-        FROM [saudipos].[POS].[V_Invoice]
+        FROM [Emtyaz].[POS].[V_Invoice]
         WHERE [CreatedBy] = ? AND [StatusRecID] = 4
         ORDER BY RecID";
 
@@ -99,7 +99,7 @@ class Invoice extends Db
         ,[InvoiceDate]
         ,[CashierPerson]
         ,[GrandTotal]
-        FROM [saudipos].[POS].[V_Invoice]
+        FROM [Emtyaz].[POS].[V_Invoice]
         WHERE [CreatedBy] = '" . $userRecID . "', [StatusRecID] = 4
         ORDER BY RecID
         OFFSET " . $limit_start . " ROWS
@@ -159,7 +159,7 @@ class Invoice extends Db
         ,[InvoiceDate]
         ,[CashierPerson]
         ,[GrandTotal]
-        FROM [saudipos].[POS].[V_Invoice] 
+        FROM [Emtyaz].[POS].[V_Invoice] 
         WHERE [InvoiceNumber] = ?";
 
         $statement = $this->connect()->prepare($query);
@@ -177,7 +177,7 @@ class Invoice extends Db
     {
         // Query for the last entered invoice number
         $query = "SELECT TOP 1 [InvoiceNumber]
-                  FROM [saudipos].[POS].[Invoice]
+                  FROM [Emtyaz].[POS].[Invoice]
                   ORDER BY [RecID] DESC";
     
         $statement = $this->connect()->prepare($query);
@@ -198,7 +198,7 @@ class Invoice extends Db
 
     public function makeInvoiceHold($recID)
     {
-        $query = "UPDATE [saudipos].[POS].[Invoice]
+        $query = "UPDATE [Emtyaz].[POS].[Invoice]
         SET StatusRecID = 4
         WHERE RecID = ?";
 

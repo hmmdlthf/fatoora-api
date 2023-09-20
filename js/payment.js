@@ -4,7 +4,7 @@ var paymentInputs = [{ name: 'cash', isEnabled: true, amount: 0 }, { name: 'card
 function addPaymentToInvoice() {
     fetch(`invoice-temp/addPayment.php?recID=${invoiceTempRecID}${paymentInputs[0].isEnabled ? `&cashAmount=${paymentInputs[0].amount}` : ''}${paymentInputs[1].isEnabled ? `&cardAmount=${paymentInputs[1].amount}` : ''}`)
         .then(r => {
-            // console.log(r)
+            console.log(r)
             getCartTotals()
             showPaymentModal()
         })

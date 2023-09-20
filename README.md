@@ -55,7 +55,7 @@ Ensure that you have the SQL Server drivers installed and properly configured on
 
 ### [POS].[V_ProductRetail_InventoryR] View,
 
-### [POS].[V_ProductRetail_InventoryR] View
+### [POS].[V_ProductRetail_InventoryW] View
 
 - Added a new column: `RetailPrice`.
 
@@ -161,6 +161,6 @@ Ensure that you have the SQL Server drivers installed and properly configured on
 
 ```sql
     -- Existing code,
-    POS.InvoiceDetailTemporary.ProductSourceRecID
+    POS.InvoiceDetail.ProductSourceRecID
     -- Existing code,
 ```

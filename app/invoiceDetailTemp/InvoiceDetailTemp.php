@@ -22,7 +22,7 @@ class InvoiceDetailTemp extends Db
         ,[WholesalePrice]
         ,[TotalAmount]
         ,[ProductSourceRecID]
-        FROM [saudipos].[POS].[V_InvoiceDetailTemporary]
+        FROM [Emtyaz].[POS].[V_InvoiceDetailTemporary]
         WHERE [InvoiceDetailRecID] = '" . $recId . "'";
 
         $statement = $this->connect()->prepare($query);
@@ -47,7 +47,7 @@ class InvoiceDetailTemp extends Db
                          ,[SubTotal]
                          ,[SalesTaxAmount]
                          ,[TotalAmount]
-                  FROM [saudipos].[POS].[InvoiceDetailTemporary]
+                  FROM [Emtyaz].[POS].[InvoiceDetailTemporary]
                   WHERE [InvoiceRecID] = ?";
 
         $statement = $this->connect()->prepare($query);
@@ -77,8 +77,8 @@ class InvoiceDetailTemp extends Db
         ,vidt.[TotalAmount]
         ,idt.[PriceTypeRecID]
         ,idt.[ProductSourceRecID]
-        FROM [saudipos].[POS].[V_InvoiceDetailTemporary] vidt
-        INNER JOIN [saudipos].[POS].[InvoiceDetailTemporary] idt ON vidt.InvoiceDetailRecID = idt.RecID
+        FROM [Emtyaz].[POS].[V_InvoiceDetailTemporary] vidt
+        INNER JOIN [Emtyaz].[POS].[InvoiceDetailTemporary] idt ON vidt.InvoiceDetailRecID = idt.RecID
         WHERE vidt.InvoiceRecID = ? 
         ORDER BY idt.RecID";
 
@@ -102,7 +102,7 @@ class InvoiceDetailTemp extends Db
     {
         // $totalAmount = $this->calculateTotalAmount($dic['UnitAmount'], $dic['OrderQuantity']);
 
-        $query = "INSERT INTO [saudipos].[POS].[InvoiceDetailTemporary]
+        $query = "INSERT INTO [Emtyaz].[POS].[InvoiceDetailTemporary]
         ([InvoiceRecID]
         ,[ProductRecID]
         ,[UnitAmount]
@@ -131,7 +131,7 @@ class InvoiceDetailTemp extends Db
             $unitAmount = $existingRecord['RetailPrice'];
         }
 
-        $query = "UPDATE [saudipos].[POS].[InvoiceDetailTemporary]
+        $query = "UPDATE [Emtyaz].[POS].[InvoiceDetailTemporary]
                   SET [PriceTypeRecID] = ?, [UnitAmount] = ?
                     OUTPUT Inserted.[InvoiceRecID]
                   WHERE [RecID] = ?";
@@ -180,7 +180,7 @@ class InvoiceDetailTemp extends Db
             exit();
         }
 
-        $query = "UPDATE [saudipos].[POS].[InvoiceDetailTemporary]
+        $query = "UPDATE [Emtyaz].[POS].[InvoiceDetailTemporary]
                   SET [OrderQuantity] = ?
                   OUTPUT Inserted.[InvoiceRecID]
                   WHERE [RecID] = ?";
@@ -202,7 +202,7 @@ class InvoiceDetailTemp extends Db
         }
 
         // Delete the record
-        $query = "DELETE FROM [saudipos].[POS].[InvoiceDetailTemporary] 
+        $query = "DELETE FROM [Emtyaz].[POS].[InvoiceDetailTemporary] 
         OUTPUT Deleted.[InvoiceRecID] 
         WHERE [RecID] = ?";
 
@@ -247,7 +247,7 @@ class InvoiceDetailTemp extends Db
     {
         $productSourceRecID = getProductSourceRecIDByMode($mode);
         $query = "SELECT [RecID], [OrderQuantity]
-                  FROM [saudipos].[POS].[InvoiceDetailTemporary]
+                  FROM [Emtyaz].[POS].[InvoiceDetailTemporary]
                   WHERE [InvoiceRecID] = ? AND [ProductRecID] = ? AND [ProductSourceRecID] = ?";
 
         $statement = $this->connect()->prepare($query);
@@ -259,7 +259,7 @@ class InvoiceDetailTemp extends Db
 
     public function insertInvoiceDetailTempToInvoiceDetailByInvoiceRecId($invoiceTempRecID, $invoiceRecID)
     {
-        $queryInvoiceDetail = "INSERT INTO [saudipos].[POS].[InvoiceDetail] (
+        $queryInvoiceDetail = "INSERT INTO [Emtyaz].[POS].[InvoiceDetail] (
             [InvoiceRecID],
             [PriceTypeRecID],
             [ProductRecID],
@@ -296,7 +296,7 @@ class InvoiceDetailTemp extends Db
             [ModifiedBy],
             [ModifiedDate],
             [ProductSourceRecID]
-        FROM [saudipos].[POS].[InvoiceDetailTemporary]
+        FROM [Emtyaz].[POS].[InvoiceDetailTemporary]
         WHERE [InvoiceRecID] = '" . $invoiceTempRecID . "'";
 
         $statement = $this->connect()->prepare($queryInvoiceDetail);
@@ -306,7 +306,7 @@ class InvoiceDetailTemp extends Db
 
     public function insertInvoiceDetailToInvoiceDetailTempByInvoiceTempRecId($invoiceRecID, $invoiceTempRecID)
     {
-        $queryInvoiceDetail = "INSERT INTO [saudipos].[POS].[InvoiceDetailTemporary] (
+        $queryInvoiceDetail = "INSERT INTO [Emtyaz].[POS].[InvoiceDetailTemporary] (
             [InvoiceRecID],
             [PriceTypeRecID],
             [ProductRecID],
@@ -343,7 +343,7 @@ class InvoiceDetailTemp extends Db
             [ModifiedBy],
             [ModifiedDate],
             [ProductSourceRecID]
-        FROM [saudipos].[POS].[InvoiceDetail]
+        FROM [Emtyaz].[POS].[InvoiceDetail]
         WHERE [InvoiceRecID] = '" . $invoiceRecID . "'";
 
         $statement = $this->connect()->prepare($queryInvoiceDetail);

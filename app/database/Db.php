@@ -12,7 +12,7 @@ class Db
     public function connect()
     {
         $servername = '(local)';
-        $dbname = 'saudipos';
+        $dbname = 'Emtyaz';
         $username = 'posadmin';
         $password = '123';
 

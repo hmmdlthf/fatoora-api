@@ -18,7 +18,7 @@ function getInvoicesOnHold() {
     fetch(`invoice/getInvoicesOnHoldByUser.php?start=${start}&range=${range}`)
         .then(r => r.json())
         .then(j => {
-            // console.log(j)
+            console.log(j)
             addInvoicesOnHoldJsonToTable(j);
         })
 }
@@ -28,7 +28,7 @@ function getInvoiceDetailsOnHoldByInvoiceRecId(invoiceOnHoldElement) {
     fetch(`invoice/getInvoiceDetailsByInvoiceRecId.php?invoiceRecID=${invoiceTempRecID}`)
         .then(r => r.json())
         .then(j => {
-            // console.log(j)
+            console.log(j)
             j.forEach((x) => {
                 addProductToCart(x);
             })

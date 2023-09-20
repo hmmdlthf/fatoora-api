@@ -14,7 +14,7 @@ class Customer extends Db
         ,[Name]
         ,[NameAR]
         ,[Phone]
-        FROM [saudipos].[Business].[Customer]
+        FROM [Emtyaz].[Business].[Customer]
         WHERE [RecID] = '" . $recID . "'";
 
         $statement = $this->connect()->prepare($query);
@@ -50,7 +50,7 @@ class Customer extends Db
         ,[Name]
         ,[NameAR]
         ,[Phone]
-        FROM [saudipos].[Business].[Customer]
+        FROM [Emtyaz].[Business].[Customer]
         WHERE [Name] LIKE '%" . $term . "%'";
 
         $statement = $this->connect()->prepare($query);

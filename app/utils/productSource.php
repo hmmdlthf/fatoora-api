@@ -16,7 +16,7 @@ function getProductSourceRecIDByMode($mode)
 
 function getTableNameByMode($mode)
 {
-    return $mode == InventoryModes::WAREHOUSE ? '[saudipos].[POS].[V_ProductRetail_InventoryW]' : '[saudipos].[POS].[V_ProductRetail_InventoryR]';
+    return $mode == InventoryModes::WAREHOUSE ? '[Emtyaz].[POS].[V_ProductRetail_InventoryW]' : '[Emtyaz].[POS].[V_ProductRetail_InventoryR]';
 }
 
 function getRecIDColumnName($mode)
