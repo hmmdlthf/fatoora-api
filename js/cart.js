@@ -108,6 +108,7 @@ function addProductToCart(j) {
 
             input.addEventListener('input', (e) => {
                 if (input.value) {
+                    input_value = input.value
                     updateQuantity(j['InvoiceDetailRecID'], input.value, div, productSourceMode).then(() => {
                         is_curor_to_quantity_input = true
                         input.focus();

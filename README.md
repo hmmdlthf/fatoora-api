@@ -53,17 +53,6 @@ Ensure that you have the SQL Server drivers installed and properly configured on
 
 ## Database Changes
 
-### [POS].[V_ProductRetail_InventoryR] View,
-
-### [POS].[V_ProductRetail_InventoryW] View
-
-- Added a new column: `RetailPrice`.
-
-```sql
-    -- Existing code,
-    Inventory.Product.RetailPrice,
-    -- Existing code
-```
 
 ### [CodeMaster].[PaymentMethod] Table
 
@@ -147,11 +136,13 @@ Ensure that you have the SQL Server drivers installed and properly configured on
 
 - Added a new column: `RetailPrice`.
 - Added a new column: `ProductSourceRecID`.
+- Added a new column: `PriceTypeRecID`
 
 ```sql
     -- Existing code,
     CONVERT(DECIMAL(10, 2), Inventory.V_Product.RetailPrice) AS RetailPrice,
     POS.InvoiceDetailTemporary.ProductSourceRecID
+    POS.InvoiceDetailTemporary.PriceTypeRecID
     -- Existing code,
 ```
 

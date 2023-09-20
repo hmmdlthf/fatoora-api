@@ -23,10 +23,10 @@ class InvoiceDetailTemp extends Db
         ,[TotalAmount]
         ,[ProductSourceRecID]
         FROM [Emtyaz].[POS].[V_InvoiceDetailTemporary]
-        WHERE [InvoiceDetailRecID] = '" . $recId . "'";
+        WHERE [InvoiceDetailRecID] = ?";
 
         $statement = $this->connect()->prepare($query);
-        $statement->execute();
+        $statement->execute([$recId]);
         $resultSet = $statement->fetch();
 
         if ($resultSet > 0) {
