@@ -19,7 +19,7 @@ class Invoice extends Db
         ,[CashierPerson]
         ,[GrandTotal]
         FROM [Emtyaz].[POS].[V_Invoice]
-        WHERE [CreatedBy] = '" . $username . "'
+        WHERE [CreatedBy] = '" . $username . "' AND (StatusRecID = 1 OR StatusRecID = 2)
         ORDER BY RecID
         OFFSET " . $limit_start . " ROWS
         FETCH NEXT " . ($range) . " ROWS ONLY";

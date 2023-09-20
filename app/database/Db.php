@@ -20,7 +20,8 @@ class Db
             "Database" => $dbname,
             "Uid" => $username,
             "PWD" => $password,
-            "CharacterSet" => "UTF-8"
+            "CharacterSet" => "UTF-8",
+            "ReturnDatesAsStrings" => true
         );
 
         $conn = sqlsrv_connect($servername, $connectionOptions);
