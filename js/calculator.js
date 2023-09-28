@@ -3,7 +3,7 @@ var calc_input_value = '';
 
 window.onload = focusInput
 
-document.querySelectorAll('.calc__btn').forEach((x) => {
+document.querySelectorAll('.dashboard__initial .calc__btn').forEach((x) => {
     x.addEventListener('click', () => {
         if (x.id == `key_multiply`) {
 
@@ -24,6 +24,12 @@ document.querySelectorAll('.calc__btn').forEach((x) => {
         }
     });
 });
+
+document.body.addEventListener('keydown', (e) => {
+    if (e.key == 'Enter') {
+        pressEnter()
+    }
+})
 
 function focusInput() {
     calc_input.focus();

@@ -51,7 +51,12 @@ class Customer extends Db
         ,[NameAR]
         ,[Phone]
         FROM [Emtyaz].[Business].[Customer]
-        WHERE [Name] LIKE '%" . $term . "%'";
+        WHERE 
+        [Name] LIKE '%" . $term . "%' OR
+        [NameAR] LIKE '%" . $term . "%' OR
+        [Phone] LIKE '%" . $term . "%' OR
+        [Code] LIKE '%" . $term . "%'
+        ";
 
         $statement = $this->connect()->prepare($query);
         $statement->execute();

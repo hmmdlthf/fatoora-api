@@ -114,6 +114,7 @@ session_check();
             <div class="detail">Customer Code: <span id="customer__code"></span></div>
             <div class="detail">Customer Phone: <span id="customer__phone"></span></div>
             <div class="detail">Customer Name: <span id="customer__name"></span></div>
+            <div class="detail">Customer Name Arabic: <span id="customer__nameAR"></span></div>
             <div class="detail">Customer Price Type: <span id="customer__price__type"></span></div>
         </div>
         <div class="main__menu">
@@ -127,7 +128,7 @@ session_check();
             <div class="main__menu__btns">
                 <div class="col">
                     <div class="menu__btn" onclick="showCustomerAddModal()">Cutomer | عميل</div>
-                    <div class="menu__btn">Suspend | تعليق</div>
+                    <div class="menu__btn" onclick="clearInvoice()">Suspend | تعليق</div>
                     <div class="menu__btn">Remarks | ملاحظات</div>
                 </div>
                 <div class="col">
@@ -139,7 +140,7 @@ session_check();
         </div>
         <button class="order__btn btn" onclick="copyTempToInvoice()">PROCEED ORDER | متابعة الطلب</button>
         <input class="calc__screen" dir="rtl" type="text" name="calc__code" id="calc__code" placeholder="Product Barcode | كود المنتج" autofocus>
-        <div class="calc">
+        <div class="dashboard__initial calc">
             <div class="col">
                 <div class="calc__btn" id="key_7">7</div>
                 <div class="calc__btn" id="key_4">4</div>

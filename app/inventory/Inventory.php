@@ -12,20 +12,20 @@ class Inventory extends Db
     {
         $table = getTableNameByMode($mode);
         $recID_columnName = getRecIDColumnName($mode);
-        $condition = $productTypeRecID ? "AND WHERE [ProductTypeRecID] = $productTypeRecID" : '';
+        $condition = $productTypeRecID ? "AND [ProductTypeRecID] = $productTypeRecID" : '';
         $query = "SELECT [Warehouse]
         ,$recID_columnName AS RecID
         ,[UPC]
         ,[SKU]
-        ,[ProductName]
-        ,[ProductNameAR]
+        ,[Description] AS ProductName
+        ,[DescriptionAR] AS ProductNameAR
         ,[WholesalePrice]
         ,[RetailPrice]
         ,[ProductPackageTypeCode]
         ,[ProductPackageTypeCodeAR]
         ,[StockOnHand]
         FROM $table 
-        WHERE SalableQuantityMaximum >= 1 $condition
+        -- WHERE SalableQuantityMaximum >= 1 $condition
         ORDER BY $recID_columnName
         OFFSET " . $limit_start . " ROWS
         FETCH NEXT " . ($range) . " ROWS ONLY";
@@ -49,15 +49,22 @@ class Inventory extends Db
         ,$recID_columnName AS RecID
         ,[UPC]
         ,[SKU]
-        ,[ProductName]
-        ,[ProductNameAR]
+        ,[Description] AS ProductName
+        ,[DescriptionAR] AS ProductNameAR
         ,[WholesalePrice]
         ,[RetailPrice]
         ,[ProductPackageTypeCode]
         ,[ProductPackageTypeCodeAR]
         ,[StockOnHand]
         FROM $table
-        WHERE SalableQuantityMaximum >= 1 AND [ProductName] LIKE '%" . $searchTerm . "%'
+        -- WHERE SalableQuantityMaximum >= 1 
+        WHERE 
+        [ProductName] LIKE '%" . $searchTerm . "%' OR
+        [ProductNameAR] LIKE '%" . $searchTerm . "%' OR
+        [Description] LIKE '%" . $searchTerm . "%' OR
+        [DescriptionAR] LIKE '%" . $searchTerm . "%' OR
+        [SKU] LIKE '%" . $searchTerm . "%' OR
+        [UPC] LIKE '%" . $searchTerm . "%'
         ORDER BY $recID_columnName
         OFFSET " . $limit_start . " ROWS
         FETCH NEXT " . ($range) . " ROWS ONLY";
@@ -90,7 +97,6 @@ class Inventory extends Db
         ,[StockOnHand]
         FROM $table
         WHERE [UPC] LIKE '" . $barcode . "' ";
-
         $statement = $this->connect()->prepare($query);
         $statement->execute();
         $resultSet = $statement->fetch();
@@ -130,7 +136,6 @@ class Inventory extends Db
             return false;
         }
     }
-
 
     public function findProductTypes()
     {
@@ -200,8 +205,8 @@ class Inventory extends Db
         priw.Warehouse,
         priw.UPC, 
         priw.SKU, 
-        priw.ProductName, 
-        priw.ProductNameAR, 
+        priw.Description AS ProductName, 
+        priw.DescriptionAR AS ProductNameAR, 
         priw.WholesalePrice, 
         priw.RetailPrice, 
         priw.ProductPackageTypeCode, 
@@ -249,8 +254,8 @@ class Inventory extends Db
         priw.Warehouse,
         priw.UPC, 
         priw.SKU, 
-        priw.ProductName, 
-        priw.ProductNameAR, 
+        priw.Description AS ProductName, 
+        priw.DescriptionAR AS ProductNameAR,  
         priw.WholesalePrice, 
         priw.RetailPrice, 
         priw.ProductPackageTypeCode, 

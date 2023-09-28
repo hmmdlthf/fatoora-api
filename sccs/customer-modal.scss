@@ -16,7 +16,8 @@
                             z-index: 2;
                             top: 4rem;
                             left: 0;
-                            width: 300px;
+                            width: max-content;
+                            min-width: 100%;
                             background-color: white;
                             border-radius: .5rem;
                             border: var(--border);

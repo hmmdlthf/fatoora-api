@@ -88,6 +88,7 @@ function getProductTypes() {
     fetch(`inventory/getProductTypes.php`)
         .then(r => r.json())
         .then(j => {
+            console.log(j)
             addProductTypesToDashboard(j);
         })   
 }
@@ -106,6 +107,7 @@ function addProductTypesToDashboard(j) {
 
         product_type.addEventListener('click', () => {
             currentProductTypeRecID = x['RecID']
+            // alert(currentProductTypeRecID)
             showInventoryModal()
         })
     })
