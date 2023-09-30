@@ -179,17 +179,18 @@ class Inventory extends Db
                 header('Content-type: application/json');
                 echo json_encode(['status' => 'unsuccess', 'type' => 'higher-cost-price']);
                 exit();
-            }
-            else if ($quantity > $sellableMax) {
+            } else if ($quantity > $sellableMax && $sellableMax != 0) {
                 header('Content-type: application/json');
                 echo json_encode(['status' => 'unsuccess', 'type' => 'exceeds-sellable-max']);
                 exit();
-            // Check if there is enough stock.
+                // Check if there is enough stock.
             } else if ($currentStock >= $quantity) {
-                return ['status'=> true]; // There is enough stock.
+                return ['status' => true]; // There is enough stock.
             } else {
-                return ['status'=> false, 'StockOnHand'=> $currentStock];
+                return ['status' => false, 'StockOnHand' => $currentStock];
             }
+        } else if ($row) {
+            return ['status' => true];
         }
 
         return false; // Not enough stock.
