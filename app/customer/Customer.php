@@ -30,7 +30,7 @@ class Customer extends Db
 
     public function findByCode($customerCode, $customerNo, $customerName)
     {
-        $query = "SELECT TOP 1 * FROM Business.Customer WHERE (Code = ? OR Phone = ? OR Name = ?) AND RecID <> 1";
+        $query = "SELECT * FROM Business.Customer AS c WHERE ((c.Code = ? AND c.Code IS NOT NULL) OR (c.Phone = ? AND c.Phone <> 0) OR( c.Name = ? AND c.Name IS NOT NULL)) AND RecID <> 1";
         $stmt = $this->connect()->prepare($query);
         $stmt->execute([$customerCode, $customerNo, $customerName]);
 

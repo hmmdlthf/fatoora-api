@@ -12,8 +12,9 @@ class CustomerInvoiceTemp extends Db
         $query = "INSERT INTO [POS].InvoiceTemporary(CustomerRecID, DBItemsPrice) OUTPUT Inserted.RecID VALUES(?, ?)";
         $stmt = $this->connect()->prepare($query);
         $stmt->execute([$customerRecID, "2"]);
+        $result = $stmt->fetch();
 
-        $recID = $this->connect()->lastInsertId();
+        $recID = $result;
         $_SESSION['recID'] = $recID;
 
         return $recID;

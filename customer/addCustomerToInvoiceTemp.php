@@ -11,7 +11,7 @@ session_check();
 try {
     if (isset($_GET['recID']) && (isset($_GET['name']) || isset($_GET['code']) || isset($_GET['phone']))) {
         $recID = $_GET['recID'];
-        $name = $_GET['name'];
+        $name = $_GET['name'] ?? null;
         $code = $_GET['code'];
         $phone = $_GET['phone'];
         $result = (new CustomerInvoiceTemp())->addCustomerToInvoiceTemp($code, $phone, $name, $recID);

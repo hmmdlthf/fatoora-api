@@ -1,11 +1,11 @@
 var start = 0;
 var range = 100;
-var inventoryModes = {WAREHOUSE: 'WAREHOUSE', SHOWROOM: 'SHOWROOM'}
+var inventoryModes = { WAREHOUSE: 'WAREHOUSE', SHOWROOM: 'SHOWROOM' }
 var currentInventoryMode = inventoryModes.WAREHOUSE;
 var currentProductTypeRecID = 0;
 
 function getProducts() {
-    changeInventoryModalTitle('All Inventory | كل المخزون')
+    changeInventoryModalTitle(`${currentProductTypeRecID == 0 ? 'All Inventory | كل المخزون' : `Inventory by Product Type: ${currentProductTypeRecID} | المخزون حسب نوع المنتج: ${currentProductTypeRecID}`}`)
     fetch(`inventory/getProducts.php?start=${start}&range=${range}&mode=${currentInventoryMode}&productTypeRecID=${currentProductTypeRecID}`)
         .then(r => r.json())
         .then(j => {
@@ -90,7 +90,7 @@ function getProductTypes() {
         .then(j => {
             console.log(j)
             addProductTypesToDashboard(j);
-        })   
+        })
 }
 
 function addProductTypesToDashboard(j) {
@@ -118,7 +118,7 @@ function getSubstituteProductsByBarcode(barcode) {
         .then(r => r.json())
         .then(j => {
             addProductsJsonToTable(j);
-        })   
+        })
 }
 
 function getSubstituteProductsByInvoiceDetailTempRecID(invoiceDetailTempRecID) {
@@ -126,7 +126,13 @@ function getSubstituteProductsByInvoiceDetailTempRecID(invoiceDetailTempRecID) {
         .then(r => r.json())
         .then(j => {
             addProductsJsonToTable(j);
-        })   
+        })
+}
+
+function showInventoryByProductType() {
+    showInventoryModalWithoutDefault()
+    changeInventoryModalTitle(`Inventory by Product Type: ${currentProductTypeRecID} | منتجات بديلة للصنف: ${currentProductTypeRecID}`)
+    getProducts()
 }
 
 function addSubstituteProductsToModal(barcode) {
@@ -143,7 +149,7 @@ function addSubstituteProductsByInvoiceDetailToModal(invoiceDetailTempRecID) {
 
 function showInventoryModalWithoutDefault() {
     document.getElementById('inventory__modal').classList.toggle('active');
-    
+
     if (document.getElementById('inventory__modal').classList.contains('active')) {
     }
 }

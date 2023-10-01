@@ -51,6 +51,8 @@ function addProductToCart(j) {
 
         document.getElementById(`unitAmount_${j['InvoiceDetailRecID']}`).innerHTML = j['UnitAmount'];
         document.getElementById(`cartRecord${j['InvoiceDetailRecID']}__TotalAmount`).innerHTML = j['TotalAmount']
+
+        is_curor_to_quantity_input ? null : resetValue()
         return;
     }
 
