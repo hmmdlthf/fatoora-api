@@ -12,7 +12,7 @@ class Inventory extends Db
     {
         $table = getTableNameByMode($mode);
         $recID_columnName = getRecIDColumnName($mode);
-        $condition = $productTypeRecID ? "[ProductTypeRecID] = $productTypeRecID" : '';
+        $condition = $productTypeRecID ? "WHERE [ProductTypeRecID] = $productTypeRecID" : '';
         $query = "SELECT [Warehouse]
         ,$recID_columnName AS RecID
         ,[UPC]
@@ -25,8 +25,6 @@ class Inventory extends Db
         ,[ProductPackageTypeCodeAR]
         ,[StockOnHand]
         FROM $table 
-        WHERE 
-        -- SalableQuantityMaximum >= 1 
         $condition
         ORDER BY $recID_columnName
         OFFSET " . $limit_start . " ROWS
