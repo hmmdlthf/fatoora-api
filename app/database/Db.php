@@ -46,7 +46,13 @@ class Db
         $stmt = sqlsrv_prepare($this->conn, $this->query, $params);
         $this->statement = $stmt;
         $result = sqlsrv_execute($this->statement);
-        return $result;
+
+        if ($result) {
+            return $result;
+        } else {
+            $e = sqlsrv_errors();
+            die("$e");
+        }   
     }
 
     public function fetch()

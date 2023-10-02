@@ -56,15 +56,19 @@ class Inventory extends Db
         ,[ProductPackageTypeCode]
         ,[ProductPackageTypeCodeAR]
         ,[StockOnHand]
+        ,[UnitProductRecID]
         FROM $table
-        -- WHERE SalableQuantityMaximum >= 1 
         WHERE 
-        [ProductName] LIKE '%" . $searchTerm . "%' OR
-        [ProductNameAR] LIKE '%" . $searchTerm . "%' OR
-        [Description] LIKE '%" . $searchTerm . "%' OR
-        [DescriptionAR] LIKE '%" . $searchTerm . "%' OR
-        [SKU] LIKE '%" . $searchTerm . "%' OR
-        [UPC] LIKE '%" . $searchTerm . "%'
+        [UnitProductRecID] IN (SELECT 
+            UnitProductRecID 
+            FROM $table 
+            WHERE
+            [ProductName] LIKE '%" . $searchTerm . "%' OR
+            [ProductNameAR] LIKE '%" . $searchTerm . "%' OR
+            [Description] LIKE '%" . $searchTerm . "%' OR
+            [DescriptionAR] LIKE '%" . $searchTerm . "%' OR
+            [SKU] LIKE '%" . $searchTerm . "%' OR
+            [UPC] LIKE '%" . $searchTerm . "%')
         ORDER BY $recID_columnName
         OFFSET " . $limit_start . " ROWS
         FETCH NEXT " . ($range) . " ROWS ONLY";

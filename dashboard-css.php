@@ -127,7 +127,7 @@ session_check();
             </div>
             <div class="main__menu__btns">
                 <div class="col">
-                    <div class="menu__btn" onclick="showCustomerAddModal()">Cutomer | عميل</div>
+                    <div class="menu__btn" onclick="showCustomerAddModal()">Customer | عميل</div>
                     <div class="menu__btn" onclick="clearInvoice()">Suspend | تعليق</div>
                     <div class="menu__btn">Remarks | ملاحظات</div>
                 </div>
