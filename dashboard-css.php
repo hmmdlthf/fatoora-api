@@ -116,6 +116,7 @@ session_check();
             <div class="detail">Customer Name: <span id="customer__name"></span></div>
             <div class="detail">Customer Name Arabic: <span id="customer__nameAR"></span></div>
             <div class="detail">Customer Price Type: <span id="customer__price__type"></span></div>
+            <div class="detail">Inventory Mode: <span id="inventory__mode">SHOWROOM</span></div>
         </div>
         <div class="main__menu">
             <div class="icon">
@@ -124,6 +125,9 @@ session_check();
                 </svg>
                 <div class="text">Main Menu</div>
                 <div class="text__arabic">القائمة الرئيسية</div>
+            </div>
+            <div class="btn inventory__mode__btn" onclick="changeModeAuto()">
+                change inventory
             </div>
             <div class="main__menu__btns">
                 <div class="col">

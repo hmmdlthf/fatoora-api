@@ -1,7 +1,7 @@
 var start = 0;
 var range = 100;
 var inventoryModes = { WAREHOUSE: 'WAREHOUSE', SHOWROOM: 'SHOWROOM' }
-var currentInventoryMode = inventoryModes.WAREHOUSE;
+var currentInventoryMode = inventoryModes.SHOWROOM;
 var currentProductTypeRecID = 0;
 
 function getProducts() {
@@ -82,6 +82,17 @@ document.getElementById('inventory__search').addEventListener('input', (e) => {
 function changeMode(mode) {
     console.log(mode)
     currentInventoryMode = mode;
+    document.getElementById('inventory__mode').innerHTML = currentInventoryMode
+}
+
+function changeModeAuto() {
+    if (currentInventoryMode == inventoryModes.SHOWROOM) {
+        var mode = inventoryModes.WAREHOUSE
+    } else {
+        var mode = inventoryModes.SHOWROOM
+    }
+
+    changeMode(mode)
 }
 
 function getProductTypes() {

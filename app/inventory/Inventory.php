@@ -194,7 +194,7 @@ class Inventory extends Db
                 return ['status' => false, 'StockOnHand' => $currentStock];
             }
         } else if ($row) {
-            return ['status' => true];
+            return ['status' => false];
         }
 
         return false; // Not enough stock.
@@ -301,6 +301,44 @@ class Inventory extends Db
 
         if ($resultSet > 0) {
             return $resultSet;
+        } else {
+            return false;
+        }
+    }
+
+    public function processWeightedBarcode($barcode)
+    {
+        // Extract the unique code (5 characters)
+        $uniqueCode = substr($barcode, 0, 7);
+
+        // Extract the weight (remaining characters)
+        $weight = substr($barcode, 7);
+
+        // Ensure that the weight has at least 4 characters
+        if (strlen($weight) >= 4) {
+            // Convert the weight to grams (assuming it's in grams)
+            $weightInGrams = intval($weight);
+            $quantity = $weightInGrams / 1000;
+
+            // Now, you have the unique code and weight in grams, and you can process them as needed
+            $array = [
+                'barcode' => $uniqueCode,
+                'quantity' => $quantity,
+            ];
+            return $array;
+        } else {
+            $array = [
+                'barcode' => $uniqueCode,
+                'quantity' => 0.00,
+            ];
+            return $array;
+        }
+    }
+
+    public function checkWeightedBarcode($barcode)
+    {
+        if (strlen($barcode) >= 7 && substr($barcode, 0, 2) === "WE") {
+            return true;
         } else {
             return false;
         }

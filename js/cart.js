@@ -254,6 +254,10 @@ function addToCartByBarcode(barcode) {
                 if (confirm('The cost price of this product is higher than the selling price')) {
                     console.log('higher cost price')
                 }
+            } else if (j['status'] == 'unsuccess') {
+                if (confirm('no product')) {
+                    console.log('no product')
+                }
             }
             // emptyCart()
             getInvoiceDetailByInvoiceRecId()

@@ -208,7 +208,7 @@ body .col-4 .customer__detail__screen {
   border: var(--border);
   padding-inline: 0.5rem;
   padding-block: 0.5rem;
-  height: 140px;
+  height: 165px;
 }
 body .col-4 .customer__detail__screen .title {
   font-size: 1rem;
@@ -223,6 +223,7 @@ body .col-4 .main__menu {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  position: relative;
 }
 body .col-4 .main__menu .icon {
   display: flex;
@@ -265,6 +266,12 @@ body .col-4 .main__menu .main__menu__btns .col .menu__btn {
 }
 body .col-4 .main__menu .main__menu__btns .col .menu__btn:active {
   background-color: var(--grey-5);
+}
+body .col-4 .main__menu .inventory__mode__btn {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  text-transform: capitalize;
 }
 body .col-4 .order__btn {
   width: 100%;

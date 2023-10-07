@@ -221,7 +221,7 @@ body {
             border: var(--border);
             padding-inline: .5rem;
             padding-block: .5rem;
-            height: 140px;
+            height: 165px;
 
             .title {
                 font-size: 1rem;
@@ -239,6 +239,7 @@ body {
             flex-direction: column;
             align-items: center;
             justify-content: center;
+            position: relative;
 
             .icon {
                 display: flex;
@@ -286,6 +287,13 @@ body {
                         }
                     }
                 }
+            }
+
+            .inventory__mode__btn {
+                position: absolute;
+                top: 1rem;
+                right: 1rem;
+                text-transform: capitalize;
             }
 
 

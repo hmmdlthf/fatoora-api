@@ -152,7 +152,7 @@ class InvoiceDetailTemp extends Db
         $hasStock = (new Inventory())->hasEnoughStock($record['ProductRecID'], $newQuantity, $mode);
 
 
-        if ($hasStock['status'] == false) {
+        if (isset($hasStock) && $hasStock['status'] == false) {
             // update the quantity to current stock
             $currentStock = $hasStock['StockOnHand'];
             $this->updateQuantity($recId, $currentStock);
@@ -165,7 +165,7 @@ class InvoiceDetailTemp extends Db
                 $productSourceRecID = getProductSourceRecIDByMode($mode);
                 $existingRecord = $this->findRecordByProductRecID($record['InvoiceRecID'], $record['ProductRecID'], $mode);
 
-                if (!$hasStock || $existingRecord) {
+                if (!$hasStock['status'] || $existingRecord) {
                     header('Content-type: application/json');
                     echo json_encode(['status' => 'unsuccess', 'type' => 'no-stock']);
                     exit();
@@ -175,6 +175,10 @@ class InvoiceDetailTemp extends Db
                 return $this->create($record['InvoiceRecID'], $dic);
             }
 
+            header('Content-type: application/json');
+            echo json_encode(['status' => 'unsuccess', 'type' => 'no-stock']);
+            exit();
+        } else if (!isset($hasStock)) {
             header('Content-type: application/json');
             echo json_encode(['status' => 'unsuccess', 'type' => 'no-stock']);
             exit();
@@ -217,12 +221,27 @@ class InvoiceDetailTemp extends Db
     public function addByBarcode($invoiceRecID, $barcode, $mode)
     {
         $product = (new Inventory())->findInventoryRecordsByBarcode($barcode, $mode);
+
+        if ($product == false) {
+            header('Content-type: application/json');
+            echo json_encode(['status' => 'unsuccess', 'type' => 'no-product']);
+            exit();
+        }
+
         $hasStock = (new Inventory())->hasEnoughStock($product['RecID'], 1, $mode);
 
-        if ($hasStock['status'] == false) {
-            header('Content-type: application/json');
-            echo json_encode(['status' => 'unsuccess', 'type' => 'no-stock']);
-            exit();
+        if (is_array($hasStock)) {
+            if ($hasStock['status'] == false) {
+                header('Content-type: application/json');
+                echo json_encode(['status' => 'unsuccess', 'type' => 'no-stock']);
+                exit();
+            }
+        } else {
+            if ($hasStock == false) {
+                header('Content-type: application/json');
+                echo json_encode(['status' => 'unsuccess', 'type' => 'no-stock']);
+                exit();
+            }
         }
 
         if ($product) {
@@ -236,6 +255,46 @@ class InvoiceDetailTemp extends Db
             } else {
                 // If no record exists, create a new one
                 $dic = ['ProductRecID' => $product['RecID'], 'UnitAmount' => $product['WholesalePrice'], 'OrderQuantity' => 1, 'PriceTypeRecID' => 2, 'ProductSourceRecID' => getProductSourceRecIDByMode($mode)];
+                return $this->create($invoiceRecID, $dic);
+            }
+        }
+
+        return false;
+    }
+
+    public function addWeightedByBarcode($invoiceRecID, $barcode, $mode, $quantity)
+    {
+        $product = (new Inventory())->findInventoryRecordsByBarcode($barcode, $mode);
+
+        if ($product == false) {
+            header('Content-type: application/json');
+            echo json_encode(['status' => 'unsuccess', 'type' => 'no-product']);
+            exit();
+        }
+        
+        $hasStock = (new Inventory())->hasEnoughStock($product['RecID'], $quantity, $mode);
+
+        if (isset($hasStock) && $hasStock['status'] == false) {
+            header('Content-type: application/json');
+            echo json_encode(['status' => 'unsuccess', 'type' => 'no-stock']);
+            exit();
+        } else if (!isset($hasStock)) {
+            header('Content-type: application/json');
+            echo json_encode(['status' => 'unsuccess', 'type' => 'no-stock']);
+            exit();
+        }
+
+        if ($product) {
+            // Check if a record with the same ProductRecID already exists
+            $existingRecord = $this->findRecordByProductRecID($invoiceRecID, $product['RecID'], $mode);
+
+            if ($existingRecord) {
+                // If record already exists, update the quantity
+                $newQuantity = (float)$existingRecord['OrderQuantity'] + $quantity;
+                return $this->updateQuantity($existingRecord['RecID'], $newQuantity);
+            } else {
+                // If no record exists, create a new one
+                $dic = ['ProductRecID' => $product['RecID'], 'UnitAmount' => $product['WholesalePrice'], 'OrderQuantity' => $quantity, 'PriceTypeRecID' => 2, 'ProductSourceRecID' => getProductSourceRecIDByMode($mode)];
                 return $this->create($invoiceRecID, $dic);
             }
         }
