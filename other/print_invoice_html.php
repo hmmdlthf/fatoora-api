@@ -1,10 +1,10 @@
 ﻿<?php
 
 $ROOT = $_SERVER["DOCUMENT_ROOT"];
-require_once $ROOT . '/pos/vendor/autoload.php';
-require_once $ROOT . "/pos/login/utils.php";
-require_once $ROOT . "/pos/app/invoice/Invoice.php";
-require_once $ROOT . "/pos/app/invoiceDetail/InvoiceDetail.php";
+require_once $ROOT . '/fatoora/vendor/autoload.php';
+require_once $ROOT . "/fatoora/login/utils.php";
+require_once $ROOT . "/fatoora/app/invoice/Invoice.php";
+require_once $ROOT . "/fatoora/app/invoiceDetail/InvoiceDetail.php";
 
 session_start();
 
@@ -120,7 +120,7 @@ $Remarks        =  $invoice['Remarks'];
             window.print()
         }
     </script>
-    <div><img src="/pos/images/EmtyazLogo.png"></div>
+    <div><img src="/fatoora/images/EmtyazLogo.png"></div>
 
     <p>العزيزية - شارع البسالة - خلف النقل الجماعي </p>
     <p>Al Azizia Behind Mass Transit.</p>
@@ -242,7 +242,7 @@ $Remarks        =  $invoice['Remarks'];
     <p class="right"><?php echo $CustomerVAT; ?> :الرقم الضريبي </p>
     <hr>
     <svg id="barcode"></svg>
-    <script src="/pos/js/JsBarcode.all.min.js"></script>
+    <script src="/fatoora/js/JsBarcode.all.min.js"></script>
     <script>
         JsBarcode("#barcode", "<?php echo $invoiceNumber ; ?>", {width: 1.8});
     </script>
@@ -285,7 +285,7 @@ $Remarks        =  $invoice['Remarks'];
     <script src="http:"></script>
 
     <canvas width="100%" id="qrcode-2"></canvas>
-    <script src="/pos/js/qrious.js"></script>
+    <script src="/fatoora/js/qrious.js"></script>
     <script type="text/javascript">
         var qrcode = new QRious({
             element: document.getElementById("qrcode-2"),

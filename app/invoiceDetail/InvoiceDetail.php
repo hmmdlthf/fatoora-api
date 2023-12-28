@@ -1,24 +1,63 @@
 <?php
 
 $ROOT = $_SERVER["DOCUMENT_ROOT"];
-require_once $ROOT . '/pos/vendor/autoload.php';
-require_once $ROOT . "/pos/app/database/Db.php";
+require_once $ROOT . '/fatoora/vendor/autoload.php';
+require_once $ROOT . "/fatoora/app/database/Db.php";
 
 class InvoiceDetail extends Db
 {
     public function findAllByInvoiceRecID($invoiceRecID)
     {
         $query = "SELECT 
+                ProductRecID,
                 RecordNumber, 
                 Barcode, 
                 ProductFullName, 
                 ProductFullNameAR, 
                 OrderQuantity, 
-                UnitAmountVAT, 
+                UnitAmount,
+                UnitAmountVAT,
+                SubTotal,
+                SalesTaxAmount, 
                 TotalAmount, 
-                UPCTypeRecID 
+                UPCTypeRecID
                 FROM POS. V_InvoiceDetail 
                 WHERE InvoiceRecID = ? and StatusRecID =1";
+
+        $statement = $this->connect()->prepare($query);
+        $statement->execute([$invoiceRecID]);
+        $result = $statement->fetchAll();
+
+        if ($result > 0) {
+            return $result;
+        } else {
+            return false;
+        }
+    }
+
+    public function findAllByBusinessInvoiceRecID($invoiceRecID)
+    {
+        $query = "SELECT
+        sod.ProductRecID, 
+        sod.SalesOrderDetailRecID AS RecordNumber, 
+        p.UPC AS Barcode, 
+        p.Description AS ProductFullName, 
+        p.DescriptionAR AS ProductFullNameAR, 
+        sod.OrderQuantity, 
+        sod.UnitAmount, 
+        sod.SubTotal, 
+        sod.SalesTaxAmount, 
+        sod.TotalAmount, 
+        p.UPCTypeRecID
+        FROM
+            Business.V_SalesOrder_Detail AS sod
+            INNER JOIN
+            Inventory.Product AS p
+            ON 
+                sod.ProductRecID = p.RecID
+        WHERE
+        sod.SalesOrderRecID = ? AND
+        sod.StatusRecID = 1";
 
         $statement = $this->connect()->prepare($query);
         $statement->execute([$invoiceRecID]);

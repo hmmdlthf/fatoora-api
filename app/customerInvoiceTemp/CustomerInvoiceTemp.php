@@ -1,9 +1,9 @@
 <?php
 
 $ROOT = $_SERVER["DOCUMENT_ROOT"];
-require_once $ROOT . '/pos/vendor/autoload.php';
-require_once $ROOT . "/pos/app/database/Db.php";
-require_once $ROOT . "/pos/app/customer/Customer.php";
+require_once $ROOT . '/fatoora/vendor/autoload.php';
+require_once $ROOT . "/fatoora/app/database/Db.php";
+require_once $ROOT . "/fatoora/app/customer/Customer.php";
 
 class CustomerInvoiceTemp extends Db
 {

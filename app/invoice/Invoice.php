@@ -1,8 +1,8 @@
 <?php
 
 $ROOT = $_SERVER["DOCUMENT_ROOT"];
-require_once $ROOT . '/pos/vendor/autoload.php';
-require_once $ROOT . "/pos/app/database/Db.php";
+require_once $ROOT . '/fatoora/vendor/autoload.php';
+require_once $ROOT . "/fatoora/app/database/Db.php";
 
 class Invoice extends Db
 {
@@ -129,6 +129,7 @@ class Invoice extends Db
         TotalSubTotal, 
         TotalVATAmount, 
         GrandTotal, 
+        CustomerCode,
         CustomerName, 
         CustomerNameAR, 
         VATNumber, 
@@ -138,6 +139,90 @@ class Invoice extends Db
 
         $statement = $this->connect()->prepare($query);
         $statement->execute([$recID]);
+        $resultSet = $statement->fetch();
+
+        if ($resultSet > 0) {
+            return $resultSet;
+        } else {
+            return false;
+        }
+    }
+
+    public function findInvoiceHeaderFooterByInvoiceNumber($invoiceNumber)
+    {
+        $query = "SELECT
+        POS.V_Invoice.RecID, 
+        POS.V_Invoice.InvoiceNumber, 
+        CONVERT ( VARCHAR, InvoiceDate ) AS [DATE], 
+        CONVERT ( VARCHAR, CreatedTime, 8 ) AS [TIME], 
+        CONVERT ( VARCHAR, CollectionDate) AS [DeliveryDate], 
+        POS.V_Invoice.CashAmount, 
+        POS.V_Invoice.CardAmount, 
+        POS.V_Invoice.BalanceAmount, 
+        POS.V_Invoice.TotalSubTotal, 
+        POS.V_Invoice.TotalVATAmount, 
+        POS.V_Invoice.GrandTotal, 
+        POS.V_Invoice.Code AS CustomerCode, 
+        POS.V_Invoice.Name AS CustomerName, 
+        POS.V_Invoice.NameAR AS CustomerNameAR, 
+        POS.V_Invoice.Remarks, 
+        Business.Customer.VATNumber
+        FROM
+            POS.V_Invoice
+            LEFT JOIN
+            Business.Customer
+            ON 
+                POS.V_Invoice.CustomerRecID = Business.Customer.RecID
+        WHERE
+        InvoiceNumber = ?";
+
+        $statement = $this->connect()->prepare($query);
+        $statement->execute([$invoiceNumber]);
+        $resultSet = $statement->fetch();
+
+        if ($resultSet > 0) {
+            return $resultSet;
+        } else {
+            return false;
+        }
+    }
+
+    public function findBusinessInvoiceHeaderFooterByInvoiceNumber($invoiceNumber)
+    {
+        $query = "SELECT
+        so.RecID,
+        so.InvoiceNumber, 
+        so.GrandTotal, 
+        so.TotalVATAmount, 
+        so.TotalSubTotal, 
+        so.TotalDiscountAmount, 
+        so.TotalUnitAmount, 
+        CONVERT ( VARCHAR, so.OrderDate) AS [DATE], 
+        CONVERT ( VARCHAR, so.CreatedTime, 8) AS [TIME], 
+        CONVERT ( VARCHAR, so.DeliveryDate) AS DeliveryDate, 
+        CONVERT ( VARCHAR, so.DeliveryTime) AS DeliveryTime, 
+        so.OrderNumber, 
+        so.CustomerRecID, 
+        so.QuotationNumber, 
+        c.Code AS CustomerCode, 
+        c.Name AS CustomerName, 
+        c.NameAR AS CustomerNameAR, 
+        c.VATNumber, 
+        c.Remarks, 
+        so.CashAmount, 
+        so.CardAmount, 
+        so.BalanceAmount 
+        FROM
+            Business.SalesOrder AS so
+            INNER JOIN
+            Business.Customer AS c
+            ON 
+                so.CustomerRecID = c.RecID
+        WHERE
+        so.InvoiceNumber = ?";
+
+        $statement = $this->connect()->prepare($query);
+        $statement->execute([$invoiceNumber]);
         $resultSet = $statement->fetch();
 
         if ($resultSet > 0) {

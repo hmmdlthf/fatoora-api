@@ -1,7 +1,7 @@
 <?php
 
 $ROOT = $_SERVER["DOCUMENT_ROOT"];
-require_once $ROOT . '/pos/vendor/autoload.php';
+require_once $ROOT . '/fatoora/vendor/autoload.php';
 
 class Db
 {
@@ -51,7 +51,8 @@ class Db
             return $result;
         } else {
             $e = sqlsrv_errors();
-            die("$e");
+            var_dump($e);
+            die();
         }   
     }
 

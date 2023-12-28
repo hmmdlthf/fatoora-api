@@ -1,12 +1,12 @@
 <?php
 
 $ROOT = $_SERVER["DOCUMENT_ROOT"];
-require_once $ROOT . '/pos/vendor/autoload.php';
-require_once $ROOT . "/pos/app/database/Db.php";
-require_once $ROOT . "/pos/app/inventory/Inventory.php";
-require_once $ROOT . "/pos/app/invoiceTemp/invoiceTemp.php";
-require_once $ROOT . "/pos/app/invoice/Invoice.php";
-require_once $ROOT . "/pos/app/utils/productSource.php";
+require_once $ROOT . '/fatoora/vendor/autoload.php';
+require_once $ROOT . "/fatoora/app/database/Db.php";
+require_once $ROOT . "/fatoora/app/inventory/Inventory.php";
+require_once $ROOT . "/fatoora/app/invoiceTemp/invoiceTemp.php";
+require_once $ROOT . "/fatoora/app/invoice/Invoice.php";
+require_once $ROOT . "/fatoora/app/utils/productSource.php";
 
 class InvoiceDetailTemp extends Db
 {

@@ -1,8 +1,8 @@
 <?php
 
 $ROOT = $_SERVER["DOCUMENT_ROOT"];
-require_once $ROOT . '/pos/vendor/autoload.php';
-require_once $ROOT . "/pos/app/constants/Constants.php";
+require_once $ROOT . '/fatoora/vendor/autoload.php';
+require_once $ROOT . "/fatoora/app/constants/Constants.php";
 
 function getModeByProductSourceRecID($productSourceRecID)
 {

@@ -9,7 +9,7 @@ document.addEventListener('click', () => {
 
     if (timeDifferenceInSeconds > fifteenMinutesInSeconds) {
         // Your code to handle the case when the difference is greater than 15 minutes
-        document.location = '/pos/login/logout';
+        document.location = '/fatoora/login/logout';
     } else {
         session_time = current_time;
     }
