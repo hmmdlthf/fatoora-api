@@ -1,9 +1,9 @@
 <?php return array(
     'root' => array(
         'name' => '__root__',
-        'pretty_version' => '1.0.0+no-version-set',
-        'version' => '1.0.0.0',
-        'reference' => NULL,
+        'pretty_version' => 'dev-main',
+        'version' => 'dev-main',
+        'reference' => 'c02f1bbdec290ed4fcf75a645d0262637830740e',
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -11,11 +11,20 @@
     ),
     'versions' => array(
         '__root__' => array(
-            'pretty_version' => '1.0.0+no-version-set',
-            'version' => '1.0.0.0',
-            'reference' => NULL,
+            'pretty_version' => 'dev-main',
+            'version' => 'dev-main',
+            'reference' => 'c02f1bbdec290ed4fcf75a645d0262637830740e',
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
+        'abdelrahmanbl/fatoora-zatca' => array(
+            'pretty_version' => '2.3',
+            'version' => '2.3.0.0',
+            'reference' => 'f6d3794dacd2d02fa594d6de53836082020b35d3',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../abdelrahmanbl/fatoora-zatca',
             'aliases' => array(),
             'dev_requirement' => false,
         ),

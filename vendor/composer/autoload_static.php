@@ -59,6 +59,7 @@ class ComposerStaticInit3133d80ceb64625fa237b99f37ab3381
         'B' => 
         array (
             'Brick\\Math\\' => 11,
+            'Bl\\FatooraZatca\\' => 16,
         ),
     );
 
@@ -135,6 +136,10 @@ class ComposerStaticInit3133d80ceb64625fa237b99f37ab3381
         'Brick\\Math\\' => 
         array (
             0 => __DIR__ . '/..' . '/brick/math/src',
+        ),
+        'Bl\\FatooraZatca\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/abdelrahmanbl/fatoora-zatca/src',
         ),
     );
 

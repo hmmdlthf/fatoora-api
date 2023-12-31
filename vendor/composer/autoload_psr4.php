@@ -24,4 +24,5 @@ return array(
     'GuzzleHttp\\Promise\\' => array($vendorDir . '/guzzlehttp/promises/src'),
     'GuzzleHttp\\' => array($vendorDir . '/guzzlehttp/guzzle/src'),
     'Brick\\Math\\' => array($vendorDir . '/brick/math/src'),
+    'Bl\\FatooraZatca\\' => array($vendorDir . '/abdelrahmanbl/fatoora-zatca/src'),
 );

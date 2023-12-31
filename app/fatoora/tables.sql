@@ -76,3 +76,28 @@ VALUES
     ('ACTIVE', 'Active', 'The item is currently active', GETDATE()),
     ('INACTIVE', 'Inactive', 'The item is currently inactive', GETDATE()),
     ('PENDING', 'Pending', 'The item is pending', GETDATE());
+
+
+
+
+
+
+
+
+
+
+
+
+CREATE TABLE Emtyaz.Fatoora.FatooraSettings (
+    id INT IDENTITY(1,1) PRIMARY KEY,
+    cnf NVARCHAR(MAX),
+    private_key NVARCHAR(MAX),
+    public_key NVARCHAR(MAX),
+    csr NVARCHAR(MAX),
+    cert_production NVARCHAR(MAX),
+    secret_production NVARCHAR(MAX),
+    csid_id_production NVARCHAR(MAX),
+    cert_compliance NVARCHAR(MAX),
+    secret_compliance NVARCHAR(MAX),
+    csid_id_compliance NVARCHAR(MAX)
+);

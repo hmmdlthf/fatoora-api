@@ -5,6 +5,7 @@
         "saleh7/php-zatca-xml": "^1.0",
         "phpseclib/phpseclib": "^3.0",
         "guzzlehttp/guzzle": "^7.8",
-        "monolog/monolog": "^3.5"
+        "monolog/monolog": "^3.5",
+        "abdelrahmanbl/fatoora-zatca": "^2.3"
     }
 }

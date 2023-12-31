@@ -1,5 +1,7 @@
 <?php
 
+namespace My\Fatoora\Config;
+
 $supplierName = 'EMTYAZ FOR CATERING COMPANY';
 $supplierVAT = '300066889400003';
 $supplierIdentificationTypeCode = 'CRN';

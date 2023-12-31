@@ -1,6 +1,42 @@
 {
     "packages": [
         {
+            "name": "abdelrahmanbl/fatoora-zatca",
+            "version": "2.3",
+            "version_normalized": "2.3.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/AbdelrahmanBl/fatoora-zatca.git",
+                "reference": "f6d3794dacd2d02fa594d6de53836082020b35d3"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/AbdelrahmanBl/fatoora-zatca/zipball/f6d3794dacd2d02fa594d6de53836082020b35d3",
+                "reference": "f6d3794dacd2d02fa594d6de53836082020b35d3",
+                "shasum": ""
+            },
+            "time": "2023-12-09T14:17:23+00:00",
+            "type": "library",
+            "installation-source": "dist",
+            "autoload": {
+                "psr-4": {
+                    "Bl\\FatooraZatca\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "authors": [
+                {
+                    "name": "Abdelrahman"
+                }
+            ],
+            "description": "this package handle the stage 2 of zatca for integration the tax and simpilified tax invoices.",
+            "support": {
+                "issues": "https://github.com/AbdelrahmanBl/fatoora-zatca/issues",
+                "source": "https://github.com/AbdelrahmanBl/fatoora-zatca/tree/2.3"
+            },
+            "install-path": "../abdelrahmanbl/fatoora-zatca"
+        },
+        {
             "name": "brick/math",
             "version": "0.10.2",
             "version_normalized": "0.10.2.0",
