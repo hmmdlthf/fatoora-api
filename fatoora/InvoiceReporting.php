@@ -4,6 +4,7 @@ $ROOT = $_SERVER["DOCUMENT_ROOT"];
 require_once $ROOT . '/fatoora/vendor/autoload.php';
 require_once $ROOT . '/fatoora/app/fatoora/FatooraApi.php';
 require_once $ROOT . '/fatoora/app/fatoora/FatooraSdk.php';
+require_once $ROOT . '/fatoora/app/fatoora/utils/Utils.php';
 
 try {
     if (isset($_GET['invoiceNumber']) || isset($_GET['invoiceType'])) {
@@ -28,6 +29,11 @@ try {
         // save hash to database
         $fatooraInvoice = new FatooraInvoice();
         $response = $fatooraInvoice->setInvoiceHash($invoiceNumber, $hash);
+
+        // find and save the qrcode
+        $contents = file_get_contents($fatooraCommand->xmlFilePath . '/generated-simplified-xml-invoice_signed.xml');
+        $qr = findQRFromXML($contents); // base64 encoded QR code
+        $fatooraInvoice->setQR($invoiceNumber, $qr);  
 
         // run the reporting invoice api
         $fatooraApi = new ReportingAPI($invoiceNumber);

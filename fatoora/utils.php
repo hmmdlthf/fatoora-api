@@ -58,5 +58,6 @@ function encodeXMLtoBase64($xmlData)
 
 function die400($e) {
     http_response_code(400);
-    die($e);
+    echo $e;
+    die();
 }

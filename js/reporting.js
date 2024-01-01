@@ -19,10 +19,15 @@ function invoiceReporting() {
     fetch(`${api_endpoints.invoice_reporting_path}?invoiceNumber=${reporting_invoice_number}`)
         .then(r => {
             console.log(r.text());
-            reporting_steps.step1 = true;
-            updateReportingProgress();
-            alert('Invoice Cleared Successfully')
-            resetReportingModal();
+
+             if (r.status >= 200 && r.status < 400) {
+                reporting_steps.step1 = true;
+                updateReportingProgress();
+                alert('Invoice Reported Successfully')
+                resetReportingModal();
+            } else {
+                alert('Error Occured: Check the Console Log');
+            }
         }).catch(e => {
             alert(e);
         });

@@ -1,10 +1,10 @@
 <?xml version="1.0"?>
 <Invoice xmlns="urn:oasis:names:specification:ubl:schema:xsd:Invoice-2" xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2" xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2" xmlns:ext="urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2">
  <cbc:ProfileID>reporting:1.0</cbc:ProfileID>
- <cbc:ID>INV/W009290</cbc:ID>
- <cbc:UUID>3027544d-85b5-42c2-9079-a0e76a72e433</cbc:UUID>
+ <cbc:ID>INV/W009293</cbc:ID>
+ <cbc:UUID>15487b5c-d324-4c0c-8e7a-067fd4f7c785</cbc:UUID>
  <cbc:IssueDate>2024-01-01</cbc:IssueDate>
- <cbc:IssueTime>04:09:50</cbc:IssueTime>
+ <cbc:IssueTime>12:56:04</cbc:IssueTime>
  <cbc:InvoiceTypeCode name="0100000">388</cbc:InvoiceTypeCode>
  <cbc:DocumentCurrencyCode>SAR</cbc:DocumentCurrencyCode>
  <cbc:TaxCurrencyCode>SAR</cbc:TaxCurrencyCode>
@@ -13,12 +13,12 @@
  </cac:ContractDocumentReference>
  <cac:AdditionalDocumentReference>
   <cbc:ID>ICV</cbc:ID>
-  <cbc:UUID>9290</cbc:UUID>
+  <cbc:UUID>9293</cbc:UUID>
  </cac:AdditionalDocumentReference>
  <cac:AdditionalDocumentReference>
   <cbc:ID>PIH</cbc:ID>
   <cac:Attachment>
-   <cbc:EmbeddedDocumentBinaryObject mimeCode="text/plain">dcdn3J6JNIHt0DIHkOry2GccqQ/uIO/z80e5ROthZG4=</cbc:EmbeddedDocumentBinaryObject>
+   <cbc:EmbeddedDocumentBinaryObject mimeCode="text/plain">1AQ2jjV57WuqCzejTimYz/SZQBSZKZ3rGaYla8wm9qc=</cbc:EmbeddedDocumentBinaryObject>
   </cac:Attachment>
  </cac:AdditionalDocumentReference>
  <cac:AccountingSupplierParty>
@@ -65,6 +65,7 @@
     </cac:Country>
    </cac:PostalAddress>
    <cac:PartyTaxScheme>
+    <cbc:CompanyID>310368430900003</cbc:CompanyID>
     <cac:TaxScheme>
      <cbc:ID>VAT</cbc:ID>
     </cac:TaxScheme>
@@ -93,13 +94,13 @@
   </cac:TaxCategory>
  </cac:AllowanceCharge>
  <cac:TaxTotal>
-  <cbc:TaxAmount currencyID="SAR">11.6</cbc:TaxAmount>
+  <cbc:TaxAmount currencyID="SAR">310.4</cbc:TaxAmount>
  </cac:TaxTotal>
  <cac:TaxTotal>
-  <cbc:TaxAmount currencyID="SAR">11.63</cbc:TaxAmount>
+  <cbc:TaxAmount currencyID="SAR">310.35</cbc:TaxAmount>
   <cac:TaxSubtotal>
-   <cbc:TaxableAmount currencyID="SAR">77.52</cbc:TaxableAmount>
-   <cbc:TaxAmount currencyID="SAR">11.63</cbc:TaxAmount>
+   <cbc:TaxableAmount currencyID="SAR">2069.00</cbc:TaxableAmount>
+   <cbc:TaxAmount currencyID="SAR">310.35</cbc:TaxAmount>
    <cac:TaxCategory>
     <cbc:ID schemeID="UN/ECE 5305" schemeAgencyID="6">S</cbc:ID>
     <cbc:Percent>15</cbc:Percent>
@@ -110,23 +111,23 @@
   </cac:TaxSubtotal>
  </cac:TaxTotal>
  <cac:LegalMonetaryTotal>
-  <cbc:LineExtensionAmount currencyID="SAR">77.52</cbc:LineExtensionAmount>
-  <cbc:TaxExclusiveAmount currencyID="SAR">77.52</cbc:TaxExclusiveAmount>
-  <cbc:TaxInclusiveAmount currencyID="SAR">89.15</cbc:TaxInclusiveAmount>
+  <cbc:LineExtensionAmount currencyID="SAR">2069.00</cbc:LineExtensionAmount>
+  <cbc:TaxExclusiveAmount currencyID="SAR">2069.00</cbc:TaxExclusiveAmount>
+  <cbc:TaxInclusiveAmount currencyID="SAR">2379.35</cbc:TaxInclusiveAmount>
   <cbc:AllowanceTotalAmount currencyID="SAR">0.00</cbc:AllowanceTotalAmount>
   <cbc:PrepaidAmount currencyID="SAR">0.00</cbc:PrepaidAmount>
-  <cbc:PayableAmount currencyID="SAR">89.15</cbc:PayableAmount>
+  <cbc:PayableAmount currencyID="SAR">2379.35</cbc:PayableAmount>
  </cac:LegalMonetaryTotal>
  <cac:InvoiceLine>
-  <cbc:ID>5175</cbc:ID>
-  <cbc:InvoicedQuantity unitCode="PCE">1.000000</cbc:InvoicedQuantity>
-  <cbc:LineExtensionAmount currencyID="SAR">77.52</cbc:LineExtensionAmount>
+  <cbc:ID>1312</cbc:ID>
+  <cbc:InvoicedQuantity unitCode="PCE">20.000000</cbc:InvoicedQuantity>
+  <cbc:LineExtensionAmount currencyID="SAR">740.00</cbc:LineExtensionAmount>
   <cac:TaxTotal>
-   <cbc:TaxAmount currencyID="SAR">11.63</cbc:TaxAmount>
-   <cbc:RoundingAmount currencyID="SAR">89.15</cbc:RoundingAmount>
+   <cbc:TaxAmount currencyID="SAR">111.00</cbc:TaxAmount>
+   <cbc:RoundingAmount currencyID="SAR">851.00</cbc:RoundingAmount>
   </cac:TaxTotal>
   <cac:Item>
-   <cbc:Name>Freshly, Thousand Island Salad Dressing (473 ML * 6.00 Piece)</cbc:Name>
+   <cbc:Name>MC2, Superior Flour (45 KG * Bag)</cbc:Name>
    <cac:ClassifiedTaxCategory>
     <cbc:ID>S</cbc:ID>
     <cbc:Percent>15.00</cbc:Percent>
@@ -136,7 +137,51 @@
    </cac:ClassifiedTaxCategory>
   </cac:Item>
   <cac:Price>
-   <cbc:PriceAmount currencyID="SAR">77.52</cbc:PriceAmount>
+   <cbc:PriceAmount currencyID="SAR">37.00</cbc:PriceAmount>
+  </cac:Price>
+ </cac:InvoiceLine>
+ <cac:InvoiceLine>
+  <cbc:ID>1311</cbc:ID>
+  <cbc:InvoicedQuantity unitCode="PCE">3.000000</cbc:InvoicedQuantity>
+  <cbc:LineExtensionAmount currencyID="SAR">111.00</cbc:LineExtensionAmount>
+  <cac:TaxTotal>
+   <cbc:TaxAmount currencyID="SAR">16.65</cbc:TaxAmount>
+   <cbc:RoundingAmount currencyID="SAR">127.65</cbc:RoundingAmount>
+  </cac:TaxTotal>
+  <cac:Item>
+   <cbc:Name>MC2, Whole Wheat Flour (45 KG * Bag)</cbc:Name>
+   <cac:ClassifiedTaxCategory>
+    <cbc:ID>S</cbc:ID>
+    <cbc:Percent>15.00</cbc:Percent>
+    <cac:TaxScheme>
+     <cbc:ID>VAT</cbc:ID>
+    </cac:TaxScheme>
+   </cac:ClassifiedTaxCategory>
+  </cac:Item>
+  <cac:Price>
+   <cbc:PriceAmount currencyID="SAR">37.00</cbc:PriceAmount>
+  </cac:Price>
+ </cac:InvoiceLine>
+ <cac:InvoiceLine>
+  <cbc:ID>2066</cbc:ID>
+  <cbc:InvoicedQuantity unitCode="PCE">40.000000</cbc:InvoicedQuantity>
+  <cbc:LineExtensionAmount currencyID="SAR">1218.00</cbc:LineExtensionAmount>
+  <cac:TaxTotal>
+   <cbc:TaxAmount currencyID="SAR">182.70</cbc:TaxAmount>
+   <cbc:RoundingAmount currencyID="SAR">1400.70</cbc:RoundingAmount>
+  </cac:TaxTotal>
+  <cac:Item>
+   <cbc:Name>Star,  Soda Carbonated soft Drink (300 ML * 24 Can)</cbc:Name>
+   <cac:ClassifiedTaxCategory>
+    <cbc:ID>S</cbc:ID>
+    <cbc:Percent>15.00</cbc:Percent>
+    <cac:TaxScheme>
+     <cbc:ID>VAT</cbc:ID>
+    </cac:TaxScheme>
+   </cac:ClassifiedTaxCategory>
+  </cac:Item>
+  <cac:Price>
+   <cbc:PriceAmount currencyID="SAR">30.45</cbc:PriceAmount>
   </cac:Price>
  </cac:InvoiceLine>
 </Invoice>

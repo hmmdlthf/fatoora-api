@@ -320,6 +320,7 @@ class ValidationAPI extends FatooraAuthApi
     protected $invoice;
     protected $invoiceNumber;
     protected $name = 'clearance';
+    protected $responseStatusKey = 'clearanceStatus';
 
     public function __construct($invoiceNumber)
     {
@@ -346,7 +347,7 @@ class ValidationAPI extends FatooraAuthApi
 
     public function getInvoiceFromJson()
     {
-        $file_path = '.././fatoora\api-request.json'; 
+        $file_path = '.././fatoora\api-request.json';
         $jsonContent = file_get_contents($file_path);
         $jsonData = json_decode($jsonContent, true);
 
@@ -368,21 +369,21 @@ class ValidationAPI extends FatooraAuthApi
     public function afterResponse()
     {
         $responseAss = json_decode($this->response, true);
-        $clearanceStatus =  $responseAss['clearanceStatus'] ?? null;
+        $status =  $responseAss[$this->responseStatusKey] ?? null;
 
-        if (!empty($clearanceStatus)) {
-            $this->changeStatus($clearanceStatus);
+        if (!empty($status)) {
+            $this->changeStatus($status);
         }
 
         return $this->response;
     }
 
-    public function changeStatus($clearanceStatus)
+    public function changeStatus($status)
     {
         $fatooraInvoice = $this->name == 'clearance' ? new FatooraBusinessInvoice() : new FatooraInvoice();
         $fatooraInvoice->setCreationStatus($this->invoiceNumber, 3);
-        
-        if ($clearanceStatus == 'NOT_CLEARED') {
+
+        if ($status == 'NOT_CLEARED') {
             $fatooraInvoice->setReportingStatus($this->invoiceNumber, 2);
         } else {
             $fatooraInvoice->setReportingStatus($this->invoiceNumber, 1);
@@ -394,6 +395,7 @@ class ReportingAPI extends ValidationAPI
 {
     protected $endpoint = '/invoices/reporting/single';
     protected $name = 'reporting';
+    protected $responseStatusKey = 'reportingStatus';
 }
 
 class ClearanceAPI extends ValidationAPI

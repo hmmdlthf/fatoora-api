@@ -26,8 +26,7 @@ function invoiceClearance() {
                 alert('Invoice Cleared Successfully')
                 resetClearanceModal();
             } else {
-                console.log(r.text());
-                alert(r.text());
+                alert('Error Occured: Check the Console Log');
             }
         }).catch(e => {
             alert(e);

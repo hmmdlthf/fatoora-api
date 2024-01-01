@@ -21,29 +21,45 @@ function onboard() {
 function onboardingTemp() {
     fetch(`${api_endpoints.onboarding_path}?otp=${otp}`)
         .then(r => {
-            console.log(r.text);
-            steps.step1 = true;
-            updateOnboardingProgress();
-            onboardingInvoice();
+            console.log(r.text());
+
+            if (r.status >= 200 && r.status < 400) {
+                steps.step1 = true;
+                updateOnboardingProgress();
+                onboardingInvoice();
+            } else {
+                alert('Error Occured: Check the Console Log');
+            }
         });
 }
 
 function onboardingInvoice() {
     fetch(`${api_endpoints.onboarding_invoice_path}?invoiceNumber=${invoice_number}`)
         .then(r => {
-            console.log(r.text);
-            steps.step2 = true;
-            updateOnboardingProgress();
-            onboardingProduction();
+            console.log(r.text());
+
+             if (r.status >= 200 && r.status < 400) {
+                steps.step2 = true;
+                updateOnboardingProgress();
+                onboardingProduction();
+            } else {
+                alert('Error Occured: Check the Console Log');
+            }
         });
 }
 
 function onboardingProduction() {
     fetch(`${api_endpoints.onboarding_production_path}`)
         .then(r => {
-            console.log(r.text);
-            steps.step3 = true;
-            updateOnboardingProgress();
+            console.log(r.text());
+
+             if (r.status >= 200 && r.status < 400) {
+                steps.step3 = true;
+                updateOnboardingProgress();
+                alert('Onboarding Successfull');
+            } else {
+                alert('Error Occured: Check the Console Log');
+            }
         });
 }
 

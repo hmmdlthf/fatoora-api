@@ -32,7 +32,6 @@ $invoice = (new Invoice())->findBusinessInvoiceHeaderFooterByInvoiceNumber($invo
 
 $invoiceRecID = $invoice['RecID'];
 $invoiceNumber = $invoice['InvoiceNumber'];
-// $uuid = '22933a7e-2e60-4aa3-9e2e-efbacea502ff';
 $date =  $invoice['DATE'];
 $deliveryDate =  $invoice['DeliveryDate'];
 $time =  $invoice['TIME'];
@@ -48,39 +47,48 @@ $customerNameAR =  $invoice['CustomerNameAR'];
 $customerVAT =  $invoice['VATNumber'];
 $remarks =  $invoice['Remarks'];
 
-$fatooraInvoiceDocument = (new FatooraBusinessInvoice())->findOrCreateInvoice($invoiceNumber);
+$fatooraInvoice = new FatooraBusinessInvoice();
+$firstRecord = $fatooraInvoice->findFirstRecord();
+$fatooraInvoiceDocument = $fatooraInvoice->findOrCreateInvoice($invoiceNumber);
 $invoiceCounter = extractCounter($invoiceNumber);
-$uuid = $fatooraInvoiceDocument['UUID'];
 
-if ($fatooraInvoiceDocument['RecID'] == 1) {
-    $PIH = $fatooraInvoiceDocument['PIH'];
-    $isPIH = empty($PIH) == true ? false : true;
+if ($firstRecord == false) {
     $PIH = 'NWZlY2ViNjZmZmM4NmYzOGQ5NTI3ODZjNmQ2OTZjNzljMmRiYzIzOWRkNGU5MWI0NjcyOWQ3M2EyN2ZiNTdlOQ==';
 } else {
-    $invoiceNumberPrevious = getInvoiceNumberFromCounter((int)$invoiceCounter - 1);
-    $fatooraInvoiceDocumentPrevious = (new FatooraBusinessInvoice())->findInvoice($invoiceNumberPrevious);
-    $PIH = $fatooraInvoiceDocumentPrevious['InvoiceHash'];
+    $invoiceNumberPrevious = getInvoiceNumberFromCounter((int)$invoiceCounter - 1, 'business');
+    $fatooraInvoicePrevious = $fatooraInvoice->findInvoice($invoiceNumberPrevious);
+    $PIH = $fatooraInvoicePrevious['InvoiceHash'];
 }
+
+
+$fatooraInvoice->setPIH($invoiceNumber, $PIH);
+$uuid = $fatooraInvoiceDocument['UUID'];
+// $customerIdentificationTypeCode = 'CRN';
+$customerIdentificationTypeCode = 'NAT';
 
 
 $customerDetails = (new Customer())->findCustomerDetails($customerCode);
 $customerRegistrationNumber = $customerVAT;
-$customerStreetName = !empty($customerDetails['StreetName']) ? $customerDetails['StreetName'] : (!empty($customerDetails['AddressLine']) ? $customerDetails['AddressLine'] : 'No Street Given');
-$customerBuildingNumber = $customerDetails['BuildingNumber'] ?? '0000';
-$customerCityName = $customerDetails['CityName'];
-$customerCountryCode = str_replace(' ', '', $customerDetails['CountryCode']);
-$customerPostalCode = str_replace(' ', '', $customerDetails['POBox']) ?? '12345';
+$customerStreetName = !empty($customerDetails['StreetName']) ? $customerDetails['StreetName'] : (!empty($customerDetails['AddressLine']) ? $customerDetails['AddressLine'] : null);
+$customerBuildingNumber = !empty($customerDetails['BuildingNumber']) ? $customerDetails['BuildingNumber'] : null;
+$customerCityName = !empty($customerDetails['CityName']) ? $customerDetails['CityName'] : null;
+$customerCountryCode = !empty(str_replace(' ', '', $customerDetails['CountryCode'])) ? str_replace(' ', '', $customerDetails['CountryCode']) : null;
+$customerPostalCode = !empty(str_replace(' ', '', $customerDetails['POBox'])) ? str_replace(' ', '', $customerDetails['POBox']) : null;
 
-if (empty($customerPostalCode)) {
-    die('Customer Postal Code Is Mandatory field');
-} elseif (empty($customerRegistrationNumber)) {
-    die('Customer Registration Number is Mandatory field');
+if (empty($customerDetails)) {
+    die400('Customer Details Are Mandatory For Standard Invoice Type');
+} else if (empty($customerRegistrationNumber)) {
+    die400('Customer Registration Number is Mandatory field');
 } else if (empty($customerStreetName)) {
-    die('Customer Street Name is Mandatory field');
+    die400('Customer Street Name is Mandatory field');
+} else if (empty($customerBuildingNumber)) {
+    die400('Customer Building Number is Mandatory field');
 } else if (empty($customerCityName)) {
-    die('Customer City Name is Mandatory field');
+    die400('Customer City Name is Mandatory field');
 } else if (empty($customerCountryCode)) {
-    die('Customer Country Code is Mandatory field');
+    die400('Customer Country Code is Mandatory field');
+} else if (empty($customerPostalCode)) {
+    die400('Customer Postal Code Is Mandatory field');
 }
 
 $client = new Client($customerName, $customerVAT, $customerPostalCode, $customerStreetName, $customerBuildingNumber, $customerBuildingNumber, $customerCityName, $customerCityName);
@@ -95,8 +103,7 @@ foreach ($invoiceDetailRecords as $invoiceDetailRecord) {
     $invoiceItems[] = $invoiceItem;
 }
 
-$invoiceHash = $PIH;
-$invoice = new InvoiceXML($invoiceRecID, $invoiceNumber, $uuid, $date, $time, 388, 10, $subTotal, 0, $totalVAT, $grandTotal, $invoiceItems, previous_hash:$invoiceHash, delivery_date:$deliveryDate);
+$invoice = new InvoiceXML($invoiceRecID, $invoiceNumber, $uuid, $date, $time, 388, 10, $subTotal, 0, $totalVAT, $grandTotal, $invoiceItems, previous_hash:$PIH, delivery_date:$deliveryDate);
 $response = (new ReportInvoiceService($seller, $invoice, $client))->clearance();
 
 $fatooraInvoice = new FatooraBusinessInvoice();

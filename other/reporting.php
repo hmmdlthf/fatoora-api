@@ -30,7 +30,6 @@ $invoice = (new Invoice())->findInvoiceHeaderFooterByInvoiceNumber($invoiceNumbe
 
 $invoiceRecID = $invoice['RecID'];
 $invoiceNumber = $invoice['InvoiceNumber'];
-// $uuid = '22933a7e-2e60-4aa3-9e2e-efbacea502ff';
 $date =  $invoice['DATE'];
 $deliveryDate =  $invoice['DeliveryDate'] ?? $date;
 $time =  $invoice['TIME'];
@@ -46,13 +45,23 @@ $customerNameAR =  $invoice['CustomerNameAR'];
 $customerVAT =  $invoice['VATNumber'];
 $remarks =  $invoice['Remarks'];
 
-$fatooraInvoiceDocument = (new FatooraInvoice())->findOrCreateInvoice($invoiceNumber);
-
-$PIH = $fatooraInvoiceDocument['PIH'];
-$isPIH = empty($PIH) == true ? false : true;
-// $PIH = 'nzPSlf+bp71zze+fD6g+yuTJs249l4ArEVVtwxSImT4=';
+$fatooraInvoice = new FatooraInvoice();
+$firstRecord = $fatooraInvoice->findFirstRecord();
+$fatooraInvoiceDocument = $fatooraInvoice->findOrCreateInvoice($invoiceNumber);
 $invoiceCounter = extractCounter($invoiceNumber);
+
+if ($firstRecord == false) {
+    $PIH = 'NWZlY2ViNjZmZmM4NmYzOGQ5NTI3ODZjNmQ2OTZjNzljMmRiYzIzOWRkNGU5MWI0NjcyOWQ3M2EyN2ZiNTdlOQ==';
+} else {
+    $invoiceNumberPrevious = getInvoiceNumberFromCounter((int)$invoiceCounter - 1);
+    $fatooraInvoicePrevious = $fatooraInvoice->findInvoice($invoiceNumberPrevious);
+    $PIH = $fatooraInvoicePrevious['InvoiceHash'];
+}
+
+$fatooraInvoice->setPIH($invoiceNumber, $PIH);
 $uuid = $fatooraInvoiceDocument['UUID'];
+// $customerIdentificationTypeCode = 'CRN';
+$customerIdentificationTypeCode = 'NAT';
 
 $invoiceDetailRecords = (new InvoiceDetail())->findAllByInvoiceRecID($invoiceRecID);
 
@@ -64,14 +73,14 @@ foreach ($invoiceDetailRecords as $invoiceDetailRecord) {
     $invoiceItems[] = $invoiceItem;
 }
 
-$invoiceHash = $PIH;
-$invoice = new InvoiceXML($invoiceRecID, $invoiceNumber, $uuid, $date, $time, 388, 10, $subTotal, 0, $totalVAT, $grandTotal, $invoiceItems, $invoiceHash, delivery_date:$deliveryDate);
+$invoice = new InvoiceXML($invoiceRecID, $invoiceNumber, $uuid, $date, $time, 388, 10, $subTotal, 0, $totalVAT, $grandTotal, $invoiceItems, previous_hash:$PIH, delivery_date:$deliveryDate);
 $response = (new ReportInvoiceService($seller, $invoice, null))->reporting();
 
 $fatooraInvoice = new FatooraInvoice();
 $fatooraInvoice->setInvoiceHash($invoiceNumber, $response['invoiceHash']);
 $fatooraInvoice->setInvoiceUUID($invoiceNumber, $invoice->invoice_uuid);
 $fatooraInvoice->setInvoiceBase64Encoded($invoiceNumber, $response['clearedInvoice']);
+$fatooraInvoice->setPIH($invoiceNumber, $PIH);
 
 $filePath = '../fatoora/xml-files/generated-simplified-xml-invoice-2.xml';
 file_put_contents($filePath, base64_decode($response['clearedInvoice']));

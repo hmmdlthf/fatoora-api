@@ -56,10 +56,15 @@ class ComposerStaticInit3133d80ceb64625fa237b99f37ab3381
             'GuzzleHttp\\Promise\\' => 19,
             'GuzzleHttp\\' => 11,
         ),
+        'D' => 
+        array (
+            'DASPRiD\\Enum\\' => 13,
+        ),
         'B' => 
         array (
             'Brick\\Math\\' => 11,
             'Bl\\FatooraZatca\\' => 16,
+            'BaconQrCode\\' => 12,
         ),
     );
 
@@ -133,6 +138,10 @@ class ComposerStaticInit3133d80ceb64625fa237b99f37ab3381
         array (
             0 => __DIR__ . '/..' . '/guzzlehttp/guzzle/src',
         ),
+        'DASPRiD\\Enum\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/dasprid/enum/src',
+        ),
         'Brick\\Math\\' => 
         array (
             0 => __DIR__ . '/..' . '/brick/math/src',
@@ -140,6 +149,10 @@ class ComposerStaticInit3133d80ceb64625fa237b99f37ab3381
         'Bl\\FatooraZatca\\' => 
         array (
             0 => __DIR__ . '/..' . '/abdelrahmanbl/fatoora-zatca/src',
+        ),
+        'BaconQrCode\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/bacon/bacon-qr-code/src',
         ),
     );
 

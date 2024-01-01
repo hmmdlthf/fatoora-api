@@ -9,7 +9,11 @@ require_once $ROOT . "/fatoora/app/invoiceDetail/InvoiceDetail.php";
 require_once $ROOT . "/fatoora/app/fatoora/FatooraBusinessInvoice.php";
 require_once $ROOT . "/fatoora/fatoora/utils.php";
 require_once $ROOT . "/fatoora/fatoora/csr-config.php";
+require_once $ROOT . "/fatoora/app/fatoora/objects/Client.php";
+require_once $ROOT . "/fatoora/app/fatoora/objects/Supplier.php";
 
+use Objects\Client\Client;
+use Objects\Supplier\Supplier;
 use Saleh7\Zatca\AdditionalDocumentReference;
 use Saleh7\Zatca\Address;
 use Saleh7\Zatca\AllowanceCharge;
@@ -166,84 +170,35 @@ $taxScheme = (new TaxScheme)
     ->setId("VAT");
 
 
-// Supplier
-$partyTaxSchemeSupplier = (new PartyTaxScheme)
-    ->setTaxScheme($taxScheme)
-    ->setCompanyId($supplierVAT);
+$supplier = new Supplier(
+    $taxScheme,
+    $supplierName,
+    $supplierVAT,
+    $supplierVAT,
+    $supplierIdentificationTypeCode,
+    $supplierStreetName,
+    $supplierBuildingNumber,
+    $supplierBuildingNumber,
+    $supplierCityName,
+    $supplierCityName,
+    $supplierPostalCode,
+    $supplierCountryCode
+);
 
-$addressSupplier = (new Address)
-    ->setStreetName($supplierStreetName)
-    ->setBuildingNumber($supplierBuildingNumber)
-    ->setPlotIdentification($supplierBuildingNumber)
-    ->setCitySubdivisionName($supplierCityName)
-    ->setCityName($supplierCityName)
-    ->setPostalZone($supplierPostalCode)
-    ->setCountry($supplierCountryCode);
-
-$legalEntitySupplier = (new LegalEntity)
-    ->setRegistrationName($supplierName);
-
-$supplierCompany = (new Party)
-    ->setPartyIdentification($supplierVAT)
-    ->setPartyIdentificationId($supplierIdentificationTypeCode)
-    ->setLegalEntity($legalEntitySupplier)
-    ->setPartyTaxScheme($partyTaxSchemeSupplier)
-    ->setPostalAddress($addressSupplier);
-
-
-class Client extends Party
-{
-    protected PartyTaxScheme $taxScheme;
-    protected Address $address;
-    protected LegalEntity $legalEntity;
-
-    public function __construct(TaxScheme $taxScheme, $registrationName, $registrationNumber, $registrationNumberType, $streetName, $buildingNumber, $plotIdentification, $citySubdivisionName, $cityName, $postalZone, $country)
-    {
-        $this->taxScheme = (new PartyTaxScheme)->setTaxScheme($taxScheme);
-        $this->address = (new Address)
-            ->setStreetName($streetName)
-            ->setBuildingNumber($buildingNumber)
-            ->setPlotIdentification($plotIdentification)
-            ->setCitySubdivisionName($citySubdivisionName)
-            ->setCityName($cityName)
-            ->setPostalZone($postalZone)
-            ->setCountry($country);
-        $this->legalEntity = (new LegalEntity)->setRegistrationName($registrationName);
-        $this->setPartyIdentification($registrationNumber);
-        $this->setPartyIdentificationId($registrationNumberType);
-        $this->setLegalEntity($this->legalEntity);
-        $this->setPartyTaxScheme($this->taxScheme);
-        $this->setPostalAddress($this->address);
-    }
-}
-
-$client = new Client($taxScheme, $customerName, $customerRegistrationNumber, $customerIdentificationTypeCode, $customerStreetName, $customerBuildingNumber, $customerBuildingNumber, $customerCityName, $customerCityName, $customerPostalCode, $customerCountryCode);
-
-
-// // Customer
-// $partyTaxSchemeCustomer = (new PartyTaxScheme)
-//     ->setTaxScheme($taxScheme);
-// // ->setCompanyId($customerRegistrationNumber);
-
-// $addressCustomer = (new Address)
-//     ->setStreetName($customerStreetName)
-//     ->setBuildingNumber($customerBuildingNumber)
-//     ->setPlotIdentification($customerBuildingNumber)
-//     ->setCitySubdivisionName($customerCityName)
-//     ->setCityName($customerCityName)
-//     ->setPostalZone($customerPostalCode)
-//     ->setCountry($customerCountryCode);
-
-// $legalEntityCustomer = (new LegalEntity)
-//     ->setRegistrationName($customerName);
-
-// $customerCompany = (new Party)
-//     ->setPartyIdentification($customerRegistrationNumber)
-//     ->setPartyIdentificationId($customerIdentificationTypeCode)
-//     ->setLegalEntity($legalEntityCustomer)
-//     ->setPartyTaxScheme($partyTaxSchemeCustomer)
-//     ->setPostalAddress($addressCustomer);
-
+$client = new Client(
+    $taxScheme,
+    $customerName,
+    $customerVAT,
+    $customerRegistrationNumber,
+    $customerIdentificationTypeCode,
+    $customerStreetName,
+    $customerBuildingNumber,
+    $customerBuildingNumber,
+    $customerCityName,
+    $customerCityName,
+    $customerPostalCode,
+    $customerCountryCode
+);
 
 $delivery = (new Delivery)->setActualDeliveryDate($deliveryDate);
 $clientPaymentMeans = (new PaymentMeans)->setPaymentMeansCode("10");
@@ -259,6 +214,11 @@ $allowanceCharges[] = (new AllowanceCharge)
     ->setAllowanceChargeReason('discount')
     ->setAmount(0.00)
     ->setTaxCategory($taxCategory);
+
+
+if ($grandTotal != $subTotal + $totalVAT) {
+    die400('Main Invoice Total Calculation Are Wrong');
+}
 
 
 // tax total
@@ -294,14 +254,25 @@ foreach ($invoiceDetailRecords as $invoiceDetailRecord) {
     $productRecID = $invoiceDetailRecord['ProductRecID'];
     $subTotal = $invoiceDetailRecord['SubTotal'];
     $orderQuantity = $invoiceDetailRecord['OrderQuantity'];
+
+    if ($subTotal != $unitAmount * $orderQuantity) {
+        die400("Invoice Line for ProductRecID $productRecID - SubTotal Calculation Is Wrong");
+    }
+
+    if ($totalAmount != $subTotal + $salesTaxAmount) {
+        die400("Invoice Line for ProductRecID $productRecID - Total Calculation Are Wrong");
+    }
+
     // Invoice Line tax totals
     $lineTaxTotal = (new TaxTotal())
         ->setTaxAmount($salesTaxAmount)
         ->setRoundingAmount($totalAmount);
+        
     // Product
     $productItem = (new Item)
         ->setName($productFullName)
         ->setClassifiedTaxCategory($classifiedTax);
+
     // Price
     $price = (new Price)
         ->setUnitCode(UnitCode::UNIT)
@@ -314,10 +285,7 @@ foreach ($invoiceDetailRecords as $invoiceDetailRecord) {
         ->setPrice($price)
         ->setTaxTotal($lineTaxTotal)
         ->setInvoicedQuantity($orderQuantity);
-
-    // Invoice line net amount = (Invoiced quantity * (Item net price / item price base quantity)) + Sum of invoice line charge amount - Sum of invoice line allowance amount.
 }
-
 
 
 // Invoice object
@@ -339,7 +307,7 @@ $invoice = (new \Saleh7\Zatca\Invoice())
     ->setInvoiceLines($invoiceLines)
     ->setLegalMonetaryTotal($legalMonetaryTotal)
     ->setAccountingCustomerParty($client)
-    ->setAccountingSupplierParty($supplierCompany);
+    ->setAccountingSupplierParty($supplier);
 
 
 

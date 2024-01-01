@@ -6,6 +6,7 @@
         "phpseclib/phpseclib": "^3.0",
         "guzzlehttp/guzzle": "^7.8",
         "monolog/monolog": "^3.5",
-        "abdelrahmanbl/fatoora-zatca": "^2.3"
+        "abdelrahmanbl/fatoora-zatca": "^2.3",
+        "bacon/bacon-qr-code": "^2.0"
     }
 }

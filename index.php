@@ -45,8 +45,6 @@ $ROOT = $_SERVER["DOCUMENT_ROOT"];
     <?php include $ROOT . '/fatoora/modals/reporting-modal.php'; ?>
 
     <script src="js/script.js"></script>
-    <script src="js/scroll.js"></script>
-    <script src="js/session.js"></script>
 </body>
 
 </html>

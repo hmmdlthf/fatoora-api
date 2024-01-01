@@ -1,5 +1,8 @@
 <?php
 
+use Objects\Client\ClientB2C;
+use Objects\Supplier\Supplier;
+
 $ROOT = $_SERVER["DOCUMENT_ROOT"];
 require_once $ROOT . '/fatoora/vendor/autoload.php';
 require_once $ROOT . "/fatoora/login/utils.php";
@@ -9,6 +12,8 @@ require_once $ROOT . "/fatoora/app/invoiceDetail/InvoiceDetail.php";
 require_once $ROOT . "/fatoora/app/fatoora/FatooraInvoice.php";
 require_once $ROOT . "/fatoora/fatoora/utils.php";
 require_once $ROOT . "/fatoora/fatoora/csr-config.php";
+require_once $ROOT . "/fatoora/app/fatoora/objects/Supplier.php";
+require_once $ROOT . "/fatoora/app/fatoora/objects/ClientB2C.php";
 
 session_start();
 
@@ -108,12 +113,11 @@ $additionalDocumentReferences[] = (new \Saleh7\Zatca\AdditionalDocumentReference
 
 $customerDetails = (new Customer())->findCustomerDetails($customerCode);
 $customerRegistrationNumber = $customerVAT;
-$customerStreetName = !empty($customerDetails['StreetName']) ? $customerDetails['StreetName'] : (!empty($customerDetails['AddressLine']) ? $customerDetails['AddressLine'] : 'No Street Given');
-$customerBuildingNumber = $customerDetails['BuildingNumber'] ?? '0000';
-$customerCityName = $customerDetails['CityName'];
-$customerCountryCode = str_replace(' ', '', $customerDetails['CountryCode']);
-// $customerPostalCode = str_replace(' ', '', $customerDetails['POBox']) ?? '00000';
-$customerPostalCode = '12345';
+$customerStreetName = !empty($customerDetails['StreetName']) ? $customerDetails['StreetName'] : (!empty($customerDetails['AddressLine']) ? $customerDetails['AddressLine'] : null);
+$customerBuildingNumber = !empty($customerDetails['BuildingNumber']) ? $customerDetails['BuildingNumber'] : null;
+$customerCityName = !empty($customerDetails['CityName']) ? $customerDetails['CityName'] : null;
+$customerCountryCode = !empty(str_replace(' ', '', $customerDetails['CountryCode'])) ? str_replace(' ', '', $customerDetails['CountryCode']) : null;
+$customerPostalCode = !empty(str_replace(' ', '', $customerDetails['POBox'])) ? str_replace(' ', '', $customerDetails['POBox']) : null;
 
 
 // Tax scheme
@@ -121,56 +125,35 @@ $taxScheme = (new \Saleh7\Zatca\TaxScheme())
     ->setId("VAT");
 
 
-// Supplier
-$partyTaxSchemeSupplier = (new \Saleh7\Zatca\PartyTaxScheme())
-    ->setTaxScheme($taxScheme)
-    ->setCompanyId($supplierVAT);
+$supplier = new Supplier(
+    $taxScheme,
+    $supplierName,
+    $supplierVAT,
+    $supplierVAT,
+    $supplierIdentificationTypeCode,
+    $supplierStreetName,
+    $supplierBuildingNumber,
+    $supplierBuildingNumber,
+    $supplierCityName,
+    $supplierCityName,
+    $supplierPostalCode,
+    $supplierCountryCode
+);
 
-$addressSupplier = (new \Saleh7\Zatca\Address())
-    ->setStreetName($supplierStreetName)
-    ->setBuildingNumber($supplierBuildingNumber)
-    ->setPlotIdentification($supplierBuildingNumber)
-    ->setCitySubdivisionName($supplierCityName)
-    ->setCityName($supplierCityName)
-    ->setPostalZone($supplierPostalCode)
-    ->setCountry($supplierCountryCode);
-
-$legalEntitySupplier = (new \Saleh7\Zatca\LegalEntity())
-    ->setRegistrationName($supplierName);
-
-$supplierCompany = (new \Saleh7\Zatca\Party())
-    ->setPartyIdentification($supplierVAT)
-    ->setPartyIdentificationId($supplierIdentificationTypeCode)
-    ->setLegalEntity($legalEntitySupplier)
-    ->setPartyTaxScheme($partyTaxSchemeSupplier)
-    ->setPostalAddress($addressSupplier);
-
-
-// Customer
-$partyTaxSchemeCustomer = (new \Saleh7\Zatca\PartyTaxScheme())
-    ->setTaxScheme($taxScheme);
-// ->setCompanyId($customerRegistrationNumber);
-
-$addressCustomer = (new \Saleh7\Zatca\Address())
-    ->setStreetName($customerStreetName)
-    ->setBuildingNumber($customerBuildingNumber)
-    ->setPlotIdentification($customerBuildingNumber)
-    ->setCitySubdivisionName($customerCityName)
-    ->setCityName($customerCityName)
-    ->setPostalZone($customerPostalCode)
-    ->setCountry($customerCountryCode);
-
-$legalEntityCustomer = (new \Saleh7\Zatca\LegalEntity())
-    ->setRegistrationName($customerName);
-
-$customerCompany = (new \Saleh7\Zatca\Party())
-    ->setPartyIdentification($customerRegistrationNumber)
-    ->setPartyIdentificationId($customerIdentificationTypeCode)
-    ->setLegalEntity($legalEntityCustomer)
-    ->setPartyTaxScheme($partyTaxSchemeCustomer)
-    ->setPostalAddress($addressCustomer);
-
-
+$client = new ClientB2C(
+    $taxScheme, 
+    $customerName, 
+    $customerVAT, 
+    $customerRegistrationNumber, 
+    $customerIdentificationTypeCode, 
+    $customerStreetName, 
+    $customerBuildingNumber, 
+    $customerBuildingNumber, 
+    $customerCityName, 
+    $customerCityName, 
+    $customerPostalCode, 
+    $customerCountryCode
+);
 
 
 $delivery = (new \Saleh7\Zatca\Delivery())
@@ -184,10 +167,6 @@ $taxCategory = (new \Saleh7\Zatca\TaxCategory())
     ->setTaxScheme($taxScheme);
 
 
-
-
-
-
 // Allowance charges
 $allowanceCharges = [];
 $allowanceCharges[] = (new \Saleh7\Zatca\AllowanceCharge())
@@ -195,6 +174,11 @@ $allowanceCharges[] = (new \Saleh7\Zatca\AllowanceCharge())
     ->setAllowanceChargeReason('discount')
     ->setAmount(0.00)
     ->setTaxCategory($taxCategory);
+
+
+if ($grandTotal != $subTotal + $totalVAT) {
+    die400('Main Invoice Total Calculation Are Wrong');
+}
 
 
 // tax total
@@ -230,6 +214,15 @@ foreach ($invoiceDetailRecords as $invoiceDetailRecord) {
     $productRecID = $invoiceDetailRecord['ProductRecID'];
     $subTotal = $invoiceDetailRecord['SubTotal'];
     $orderQuantity = $invoiceDetailRecord['OrderQuantity'];
+
+    if ($subTotal != $unitAmount * $orderQuantity) {
+        die400("Invoice Line for ProductRecID $productRecID - SubTotal Calculation Is Wrong");
+    }
+
+    if ($totalAmount != $subTotal + $salesTaxAmount) {
+        die400("Invoice Line for ProductRecID $productRecID - Total Calculation Are Wrong");
+    }
+
     // Invoice Line tax totals
     $lineTaxTotal = (new \Saleh7\Zatca\TaxTotal())
         ->setTaxAmount($salesTaxAmount)
@@ -250,8 +243,6 @@ foreach ($invoiceDetailRecords as $invoiceDetailRecord) {
         ->setPrice($price)
         ->setTaxTotal($lineTaxTotal)
         ->setInvoicedQuantity($orderQuantity);
-
-    // Invoice line net amount = (Invoiced quantity * (Item net price / item price base quantity)) + Sum of invoice line charge amount - Sum of invoice line allowance amount.
 }
 
 
@@ -274,9 +265,8 @@ $invoice = (new \Saleh7\Zatca\Invoice())
     ->setTaxTotal($taxTotal)
     ->setInvoiceLines($invoiceLines)
     ->setLegalMonetaryTotal($legalMonetaryTotal)
-    ->setAccountingCustomerParty($customerCompany)
-    ->setAccountingSupplierParty($supplierCompany);
-
+    ->setAccountingCustomerParty($client)
+    ->setAccountingSupplierParty($supplier);
 
 
 $generatorXml = new \Saleh7\Zatca\GeneratorInvoice();
@@ -288,4 +278,7 @@ $fatooraInvoice->setCreationStatus($invoiceNumber, 2); // status created
 
 $filePath = 'xml-files/generated-simplified-xml-invoice.xml';
 file_put_contents($filePath, $outputXML);
-// echo 'xml file generated successfully';
+
+
+
+

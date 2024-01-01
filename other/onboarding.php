@@ -15,14 +15,11 @@ use My\Fatoora\Config;
 
 $zatca = new Zatca();
 
-$settings = new Setting('123345', 'hmmdlthf@gmail.com', 'TST-886431145-300066889400003', '0542936608', $supplierName, $supplierVAT, $supplierStreetName, 'Grocery Catering', invoiceType:'1111');
+$otp = $_GET['otp'];
+
+$settings = new Setting($otp, 'hmmdlthf@gmail.com', 'TST-886431145-300066889400003', '0542936608', $supplierName, $supplierVAT, $supplierStreetName, 'Grocery Catering', invoiceType:'1111');
 $settings = $zatca->generateZatcaSetting($settings);
 (new FatooraSettings())->saveSettings($settings);
 echo 'Onboarding Done and saved';
 
 
-// $seller = new Seller($supplierVAT, $supplierStreetName, $supplierBuildingNumber, $supplierBuildingNumber, $supplierCityName, $supplierCityName, $supplierPostalCode, $supplierVAT, $supplierName, $settings->private_key, $settings->cert_production, $settings->secret_production);
-// // $client = new Client();
-// $invoice = new Invoice();
-// // $zatca->reportStandardInvoice($seller, $invoice, $client);
-// $zatca->reportSimplifiedInvoice($seller, $invoice);

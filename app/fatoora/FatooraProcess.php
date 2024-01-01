@@ -80,13 +80,9 @@ class InvoiceHashing extends InvoiceProcessing
 
         // List of XPath queries to remove specific tags
         $queries = [
-            '/cbc:UBLVersionID',
-            '/cbc:CustomizationID',
-            '/cbc:ID',
-            '/cbc:IssueDate',
-            '/cbc:IssueTime',
-            '/cbc:DocumentCurrencyCode',
-            '/cac:Signature'
+            '//*[local-name()="Invoice"]//*[local-name()="UBLExtensions"]',
+            '//*[local-name()="AdditionalDocumentReference"][cbc:ID[normalize-space(text()) = "QR"]]',
+            '//*[local-name()="Invoice"]//*[local-name()="Signature"]',
         ];
 
         foreach ($queries as $query) {
@@ -114,10 +110,16 @@ class InvoiceHashing extends InvoiceProcessing
         return $this->encodedInvoiceHash;
     }
 
-    public function generateDigitalSignature($invoiceHash, $privateKey)
+    public function generateDigitalSignature()
     {
-        // Step 2: Generate Digital Signature
-        // Implementation to sign the invoice hash using ECDSA with a private key
+        /**
+         * Generate private key from CSR config file (you can refer to openssl commands, or readme file on SDK)
+         * Sign the generated invoice hash (in SHA-256 format not encoded with base64) with ECDSA using the private key (output). 
+         * e.g.:MEQCIGvLa1f3uMCe0AidKUWJ5ghMiDMRcC0qO78ntcTKVOYgAiAKBkX+uuFhbIcye3JznNa45qH1twlLFu/qPzEQ9HMNLw==
+         */
+        $csrFile = '';
+        $privateKey = file_get_contents($csrFile);
+        $privateKey = openssl_pkey_get_private($privateKey);
     }
 
     public function generateCertificateHash($x509Certificate)
