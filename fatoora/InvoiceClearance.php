@@ -16,12 +16,12 @@ try {
         // sign the invoice
         // generate invoice hash
         $fatooraCommand = new FatooraCommandExecutor();
-        $output = $fatooraCommand->signAndGenerateInvoiceHash($fatooraCommand->xmlFilePath . '/generated-xml-invoice.xml');
+        $output = $fatooraCommand->signAndGenerateInvoiceHash($fatooraCommand->xmlFilePath . '/generated-standard-xml-invoice.xml');
         $hash = $fatooraCommand->extractInvoiceHash($output);
         // $fatooraCommand->printArrayLineByLine($output);
 
         // create api request json file
-        $output = $fatooraCommand->generateJsonApiRequest($fatooraCommand->xmlFilePath . '/generated-xml-invoice_signed.xml', $fatooraCommand->fileRootPath . '/api-request.json');
+        $output = $fatooraCommand->generateJsonApiRequest($fatooraCommand->xmlFilePath . '/generated-standard-xml-invoice_signed.xml', $fatooraCommand->fileRootPath . '/api-request.json');
         // $fatooraCommand->printArrayLineByLine($output);
 
         // save hash to database
@@ -34,5 +34,5 @@ try {
         echo $response;
     }
 } catch (Exception $e) {
-    echo $e;
+    die($e);
 }

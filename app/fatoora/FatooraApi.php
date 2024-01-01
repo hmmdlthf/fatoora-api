@@ -5,6 +5,7 @@ require_once $ROOT . "/fatoora/app/fatoora/CSIDTemp.php";
 require_once $ROOT . "/fatoora/app/fatoora/CSIDProduction.php";
 require_once $ROOT . "/fatoora/app/fatoora/CSIDRenewal.php";
 require_once $ROOT . "/fatoora/app/fatoora/FatooraInvoice.php";
+require_once $ROOT . "/fatoora/app/fatoora/FatooraBusinessInvoice.php";
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
@@ -318,6 +319,7 @@ class ValidationAPI extends FatooraAuthApi
     protected $uuid;
     protected $invoice;
     protected $invoiceNumber;
+    protected $name = 'clearance';
 
     public function __construct($invoiceNumber)
     {
@@ -344,15 +346,15 @@ class ValidationAPI extends FatooraAuthApi
 
     public function getInvoiceFromJson()
     {
-        $file_path = 'E:/installed_applications/xampp/htdocs/fatoora/fatoora/api-request.json';
+        $file_path = '.././fatoora\api-request.json'; 
         $jsonContent = file_get_contents($file_path);
         $jsonData = json_decode($jsonContent, true);
 
         // Extracting specific variables from the JSON data
         if ($jsonData) {
-            $this->invoiceHash = $jsonData['InvoiceHash'] ?? null;
-            $this->uuid = $jsonData['UUID'] ?? null;
-            $this->invoice = $jsonData['Invoice'] ?? null;
+            $this->invoiceHash = $jsonData['invoiceHash'] ?? null;
+            $this->uuid = $jsonData['uuid'] ?? null;
+            $this->invoice = $jsonData['invoice'] ?? null;
         }
     }
 
@@ -362,11 +364,36 @@ class ValidationAPI extends FatooraAuthApi
         $body_array = ['invoiceHash' => $this->invoiceHash, 'uuid' => $this->uuid, 'invoice' => $this->invoice];
         $this->body = json_encode($body_array);
     }
+
+    public function afterResponse()
+    {
+        $responseAss = json_decode($this->response, true);
+        $clearanceStatus =  $responseAss['clearanceStatus'] ?? null;
+
+        if (!empty($clearanceStatus)) {
+            $this->changeStatus($clearanceStatus);
+        }
+
+        return $this->response;
+    }
+
+    public function changeStatus($clearanceStatus)
+    {
+        $fatooraInvoice = $this->name == 'clearance' ? new FatooraBusinessInvoice() : new FatooraInvoice();
+        $fatooraInvoice->setCreationStatus($this->invoiceNumber, 3);
+        
+        if ($clearanceStatus == 'NOT_CLEARED') {
+            $fatooraInvoice->setReportingStatus($this->invoiceNumber, 2);
+        } else {
+            $fatooraInvoice->setReportingStatus($this->invoiceNumber, 1);
+        }
+    }
 }
 
 class ReportingAPI extends ValidationAPI
 {
     protected $endpoint = '/invoices/reporting/single';
+    protected $name = 'reporting';
 }
 
 class ClearanceAPI extends ValidationAPI

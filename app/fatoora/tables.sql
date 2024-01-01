@@ -1,15 +1,3 @@
-CREATE TABLE Emtyaz.[Fatoora].[Invoice]
-(
-    [RecID] int IDENTITY(1,1) PRIMARY KEY,
-    [InvoiceNumber] varchar(255),
-    [InvoiceHash] varchar(255),
-    [UUID] varchar(255),
-    [QR] varchar(255),
-    [Stamp] varchar(255),
-    [PIH] varchar(255),
-    [Invoice] nvarchar(max)
-)
-
 CREATE TABLE Emtyaz.[Fatoora].[POSInvoice]
 (
     [RecID] int IDENTITY(1,1) PRIMARY KEY,
@@ -19,7 +7,9 @@ CREATE TABLE Emtyaz.[Fatoora].[POSInvoice]
     [QR] varchar(255),
     [Stamp] varchar(255),
     [PIH] varchar(255),
-    [Invoice] nvarchar(max)
+    [Invoice] nvarchar(max),
+    [CreationStatusRecID] int,
+    [ReportingStatusRecID] int
 )
 
 CREATE TABLE Emtyaz.[Fatoora].[BusinessInvoice]
@@ -31,7 +21,9 @@ CREATE TABLE Emtyaz.[Fatoora].[BusinessInvoice]
     [QR] varchar(255),
     [Stamp] varchar(255),
     [PIH] varchar(255),
-    [Invoice] nvarchar(max)
+    [Invoice] nvarchar(max),
+    [CreationStatusRecID] int,
+    [ReportingStatusRecID] int
 )
 
 CREATE TABLE Emtyaz.Fatoora.CSIDTemp
@@ -78,16 +70,6 @@ VALUES
     ('PENDING', 'Pending', 'The item is pending', GETDATE());
 
 
-
-
-
-
-
-
-
-
-
-
 CREATE TABLE Emtyaz.Fatoora.FatooraSettings (
     id INT IDENTITY(1,1) PRIMARY KEY,
     cnf NVARCHAR(MAX),
@@ -101,3 +83,28 @@ CREATE TABLE Emtyaz.Fatoora.FatooraSettings (
     secret_compliance NVARCHAR(MAX),
     csid_id_compliance NVARCHAR(MAX)
 );
+
+CREATE TABLE Emtyaz.[Fatoora].[ReportingStatus]
+(
+    [RecID] int IDENTITY(1,1) PRIMARY KEY,
+    [StatusCode] varchar(50) NOT NULL,
+    [Description] varchar(255) NOT NULL
+);
+
+CREATE TABLE Emtyaz.[Fatoora].[CreationStatus]
+(
+    [RecID] int IDENTITY(1,1) PRIMARY KEY,
+    [StatusCode] varchar(50) NOT NULL,
+    [Description] varchar(255) NOT NULL
+);
+
+-- Insert statements for Reporting Status
+INSERT INTO Emtyaz.[Fatoora].[ReportingStatus] (StatusCode, Description)
+VALUES ('Success', 'Creation process successful'),
+       ('Failure', 'Creation process failed');
+
+-- Insert statements for Creation Status
+INSERT INTO Emtyaz.[Fatoora].[CreationStatus] (StatusCode, Description)
+VALUES ('Pending', 'Pending reporting process'),
+       ('Created', 'Invoice created'),
+       ('Reported', 'Invoice reported successfully');

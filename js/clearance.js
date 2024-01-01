@@ -18,11 +18,19 @@ function clearInvoice() {
 function invoiceClearance() {
     fetch(`${api_endpoints.invoice_clearance_path}?invoiceNumber=${clearance_invoice_number}`)
         .then(r => {
-            console.log(r.text);
-            clearance_steps.step1 = true;
-            updateClearanceProgress();
-            alert('Invoice Cleared Successfully')
-            resetClearanceModal();
+            console.log(r.text());
+
+            if (r.status >= 200 && r.status < 400) {
+                clearance_steps.step1 = true;
+                updateClearanceProgress();
+                alert('Invoice Cleared Successfully')
+                resetClearanceModal();
+            } else {
+                console.log(r.text());
+                alert(r.text());
+            }
+        }).catch(e => {
+            alert(e);
         });
 }
 

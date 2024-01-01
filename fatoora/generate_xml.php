@@ -33,15 +33,21 @@ $customerNameAR =  $invoice['CustomerNameAR'];
 $customerVAT =  $invoice['VATNumber'];
 $remarks =  $invoice['Remarks'];
 
-$fatooraInvoiceDocument = (new FatooraInvoice())->findOrCreateInvoice($invoiceNumber);
-
-
-$PIH = $fatooraInvoiceDocument['PIH'];
-$isPIH = empty($PIH) == true ? false : true;
-// $PIH = 'nzPSlf+bp71zze+fD6g+yuTJs249l4ArEVVtwxSImT4=';
+$fatooraInvoice = new FatooraInvoice();
+$firstRecord = $fatooraInvoice->findFirstRecord();
+$fatooraInvoiceDocument = $fatooraInvoice->findOrCreateInvoice($invoiceNumber);
 $invoiceCounter = extractCounter($invoiceNumber);
-$uuid = $fatooraInvoiceDocument['UUID'];
 
+if ($firstRecord == false) {
+    $PIH = 'NWZlY2ViNjZmZmM4NmYzOGQ5NTI3ODZjNmQ2OTZjNzljMmRiYzIzOWRkNGU5MWI0NjcyOWQ3M2EyN2ZiNTdlOQ==';
+} else {
+    $invoiceNumberPrevious = getInvoiceNumberFromCounter((int)$invoiceCounter - 1);
+    $fatooraInvoicePrevious = $fatooraInvoice->findInvoice($invoiceNumberPrevious);
+    $PIH = $fatooraInvoicePrevious['InvoiceHash'];
+}
+
+$fatooraInvoice->setPIH($invoiceNumber, $PIH);
+$uuid = $fatooraInvoiceDocument['UUID'];
 // $customerIdentificationTypeCode = 'CRN';
 $customerIdentificationTypeCode = 'NAT';
 
@@ -276,8 +282,10 @@ $invoice = (new \Saleh7\Zatca\Invoice())
 $generatorXml = new \Saleh7\Zatca\GeneratorInvoice();
 $outputXML = $generatorXml->invoice($invoice);
 $encodedInvoice = encodeXMLtoBase64($outputXML);
-$fatooraInvoiceDocument = (new FatooraInvoice())->setInvoiceBase64Encoded($invoiceNumber, $encodedInvoice);
+$fatooraInvoice->setInvoiceBase64Encoded($invoiceNumber, $encodedInvoice);
+$fatooraInvoice->setCreationStatus($invoiceNumber, 2); // status created
 
-$filePath = 'xml-files/generated-xml-invoice.xml';
+
+$filePath = 'xml-files/generated-simplified-xml-invoice.xml';
 file_put_contents($filePath, $outputXML);
 // echo 'xml file generated successfully';

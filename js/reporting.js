@@ -18,11 +18,13 @@ function reportInvoice() {
 function invoiceReporting() {
     fetch(`${api_endpoints.invoice_reporting_path}?invoiceNumber=${reporting_invoice_number}`)
         .then(r => {
-            console.log(r.text);
+            console.log(r.text());
             reporting_steps.step1 = true;
             updateReportingProgress();
             alert('Invoice Cleared Successfully')
             resetReportingModal();
+        }).catch(e => {
+            alert(e);
         });
 }
 

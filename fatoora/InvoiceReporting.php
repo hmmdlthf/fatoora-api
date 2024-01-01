@@ -15,25 +15,25 @@ try {
         // sign the invoice
         // generate invoice hash
         $fatooraCommand = new FatooraCommandExecutor();
-        $output = $fatooraCommand->signAndGenerateInvoiceHash($fatooraCommand->xmlFilePath . '/generated-xml-invoice.xml');
+        $output = $fatooraCommand->signAndGenerateInvoiceHash($fatooraCommand->xmlFilePath . '/generated-simplified-xml-invoice.xml');
         $hash = $fatooraCommand->extractInvoiceHash($output);
-        $fatooraCommand->printArrayLineByLine($output);
-        echo '<br>';
+        // $fatooraCommand->printArrayLineByLine($output);
+        // echo '<br>';
 
         // create api request json file
-        $output = $fatooraCommand->generateJsonApiRequest($fatooraCommand->xmlFilePath . '/generated-xml-invoice_signed.xml', $fatooraCommand->fileRootPath . '/api-request.json');
-        $fatooraCommand->printArrayLineByLine($output);
-        echo '<br>';
+        $output = $fatooraCommand->generateJsonApiRequest($fatooraCommand->xmlFilePath . '/generated-simplified-xml-invoice_signed.xml', $fatooraCommand->fileRootPath . '/api-request.json');
+        // $fatooraCommand->printArrayLineByLine($output);
+        // echo '<br>';
 
         // save hash to database
         $fatooraInvoice = new FatooraInvoice();
         $response = $fatooraInvoice->setInvoiceHash($invoiceNumber, $hash);
 
-        // run the compliance invoice api
+        // run the reporting invoice api
         $fatooraApi = new ReportingAPI($invoiceNumber);
         $response = $fatooraApi->postRequest();
         echo $response;
     }
 } catch (Exception $e) {
-    echo $e;
+    die($e);
 }
