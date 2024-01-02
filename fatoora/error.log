@@ -27,7 +27,7 @@ Content-Length: 19565
 * Mark bundle as not supporting multiuse
 < HTTP/1.1 400 Bad Request
 < Connection: Keep-Alive
-< Date: Mon, 01 Jan 2024 11:56:19 GMT
+< Date: Tue, 02 Jan 2024 11:37:51 GMT
 < Content-Type: application/json
 < Strict-Transport-Security: max-age=15724800; includeSubDomains
 < X-Content-Type-Options: nosniff
@@ -35,8 +35,8 @@ Content-Length: 19565
 < X-Xss-Protection: 1; mode=block
 < Content-Security-Policy: default-src 'none'; script-src 'self'; connect-src 'self'; img-src 'self'; style-src 'self'; frame-ancestors 'none'; form-action 'self'
 < Cache-Control: no-store, max-age=0
-< X-Global-Transaction-ID: 0bf355096592a8582b95b331
-< Set-Cookie: TS0106293e=0132a679c01664e2b6e8f13b7d2c77956055193b2e6938db5e5ef7cdb1ceb5ce03561f19703d30b789394e09ae960bdddeb9737823; Path=/; Domain=.gw-fatoora.zatca.gov.sa
+< X-Global-Transaction-ID: 5a9caee76593f58b2595724f
+< Set-Cookie: TS0106293e=0132a679c08a00419046fa339a12a745ab19a933c873d890b286b6c991f0ba1105e2d89554330324456208eda06936d75771fa2541; Path=/; Domain=.gw-fatoora.zatca.gov.sa
 < Transfer-Encoding: chunked
 < 
 * Connection #0 to host gw-fatoora.zatca.gov.sa left intact

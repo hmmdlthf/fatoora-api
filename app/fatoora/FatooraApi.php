@@ -385,7 +385,9 @@ class ValidationAPI extends FatooraAuthApi
 
         if ($status == 'NOT_CLEARED') {
             $fatooraInvoice->setReportingStatus($this->invoiceNumber, 2);
-        } else {
+        } else if ($status == 'NOT_REPORTED') {
+            $fatooraInvoice->setReportingStatus($this->invoiceNumber, 2);
+        }  else {
             $fatooraInvoice->setReportingStatus($this->invoiceNumber, 1);
         }
     }

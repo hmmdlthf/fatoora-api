@@ -2,9 +2,9 @@
 <Invoice xmlns="urn:oasis:names:specification:ubl:schema:xsd:Invoice-2" xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2" xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2" xmlns:ext="urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2">
  <cbc:ProfileID>reporting:1.0</cbc:ProfileID>
  <cbc:ID>INV/W009293</cbc:ID>
- <cbc:UUID>15487b5c-d324-4c0c-8e7a-067fd4f7c785</cbc:UUID>
- <cbc:IssueDate>2024-01-01</cbc:IssueDate>
- <cbc:IssueTime>12:56:04</cbc:IssueTime>
+ <cbc:UUID>449285da-3ad9-427a-a8ef-18dae8b2fa1e</cbc:UUID>
+ <cbc:IssueDate>2024-01-02</cbc:IssueDate>
+ <cbc:IssueTime>12:37:45</cbc:IssueTime>
  <cbc:InvoiceTypeCode name="0100000">388</cbc:InvoiceTypeCode>
  <cbc:DocumentCurrencyCode>SAR</cbc:DocumentCurrencyCode>
  <cbc:TaxCurrencyCode>SAR</cbc:TaxCurrencyCode>
@@ -18,7 +18,7 @@
  <cac:AdditionalDocumentReference>
   <cbc:ID>PIH</cbc:ID>
   <cac:Attachment>
-   <cbc:EmbeddedDocumentBinaryObject mimeCode="text/plain">1AQ2jjV57WuqCzejTimYz/SZQBSZKZ3rGaYla8wm9qc=</cbc:EmbeddedDocumentBinaryObject>
+   <cbc:EmbeddedDocumentBinaryObject mimeCode="text/plain">s2MPuMLAlIwxxfiyANpRN3+/T7rB6JVYSfP+9XhoyhQ=</cbc:EmbeddedDocumentBinaryObject>
   </cac:Attachment>
  </cac:AdditionalDocumentReference>
  <cac:AccountingSupplierParty>

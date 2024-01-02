@@ -17,18 +17,15 @@ try {
         // generate invoice hash
         $fatooraCommand = new FatooraCommandExecutor();
         $output = $fatooraCommand->signAndGenerateInvoiceHash($fatooraCommand->xmlFilePath . '/generated-simplified-xml-invoice.xml');
-        $hash = $fatooraCommand->extractInvoiceHash($output);
+        // $hash = $fatooraCommand->extractInvoiceHash($output);
         // $fatooraCommand->printArrayLineByLine($output);
         // echo '<br>';
 
         // create api request json file
         $output = $fatooraCommand->generateJsonApiRequest($fatooraCommand->xmlFilePath . '/generated-simplified-xml-invoice_signed.xml', $fatooraCommand->fileRootPath . '/api-request.json');
+        $fatooraCommand->saveInvoiceDetaisFromApiRequestJson($invoiceNumber);
         // $fatooraCommand->printArrayLineByLine($output);
         // echo '<br>';
-
-        // save hash to database
-        $fatooraInvoice = new FatooraInvoice();
-        $response = $fatooraInvoice->setInvoiceHash($invoiceNumber, $hash);
 
         // find and save the qrcode
         $contents = file_get_contents($fatooraCommand->xmlFilePath . '/generated-simplified-xml-invoice_signed.xml');

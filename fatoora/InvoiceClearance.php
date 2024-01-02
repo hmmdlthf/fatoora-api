@@ -17,16 +17,13 @@ try {
         // generate invoice hash
         $fatooraCommand = new FatooraCommandExecutor();
         $output = $fatooraCommand->signAndGenerateInvoiceHash($fatooraCommand->xmlFilePath . '/generated-standard-xml-invoice.xml');
-        $hash = $fatooraCommand->extractInvoiceHash($output);
+        // $hash = $fatooraCommand->extractInvoiceHash($output);
         // $fatooraCommand->printArrayLineByLine($output);
 
         // create api request json file
         $output = $fatooraCommand->generateJsonApiRequest($fatooraCommand->xmlFilePath . '/generated-standard-xml-invoice_signed.xml', $fatooraCommand->fileRootPath . '/api-request.json');
+        $fatooraCommand->saveInvoiceDetaisFromApiRequestJson($invoiceNumber, 'business');
         // $fatooraCommand->printArrayLineByLine($output);
-
-        // save hash to database
-        $fatooraInvoice = new FatooraBusinessInvoice();
-        $response = $fatooraInvoice->setInvoiceHash($invoiceNumber, $hash);
 
         // run the compliance invoice api
         $fatooraApi = new ClearanceAPI($invoiceNumber);

@@ -1,5 +1,10 @@
 <?php
 
+$ROOT = $_SERVER["DOCUMENT_ROOT"];
+require_once $ROOT . '/fatoora/vendor/autoload.php';
+require_once $ROOT . '/fatoora/app/fatoora/FatooraBusinessInvoice.php';
+require_once $ROOT . '/fatoora/app/fatoora/FatooraInvoice.php';
+
 /**
  * Fatoora Command
  * 
@@ -123,5 +128,16 @@ class FatooraCommandExecutor
             }
         }
         return null; // Return null if not found
+    }
+
+    public function saveInvoiceDetaisFromApiRequestJson($invoiceNumber, $invoiceType = 'pos')
+    {
+        $apiRequest = self::getFileContents($this->fileRootPath. '/api-request.json');
+        $apiRequestArray = json_decode($apiRequest, true);
+        $fatooraInvoice = $invoiceType == 'pos' ? new FatooraInvoice() : new FatooraBusinessInvoice();
+        $fatooraInvoice->setInvoiceHash($invoiceNumber, $apiRequestArray['invoiceHash']);
+        $fatooraInvoice->setInvoiceUUID($invoiceNumber, $apiRequestArray['uuid']);
+        $fatooraInvoice->setInvoiceBase64Encoded($invoiceNumber, $apiRequestArray['invoice']);
+        return true;
     }
 }
