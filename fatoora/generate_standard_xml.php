@@ -255,11 +255,13 @@ foreach ($invoiceDetailRecords as $invoiceDetailRecord) {
     $subTotal = $invoiceDetailRecord['SubTotal'];
     $orderQuantity = $invoiceDetailRecord['OrderQuantity'];
 
+    $tolerance = 0.0001;
     if ($subTotal != $unitAmount * $orderQuantity) {
         die400("Invoice Line for ProductRecID $productRecID - SubTotal Calculation Is Wrong");
     }
 
-    if ($totalAmount != $subTotal + $salesTaxAmount) {
+    // $x = abs((float)$totalAmount - ((float)$subTotal + (float)$salesTaxAmount));
+    if (abs((float)$totalAmount - ((float)$subTotal + (float)$salesTaxAmount)) > $tolerance) {
         die400("Invoice Line for ProductRecID $productRecID - Total Calculation Are Wrong");
     }
 

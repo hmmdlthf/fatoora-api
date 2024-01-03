@@ -22,12 +22,12 @@ Accept-Language: en
 Accept-Version: V2
 Content-Type: application/json
 Clearance-Status: 1
-Content-Length: 19565
+Content-Length: 18545
 
 * Mark bundle as not supporting multiuse
 < HTTP/1.1 400 Bad Request
 < Connection: Keep-Alive
-< Date: Tue, 02 Jan 2024 11:37:51 GMT
+< Date: Wed, 03 Jan 2024 05:19:11 GMT
 < Content-Type: application/json
 < Strict-Transport-Security: max-age=15724800; includeSubDomains
 < X-Content-Type-Options: nosniff
@@ -35,8 +35,8 @@ Content-Length: 19565
 < X-Xss-Protection: 1; mode=block
 < Content-Security-Policy: default-src 'none'; script-src 'self'; connect-src 'self'; img-src 'self'; style-src 'self'; frame-ancestors 'none'; form-action 'self'
 < Cache-Control: no-store, max-age=0
-< X-Global-Transaction-ID: 5a9caee76593f58b2595724f
-< Set-Cookie: TS0106293e=0132a679c08a00419046fa339a12a745ab19a933c873d890b286b6c991f0ba1105e2d89554330324456208eda06936d75771fa2541; Path=/; Domain=.gw-fatoora.zatca.gov.sa
+< X-Global-Transaction-ID: ae5a90e16594ee4926b52cbf
+< Set-Cookie: TS0106293e=0132a679c0b7cc0864e3dd690ac37eca31d41143b7e70e3a9daa0d39ea06cb3bded73d1c96150a2b768e94d7b35e7e1deb4447543c; Path=/; Domain=.gw-fatoora.zatca.gov.sa
 < Transfer-Encoding: chunked
 < 
 * Connection #0 to host gw-fatoora.zatca.gov.sa left intact
