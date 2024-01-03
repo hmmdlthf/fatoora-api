@@ -35,6 +35,8 @@ $ROOT = $_SERVER["DOCUMENT_ROOT"];
             <div class="btn btn__large onboarding" onclick="showOnboardingModal()">OnBoard</div>
             <div class="btn btn__large simplified" onclick="showReportingModal()">Simplified Invoice</div>
             <div class="btn btn__large standard" onclick="showClearanceModal()">Standard Invoice</div>
+            <div class="btn btn__large bulkReporting" onclick="showBulkReportingModal()">Bulk Reporting</div>
+            <div class="btn btn__large bulkClearing" onclick="showBulkClearingModal()">Bulk Clearing</div>
         </div>
     </div>
 
@@ -43,6 +45,7 @@ $ROOT = $_SERVER["DOCUMENT_ROOT"];
     <?php include $ROOT . '/fatoora/modals/onboarding-modal.php'; ?>
     <?php include $ROOT . '/fatoora/modals/clearance-modal.php'; ?>
     <?php include $ROOT . '/fatoora/modals/reporting-modal.php'; ?>
+    <?php include $ROOT . '/fatoora/modals/bulk-reporting-modal.php'; ?>
 
     <script src="js/script.js"></script>
 </body>

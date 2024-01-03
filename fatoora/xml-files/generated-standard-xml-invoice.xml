@@ -1,10 +1,10 @@
 <?xml version="1.0"?>
 <Invoice xmlns="urn:oasis:names:specification:ubl:schema:xsd:Invoice-2" xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2" xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2" xmlns:ext="urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2">
  <cbc:ProfileID>reporting:1.0</cbc:ProfileID>
- <cbc:ID>INV/W009294</cbc:ID>
- <cbc:UUID>942a8849-9f3e-4c4f-a1c2-85f6124d292e</cbc:UUID>
+ <cbc:ID>INV/W009296</cbc:ID>
+ <cbc:UUID>3e842e02-cc21-4aa4-b7b0-9d1e98b38022</cbc:UUID>
  <cbc:IssueDate>2024-01-03</cbc:IssueDate>
- <cbc:IssueTime>06:19:06</cbc:IssueTime>
+ <cbc:IssueTime>06:27:54</cbc:IssueTime>
  <cbc:InvoiceTypeCode name="0100000">388</cbc:InvoiceTypeCode>
  <cbc:DocumentCurrencyCode>SAR</cbc:DocumentCurrencyCode>
  <cbc:TaxCurrencyCode>SAR</cbc:TaxCurrencyCode>
@@ -13,12 +13,12 @@
  </cac:ContractDocumentReference>
  <cac:AdditionalDocumentReference>
   <cbc:ID>ICV</cbc:ID>
-  <cbc:UUID>9294</cbc:UUID>
+  <cbc:UUID>9296</cbc:UUID>
  </cac:AdditionalDocumentReference>
  <cac:AdditionalDocumentReference>
   <cbc:ID>PIH</cbc:ID>
   <cac:Attachment>
-   <cbc:EmbeddedDocumentBinaryObject mimeCode="text/plain">yjakulAYml8fnLKpBHZCYoTGjzDbn4lUfbz1erMIFTE=</cbc:EmbeddedDocumentBinaryObject>
+   <cbc:EmbeddedDocumentBinaryObject mimeCode="text/plain">TLpE71tTvubHiAzR9/bn/noTI19LNCNmJ4133e1755E=</cbc:EmbeddedDocumentBinaryObject>
   </cac:Attachment>
  </cac:AdditionalDocumentReference>
  <cac:AccountingSupplierParty>
@@ -94,13 +94,13 @@
   </cac:TaxCategory>
  </cac:AllowanceCharge>
  <cac:TaxTotal>
-  <cbc:TaxAmount currencyID="SAR">80.3</cbc:TaxAmount>
+  <cbc:TaxAmount currencyID="SAR">133.0</cbc:TaxAmount>
  </cac:TaxTotal>
  <cac:TaxTotal>
-  <cbc:TaxAmount currencyID="SAR">80.33</cbc:TaxAmount>
+  <cbc:TaxAmount currencyID="SAR">133.05</cbc:TaxAmount>
   <cac:TaxSubtotal>
-   <cbc:TaxableAmount currencyID="SAR">535.51</cbc:TaxableAmount>
-   <cbc:TaxAmount currencyID="SAR">80.33</cbc:TaxAmount>
+   <cbc:TaxableAmount currencyID="SAR">886.98</cbc:TaxableAmount>
+   <cbc:TaxAmount currencyID="SAR">133.05</cbc:TaxAmount>
    <cac:TaxCategory>
     <cbc:ID schemeID="UN/ECE 5305" schemeAgencyID="6">S</cbc:ID>
     <cbc:Percent>15</cbc:Percent>
@@ -111,23 +111,23 @@
   </cac:TaxSubtotal>
  </cac:TaxTotal>
  <cac:LegalMonetaryTotal>
-  <cbc:LineExtensionAmount currencyID="SAR">535.51</cbc:LineExtensionAmount>
-  <cbc:TaxExclusiveAmount currencyID="SAR">535.51</cbc:TaxExclusiveAmount>
-  <cbc:TaxInclusiveAmount currencyID="SAR">615.84</cbc:TaxInclusiveAmount>
+  <cbc:LineExtensionAmount currencyID="SAR">886.98</cbc:LineExtensionAmount>
+  <cbc:TaxExclusiveAmount currencyID="SAR">886.98</cbc:TaxExclusiveAmount>
+  <cbc:TaxInclusiveAmount currencyID="SAR">1020.03</cbc:TaxInclusiveAmount>
   <cbc:AllowanceTotalAmount currencyID="SAR">0.00</cbc:AllowanceTotalAmount>
   <cbc:PrepaidAmount currencyID="SAR">0.00</cbc:PrepaidAmount>
-  <cbc:PayableAmount currencyID="SAR">615.84</cbc:PayableAmount>
+  <cbc:PayableAmount currencyID="SAR">1020.03</cbc:PayableAmount>
  </cac:LegalMonetaryTotal>
  <cac:InvoiceLine>
-  <cbc:ID>1313</cbc:ID>
-  <cbc:InvoicedQuantity unitCode="PCE">6.000000</cbc:InvoicedQuantity>
-  <cbc:LineExtensionAmount currencyID="SAR">167.52</cbc:LineExtensionAmount>
+  <cbc:ID>234</cbc:ID>
+  <cbc:InvoicedQuantity unitCode="PCE">2.000000</cbc:InvoicedQuantity>
+  <cbc:LineExtensionAmount currencyID="SAR">271.98</cbc:LineExtensionAmount>
   <cac:TaxTotal>
-   <cbc:TaxAmount currencyID="SAR">25.13</cbc:TaxAmount>
-   <cbc:RoundingAmount currencyID="SAR">192.65</cbc:RoundingAmount>
+   <cbc:TaxAmount currencyID="SAR">40.80</cbc:TaxAmount>
+   <cbc:RoundingAmount currencyID="SAR">312.78</cbc:RoundingAmount>
   </cac:TaxTotal>
   <cac:Item>
-   <cbc:Name>MC2, Bakeries Flour (45 KG * Bag)</cbc:Name>
+   <cbc:Name>Greens, Strawberry Jelly (80 GM * 72 Piece)</cbc:Name>
    <cac:ClassifiedTaxCategory>
     <cbc:ID>S</cbc:ID>
     <cbc:Percent>15.00</cbc:Percent>
@@ -137,19 +137,19 @@
    </cac:ClassifiedTaxCategory>
   </cac:Item>
   <cac:Price>
-   <cbc:PriceAmount currencyID="SAR">27.92</cbc:PriceAmount>
+   <cbc:PriceAmount currencyID="SAR">135.99</cbc:PriceAmount>
   </cac:Price>
  </cac:InvoiceLine>
  <cac:InvoiceLine>
-  <cbc:ID>2799</cbc:ID>
-  <cbc:InvoicedQuantity unitCode="PCE">1.000000</cbc:InvoicedQuantity>
-  <cbc:LineExtensionAmount currencyID="SAR">367.99</cbc:LineExtensionAmount>
+  <cbc:ID>1066</cbc:ID>
+  <cbc:InvoicedQuantity unitCode="PCE">5.000000</cbc:InvoicedQuantity>
+  <cbc:LineExtensionAmount currencyID="SAR">615.00</cbc:LineExtensionAmount>
   <cac:TaxTotal>
-   <cbc:TaxAmount currencyID="SAR">55.20</cbc:TaxAmount>
-   <cbc:RoundingAmount currencyID="SAR">423.19</cbc:RoundingAmount>
+   <cbc:TaxAmount currencyID="SAR">92.25</cbc:TaxAmount>
+   <cbc:RoundingAmount currencyID="SAR">707.25</cbc:RoundingAmount>
   </cac:TaxTotal>
   <cac:Item>
-   <cbc:Name>Lurpak, Butter Unsalted (500 GM * 20 Piece)</cbc:Name>
+   <cbc:Name>Orient Gardens, Dill Pickles (907 GM * 12 Piece)</cbc:Name>
    <cac:ClassifiedTaxCategory>
     <cbc:ID>S</cbc:ID>
     <cbc:Percent>15.00</cbc:Percent>
@@ -159,7 +159,7 @@
    </cac:ClassifiedTaxCategory>
   </cac:Item>
   <cac:Price>
-   <cbc:PriceAmount currencyID="SAR">367.99</cbc:PriceAmount>
+   <cbc:PriceAmount currencyID="SAR">123.00</cbc:PriceAmount>
   </cac:Price>
  </cac:InvoiceLine>
 </Invoice>

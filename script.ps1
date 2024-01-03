@@ -1,3 +1,4 @@
+$currentLocation = $PWD.Path
 $directoryPath = Read-Host -Prompt 'Enter path name (without the fatoora folder name in the path): '
 
 # Step 1: Search for 'fatoora' directory
@@ -5,41 +6,36 @@ $fatooraPath = Get-ChildItem -Path $directoryPath -Filter "fatoora" -Recurse -Di
 Write-Host "Searched and got Fatoora folder: $($fatooraPath.FullName)"
 
 # Step 2: Read and copy lines 14 to 17 from 'app/database/Db.php'
-$dbFile = Get-Content -Path "$($fatooraPath.FullName)\app\database\Db.php" | Select-Object -Index (13..16) | Out-String
+$dbFile = Get-Content -Path "$($fatooraPath.FullName)\app\database\Db.php" 
 Write-Host "Copied Db lines $($dbFile)"
 
 # Step 3: Read and copy the first line from 'js/config.js'
-$configFile = Get-Content -Path "$($fatooraPath.FullName)\js\config.js" | Select-Object -First 1
+$configFile = Get-Content -Path "$($fatooraPath.FullName)\js\config.js" 
 Write-Host "Copied Config lines $($configFile)"
 
-# Step 4: Delete 'fatoora' folder and contents
-Remove-Item -Path $fatooraPath.FullName -Recurse -Force
-Write-Host "Deleted Old fatoora folder"
+# # Step 4: Save the copied lines to a temp file
+# $dbFile | Out-File "$env:TEMP\db_lines.txt"
+# $configFile | Out-File "$env:TEMP\config_lines.txt"
 
-# Step 5: Download the zip file
-$download_url = 'https://github.com/hmmdlthf/fatoora-api.git'
-Invoke-WebRequest -Uri $download_url -OutFile "$($directoryPath)\fatoora.zip"
-Write-Host "Downloaded updated fatoora.zip folder"
+# Step 5: Navigate to the fatoora directory and pull the latest changes using Git
+Set-Location $fatooraPath.FullName
+git stash
+git pull origin main
 
-# Step 6: Extract the downloaded zip file
-Expand-Archive -Path "$($directoryPath)\fatoora.zip" -DestinationPath $fatooraPath.FullName
-Write-Host "Extracted the zip"
+# # Step 6: Replace lines in 'Db.php' and 'config.js' with saved content
+# $dbContent = Get-Content -Path "$env:TEMP\db_lines.txt"
+# $configContent = Get-Content -Path "$env:TEMP\config_lines.txt"
 
-# # Step 7: Replace lines in 'Db.php' and 'config.js' with copied content
-# # Find the specific lines and replace them in Db.php
-# $fileDb = "$($fatooraPath.FullName)\app\database\Db.php"
-# $contentDb = Get-Content -Path $fileDb
+$dbContent = $dbFile
+$configContent = $configFile
 
-# # Replace lines 14-17 in Db.php
-# $contentDb[13..16] = $dbFile
-# $contentDb | Set-Content -Path $fileDb
+# Replace lines 14-17 in Db.php
+$dbPath = "$($fatooraPath.FullName)\app\database\Db.php"
+$dbContent | Set-Content -Path $dbPath
 
-# # Find the specific line and replace it in config.js
-# $fileConfig = "$($fatooraPath.FullName)\js\config.js"
-# $contentConfig = Get-Content -Path $fileConfig
+# Replace the first line in config.js
+$configPath = "$($fatooraPath.FullName)\js\config.js"
+$configContent | Set-Content -Path $configPath
 
-# # Replace the first line in config.js
-# $contentConfig[0] = $configFile
-# $contentConfig | Set-Content -Path $fileConfig
-
-# Write-Host "Replaced the Db and Config lines with Machine values"
+Write-Host "Replaced the Db and Config lines with saved values"
+Set-Location $currentLocation

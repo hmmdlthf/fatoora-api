@@ -2,9 +2,9 @@
 <Invoice xmlns="urn:oasis:names:specification:ubl:schema:xsd:Invoice-2" xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2" xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2" xmlns:ext="urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2">
  <cbc:ProfileID>reporting:1.0</cbc:ProfileID>
  <cbc:ID>INV/00000155867</cbc:ID>
- <cbc:UUID>c61026f2-9f45-4d4f-ac88-0f92cfb4ba5e</cbc:UUID>
+ <cbc:UUID>20266805-fc02-4164-b093-420bbb52ecd0</cbc:UUID>
  <cbc:IssueDate>2024-01-03</cbc:IssueDate>
- <cbc:IssueTime>05:39:07</cbc:IssueTime>
+ <cbc:IssueTime>07:32:19</cbc:IssueTime>
  <cbc:InvoiceTypeCode name="0200000">388</cbc:InvoiceTypeCode>
  <cbc:DocumentCurrencyCode>SAR</cbc:DocumentCurrencyCode>
  <cbc:TaxCurrencyCode>SAR</cbc:TaxCurrencyCode>

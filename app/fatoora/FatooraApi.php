@@ -339,7 +339,7 @@ class ValidationAPI extends FatooraAuthApi
 
     public function getInvoice()
     {
-        $fatooraInvoice = (new FatooraInvoice())->findInvoice($this->invoiceNumber);
+        $fatooraInvoice = ($this->name == 'clearance' ? new FatooraBusinessInvoice() : new FatooraInvoice())->findInvoice($this->invoiceNumber);
         $this->invoiceHash = $fatooraInvoice['InvoiceHash'];
         $this->uuid = $fatooraInvoice['UUID'];
         $this->invoice = $fatooraInvoice['Invoice'];
@@ -361,7 +361,8 @@ class ValidationAPI extends FatooraAuthApi
 
     public function setBody()
     {
-        $this->getInvoiceFromJson();
+        // $this->getInvoiceFromJson();
+        $this->getInvoice();
         $body_array = ['invoiceHash' => $this->invoiceHash, 'uuid' => $this->uuid, 'invoice' => $this->invoice];
         $this->body = json_encode($body_array);
     }
@@ -384,9 +385,9 @@ class ValidationAPI extends FatooraAuthApi
         $fatooraInvoice->setCreationStatus($this->invoiceNumber, 3);
 
         if ($status == 'NOT_CLEARED') {
-            $fatooraInvoice->setReportingStatus($this->invoiceNumber, 2);
+            $fatooraInvoice->setReportingStatus($this->invoiceNumber, 1);
         } else if ($status == 'NOT_REPORTED') {
-            $fatooraInvoice->setReportingStatus($this->invoiceNumber, 2);
+            $fatooraInvoice->setReportingStatus($this->invoiceNumber, 1);
         }  else {
             $fatooraInvoice->setReportingStatus($this->invoiceNumber, 1);
         }

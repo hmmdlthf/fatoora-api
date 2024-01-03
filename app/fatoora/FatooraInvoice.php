@@ -87,6 +87,80 @@ class FatooraInvoice extends Db
         }
     }
 
+    public function findInvoiceStatus($invoiceNumber)
+    {
+        $query = "SELECT
+        InvoiceNumber, 
+        CreationStatusRecID, 
+        ReportingStatusRecID
+        FROM
+            $this->table AS pi
+        WHERE
+        InvoiceNumber = ?";
+
+        $statement = $this->connect()->prepare($query);
+        $statement->execute([$invoiceNumber]);
+        $resultSet = $statement->fetch();
+
+        if ($resultSet > 0) {
+            return $resultSet;
+        } else {
+            return false;
+        }
+    }
+
+    public function findAllInvoiceNotReported()
+    {
+        $query = "SELECT
+        RecID,
+        InvoiceNumber,
+        CreationStatusRecID,
+        ReportingStatusRecID 
+        FROM
+            $this->table
+        WHERE
+            CreationStatusRecID >= 2 
+            AND ( ReportingStatusRecID IS NULL OR ReportingStatusRecID <> 1 ) 
+        ORDER BY
+        RecID";
+
+        $statement = $this->connect()->prepare($query);
+        $statement->execute();
+        $result = $statement->fetchAll();
+
+        if ($result > 0) {
+            return $result;
+        } else {
+            return false;
+        }
+    }
+
+    public function findBulkReportingStopedInvoice()
+    {
+        $query = "SELECT
+        RecID,
+        InvoiceNumber,
+        CreationStatusRecID,
+        ReportingStatusRecID 
+        FROM
+            Fatoora.POSInvoice 
+        WHERE
+            CreationStatusRecID = 3 
+            AND ReportingStatusRecID = 1 
+        ORDER BY
+        RecID DESC";
+
+        $statement = $this->connect()->prepare($query);
+        $statement->execute();
+        $resultSet = $statement->fetch();
+
+        if ($resultSet > 0) {
+            return $resultSet;
+        } else {
+            return false;
+        }
+    }
+
 
     public function createInvoice($invoiceNumber)
     {

@@ -47,3 +47,5 @@ function resetReportingModal() {
     reporting_steps.step1 = false;
     document.querySelector('#reporting_form .progress__step.progress__step-1').classList.remove('active');
 }
+
+
