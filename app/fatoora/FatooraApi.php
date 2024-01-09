@@ -60,8 +60,22 @@ class FatooraApi
         curl_setopt($ch, CURLOPT_POSTFIELDS, $this->body);
         curl_setopt($ch, CURLOPT_HTTPHEADER, $this->headers);
 
+        $ROOT = $_SERVER["DOCUMENT_ROOT"];
+        $log_file = $ROOT . '/fatoora/fatoora/error.log';
+        curl_setopt($ch, CURLOPT_VERBOSE, true);
+        curl_setopt($ch, CURLOPT_STDERR, fopen($log_file, 'w+'));
+
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
+
         $response = curl_exec($ch);
+
+        if ($response === false) {
+            return 'cURL error: ' . curl_error($ch);
+        }
+
         curl_close($ch);
+        
         $this->response = $response;
         return $this->afterResponse();
     }
@@ -188,7 +202,15 @@ class FatooraAuthApi extends FatooraApi
         curl_setopt($ch, CURLOPT_VERBOSE, true);
         curl_setopt($ch, CURLOPT_STDERR, fopen($log_file, 'w+'));
 
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
+
         $response = curl_exec($ch);
+
+        if ($response === false) {
+            return 'cURL error: ' . curl_error($ch);
+        }
+
         curl_close($ch);
 
         $this->response = $response;

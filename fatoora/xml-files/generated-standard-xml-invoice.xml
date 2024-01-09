@@ -1,10 +1,10 @@
 <?xml version="1.0"?>
 <Invoice xmlns="urn:oasis:names:specification:ubl:schema:xsd:Invoice-2" xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2" xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2" xmlns:ext="urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2">
  <cbc:ProfileID>reporting:1.0</cbc:ProfileID>
- <cbc:ID>INV/W009296</cbc:ID>
- <cbc:UUID>f3772607-d73e-4402-8de3-9ba257e76644</cbc:UUID>
- <cbc:IssueDate>2024-01-05</cbc:IssueDate>
- <cbc:IssueTime>12:59:29</cbc:IssueTime>
+ <cbc:ID>INV/W009298</cbc:ID>
+ <cbc:UUID>10d28207-ae70-49bd-a174-7e18d84629c1</cbc:UUID>
+ <cbc:IssueDate>2024-01-09</cbc:IssueDate>
+ <cbc:IssueTime>23:03:46</cbc:IssueTime>
  <cbc:InvoiceTypeCode name="0100000">388</cbc:InvoiceTypeCode>
  <cbc:DocumentCurrencyCode>SAR</cbc:DocumentCurrencyCode>
  <cbc:TaxCurrencyCode>SAR</cbc:TaxCurrencyCode>
@@ -13,12 +13,12 @@
  </cac:ContractDocumentReference>
  <cac:AdditionalDocumentReference>
   <cbc:ID>ICV</cbc:ID>
-  <cbc:UUID>9296</cbc:UUID>
+  <cbc:UUID>9298</cbc:UUID>
  </cac:AdditionalDocumentReference>
  <cac:AdditionalDocumentReference>
   <cbc:ID>PIH</cbc:ID>
   <cac:Attachment>
-   <cbc:EmbeddedDocumentBinaryObject mimeCode="text/plain">yNbP5c6ew3ic/qnwIitIVY28rnIlpfKSQFuThXp5rIg=</cbc:EmbeddedDocumentBinaryObject>
+   <cbc:EmbeddedDocumentBinaryObject mimeCode="text/plain">5Q1LASYm97+mcCb1Dl7IH4mRr1hSuXBqtE0MJK7eCfs=</cbc:EmbeddedDocumentBinaryObject>
   </cac:Attachment>
  </cac:AdditionalDocumentReference>
  <cac:AccountingSupplierParty>
@@ -94,13 +94,13 @@
   </cac:TaxCategory>
  </cac:AllowanceCharge>
  <cac:TaxTotal>
-  <cbc:TaxAmount currencyID="SAR">133.0</cbc:TaxAmount>
+  <cbc:TaxAmount currencyID="SAR">153.6</cbc:TaxAmount>
  </cac:TaxTotal>
  <cac:TaxTotal>
-  <cbc:TaxAmount currencyID="SAR">133.05</cbc:TaxAmount>
+  <cbc:TaxAmount currencyID="SAR">153.56</cbc:TaxAmount>
   <cac:TaxSubtotal>
-   <cbc:TaxableAmount currencyID="SAR">886.98</cbc:TaxableAmount>
-   <cbc:TaxAmount currencyID="SAR">133.05</cbc:TaxAmount>
+   <cbc:TaxableAmount currencyID="SAR">1023.73</cbc:TaxableAmount>
+   <cbc:TaxAmount currencyID="SAR">153.56</cbc:TaxAmount>
    <cac:TaxCategory>
     <cbc:ID schemeID="UN/ECE 5305" schemeAgencyID="6">S</cbc:ID>
     <cbc:Percent>15</cbc:Percent>
@@ -111,23 +111,23 @@
   </cac:TaxSubtotal>
  </cac:TaxTotal>
  <cac:LegalMonetaryTotal>
-  <cbc:LineExtensionAmount currencyID="SAR">886.98</cbc:LineExtensionAmount>
-  <cbc:TaxExclusiveAmount currencyID="SAR">886.98</cbc:TaxExclusiveAmount>
-  <cbc:TaxInclusiveAmount currencyID="SAR">1020.03</cbc:TaxInclusiveAmount>
+  <cbc:LineExtensionAmount currencyID="SAR">1023.73</cbc:LineExtensionAmount>
+  <cbc:TaxExclusiveAmount currencyID="SAR">1023.73</cbc:TaxExclusiveAmount>
+  <cbc:TaxInclusiveAmount currencyID="SAR">1177.29</cbc:TaxInclusiveAmount>
   <cbc:AllowanceTotalAmount currencyID="SAR">0.00</cbc:AllowanceTotalAmount>
   <cbc:PrepaidAmount currencyID="SAR">0.00</cbc:PrepaidAmount>
-  <cbc:PayableAmount currencyID="SAR">1020.03</cbc:PayableAmount>
+  <cbc:PayableAmount currencyID="SAR">1177.29</cbc:PayableAmount>
  </cac:LegalMonetaryTotal>
  <cac:InvoiceLine>
-  <cbc:ID>1066</cbc:ID>
-  <cbc:InvoicedQuantity unitCode="PCE">5.000000</cbc:InvoicedQuantity>
-  <cbc:LineExtensionAmount currencyID="SAR">615.00</cbc:LineExtensionAmount>
+  <cbc:ID>1756</cbc:ID>
+  <cbc:InvoicedQuantity unitCode="PCE">1.000000</cbc:InvoicedQuantity>
+  <cbc:LineExtensionAmount currencyID="SAR">86.00</cbc:LineExtensionAmount>
   <cac:TaxTotal>
-   <cbc:TaxAmount currencyID="SAR">92.25</cbc:TaxAmount>
-   <cbc:RoundingAmount currencyID="SAR">707.25</cbc:RoundingAmount>
+   <cbc:TaxAmount currencyID="SAR">12.90</cbc:TaxAmount>
+   <cbc:RoundingAmount currencyID="SAR">98.90</cbc:RoundingAmount>
   </cac:TaxTotal>
   <cac:Item>
-   <cbc:Name>Orient Gardens, Dill Pickles (907 GM * 12 Piece)</cbc:Name>
+   <cbc:Name>Peep, Peanut Butter Creamy (340 GM * 12 Piece)</cbc:Name>
    <cac:ClassifiedTaxCategory>
     <cbc:ID>S</cbc:ID>
     <cbc:Percent>15.00</cbc:Percent>
@@ -137,19 +137,19 @@
    </cac:ClassifiedTaxCategory>
   </cac:Item>
   <cac:Price>
-   <cbc:PriceAmount currencyID="SAR">123.00</cbc:PriceAmount>
+   <cbc:PriceAmount currencyID="SAR">86.00</cbc:PriceAmount>
   </cac:Price>
  </cac:InvoiceLine>
  <cac:InvoiceLine>
-  <cbc:ID>234</cbc:ID>
-  <cbc:InvoicedQuantity unitCode="PCE">2.000000</cbc:InvoicedQuantity>
-  <cbc:LineExtensionAmount currencyID="SAR">271.98</cbc:LineExtensionAmount>
+  <cbc:ID>5320</cbc:ID>
+  <cbc:InvoicedQuantity unitCode="PCE">1.000000</cbc:InvoicedQuantity>
+  <cbc:LineExtensionAmount currencyID="SAR">49.65</cbc:LineExtensionAmount>
   <cac:TaxTotal>
-   <cbc:TaxAmount currencyID="SAR">40.80</cbc:TaxAmount>
-   <cbc:RoundingAmount currencyID="SAR">312.78</cbc:RoundingAmount>
+   <cbc:TaxAmount currencyID="SAR">7.45</cbc:TaxAmount>
+   <cbc:RoundingAmount currencyID="SAR">57.10</cbc:RoundingAmount>
   </cac:TaxTotal>
   <cac:Item>
-   <cbc:Name>Greens, Strawberry Jelly (80 GM * 72 Piece)</cbc:Name>
+   <cbc:Name>Finex, Max Roll (300 MT * 6.00 Roll)</cbc:Name>
    <cac:ClassifiedTaxCategory>
     <cbc:ID>S</cbc:ID>
     <cbc:Percent>15.00</cbc:Percent>
@@ -159,7 +159,73 @@
    </cac:ClassifiedTaxCategory>
   </cac:Item>
   <cac:Price>
-   <cbc:PriceAmount currencyID="SAR">135.99</cbc:PriceAmount>
+   <cbc:PriceAmount currencyID="SAR">49.65</cbc:PriceAmount>
+  </cac:Price>
+ </cac:InvoiceLine>
+ <cac:InvoiceLine>
+  <cbc:ID>3750</cbc:ID>
+  <cbc:InvoicedQuantity unitCode="PCE">1.000000</cbc:InvoicedQuantity>
+  <cbc:LineExtensionAmount currencyID="SAR">52.45</cbc:LineExtensionAmount>
+  <cac:TaxTotal>
+   <cbc:TaxAmount currencyID="SAR">7.87</cbc:TaxAmount>
+   <cbc:RoundingAmount currencyID="SAR">60.32</cbc:RoundingAmount>
+  </cac:TaxTotal>
+  <cac:Item>
+   <cbc:Name>U2, Disposable Vinyl Hand Gloves Free Powdered ( M ) (70 EA * 10 Box)</cbc:Name>
+   <cac:ClassifiedTaxCategory>
+    <cbc:ID>S</cbc:ID>
+    <cbc:Percent>15.00</cbc:Percent>
+    <cac:TaxScheme>
+     <cbc:ID>VAT</cbc:ID>
+    </cac:TaxScheme>
+   </cac:ClassifiedTaxCategory>
+  </cac:Item>
+  <cac:Price>
+   <cbc:PriceAmount currencyID="SAR">52.45</cbc:PriceAmount>
+  </cac:Price>
+ </cac:InvoiceLine>
+ <cac:InvoiceLine>
+  <cbc:ID>4622</cbc:ID>
+  <cbc:InvoicedQuantity unitCode="PCE">5.000000</cbc:InvoicedQuantity>
+  <cbc:LineExtensionAmount currencyID="SAR">729.75</cbc:LineExtensionAmount>
+  <cac:TaxTotal>
+   <cbc:TaxAmount currencyID="SAR">109.46</cbc:TaxAmount>
+   <cbc:RoundingAmount currencyID="SAR">839.21</cbc:RoundingAmount>
+  </cac:TaxTotal>
+  <cac:Item>
+   <cbc:Name>Royal, Tender Chicken Breasts (1 KG * 10 Bag)</cbc:Name>
+   <cac:ClassifiedTaxCategory>
+    <cbc:ID>S</cbc:ID>
+    <cbc:Percent>15.00</cbc:Percent>
+    <cac:TaxScheme>
+     <cbc:ID>VAT</cbc:ID>
+    </cac:TaxScheme>
+   </cac:ClassifiedTaxCategory>
+  </cac:Item>
+  <cac:Price>
+   <cbc:PriceAmount currencyID="SAR">145.95</cbc:PriceAmount>
+  </cac:Price>
+ </cac:InvoiceLine>
+ <cac:InvoiceLine>
+  <cbc:ID>3422</cbc:ID>
+  <cbc:InvoicedQuantity unitCode="PCE">1.000000</cbc:InvoicedQuantity>
+  <cbc:LineExtensionAmount currencyID="SAR">105.88</cbc:LineExtensionAmount>
+  <cac:TaxTotal>
+   <cbc:TaxAmount currencyID="SAR">15.88</cbc:TaxAmount>
+   <cbc:RoundingAmount currencyID="SAR">121.76</cbc:RoundingAmount>
+  </cac:TaxTotal>
+  <cac:Item>
+   <cbc:Name>Arnon, Plastic Sauce cup Clear/Black With Lid 2 Oz (58 ML * 2000.00 Piece)</cbc:Name>
+   <cac:ClassifiedTaxCategory>
+    <cbc:ID>S</cbc:ID>
+    <cbc:Percent>15.00</cbc:Percent>
+    <cac:TaxScheme>
+     <cbc:ID>VAT</cbc:ID>
+    </cac:TaxScheme>
+   </cac:ClassifiedTaxCategory>
+  </cac:Item>
+  <cac:Price>
+   <cbc:PriceAmount currencyID="SAR">105.88</cbc:PriceAmount>
   </cac:Price>
  </cac:InvoiceLine>
 </Invoice>

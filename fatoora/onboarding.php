@@ -19,7 +19,6 @@ try {
         $fatooraApi->setCSR($csrContents);
         $fatooraApi->setOTP($otp);
         $response = $fatooraApi->postRequest();
-        // $fatooraApi->saveCertificatesToSdk('C:\zatca-einvoicing-sdk');
         echo $response;
     }
 } catch (Exception $e) {

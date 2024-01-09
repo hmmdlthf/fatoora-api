@@ -25,14 +25,14 @@
                                     <ds:Transform Algorithm="http://www.w3.org/2006/12/xml-c14n11"/>
                                 </ds:Transforms>
                                 <ds:DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"/>
-                                <ds:DigestValue>go3mZyKFtpmkI/a+cNU/goJWkisQN1lmJ/7+gSk7OY0=</ds:DigestValue>
+                                <ds:DigestValue>IkY1ZgsAr4TR8w4OHexRVK9Je7dFUOzZlgSJ4GmsfFI=</ds:DigestValue>
                             </ds:Reference>
                             <ds:Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#xadesSignedProperties">
                                 <ds:DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"/>
-                                <ds:DigestValue>Y2Y1Yzg1Y2RmYmRhY2E5NmNiMTkyMGYzOTdhODkyMDNkZjY4NGI5NzIyMDBlYWRhYjkzOGNmOWY3MWEzMGFlNA==</ds:DigestValue>
+                                <ds:DigestValue>ZDgyNjc3ODZjZTQ0MGY3NjU1MWQwY2M2OTI5ODMwYjFkYWEwM2E4MTgzYmJhYjdjZTkzMjZkZDAyODNhZWY5Ng==</ds:DigestValue>
                             </ds:Reference>
                         </ds:SignedInfo>
-                        <ds:SignatureValue>MEYCIQCdFm3Ax/S06qxKv2vrAuHtixWVgONpB9vMA1VvqKSf9QIhALDY6KuZzaomxpuv4mwhaZr5gmTKw3B/El4peLK3V0XI</ds:SignatureValue>
+                        <ds:SignatureValue>MEUCIQDHw0/oECXylXvwAJXfA5zRzHbO1fNz08zy1/PPIg36DwIgHoEAnf/kYzn7zO93GEb2Ejn4gAOmgdJjo0eG1KO9eXw=</ds:SignatureValue>
                         <ds:KeyInfo>
                             <ds:X509Data>
                                 <ds:X509Certificate>MIID2zCCA4CgAwIBAgITbwAAdqDmIhqsjpm5CwABAAB2oDAKBggqhkjOPQQDAjBjMRUwEwYKCZImiZPyLGQBGRYFbG9jYWwxEzARBgoJkiaJk/IsZAEZFgNnb3YxFzAVBgoJkiaJk/IsZAEZFgdleHRnYXp0MRwwGgYDVQQDExNUU1pFSU5WT0lDRS1TdWJDQS0xMB4XDTIyMDMyODE1NDYzMloXDTIyMDMzMDE1NDYzMlowTTELMAkGA1UEBhMCU0ExDjAMBgNVBAoTBUphcmlyMRowGAYDVQQLExFKZWRkYWggQnJhbmNoMTIzNDESMBAGA1UEAxMJMTI3LjAuMC4xMFYwEAYHKoZIzj0CAQYFK4EEAAoDQgAED/wb2lhBvBIC8CnnZvouo6OzRymymU9NWRhIyaMhGREBCEZB4EAVrBuV2xXixY4qBYf9dderzkW9Dwdo3IlHgqOCAiowggImMIGLBgNVHREEgYMwgYCkfjB8MRwwGgYDVQQEDBMyMjIyMjMyNDQ0MzQzamZmNDMyMR8wHQYKCZImiZPyLGQBAQwPMzEwMTc1Mzk3NDAwMDAzMQ0wCwYDVQQMDAQxMDExMREwDwYDVQQaDAhTYW1wbGUgRTEZMBcGA1UEDwwQU2FtcGxlIEJ1c3NpbmVzczAdBgNVHQ4EFgQUhWcsbbJhjD5ZWOkwBILC+wNVfKYwHwYDVR0jBBgwFoAUdmCM+wagrGdXNZ3PmqynK5k1tS8wTgYDVR0fBEcwRTBDoEGgP4Y9aHR0cDovL3RzdGNybC56YXRjYS5nb3Yuc2EvQ2VydEVucm9sbC9UU1pFSU5WT0lDRS1TdWJDQS0xLmNybDCBrQYIKwYBBQUHAQEEgaAwgZ0wbgYIKwYBBQUHMAGGYmh0dHA6Ly90c3RjcmwuemF0Y2EuZ292LnNhL0NlcnRFbnJvbGwvVFNaRWludm9pY2VTQ0ExLmV4dGdhenQuZ292LmxvY2FsX1RTWkVJTlZPSUNFLVN1YkNBLTEoMSkuY3J0MCsGCCsGAQUFBzABhh9odHRwOi8vdHN0Y3JsLnphdGNhLmdvdi5zYS9vY3NwMA4GA1UdDwEB/wQEAwIHgDAdBgNVHSUEFjAUBggrBgEFBQcDAgYIKwYBBQUHAwMwJwYJKwYBBAGCNxUKBBowGDAKBggrBgEFBQcDAjAKBggrBgEFBQcDAzAKBggqhkjOPQQDAgNJADBGAiEAyNhycQ3bNlLFdOPlqYT6RVQTWgnK1Gh0NHdcSY4PfC0CIQCSAthXvv7tetUL69Wjp8BxnLLMwerxZhBnewo/gF3EJA==</ds:X509Certificate>
@@ -42,7 +42,7 @@
                             <xades:QualifyingProperties xmlns:xades="http://uri.etsi.org/01903/v1.3.2#" Target="signature">
                                 <xades:SignedProperties Id="xadesSignedProperties">
                                     <xades:SignedSignatureProperties>
-                                        <xades:SigningTime>2024-01-08T17:12:03</xades:SigningTime>
+                                        <xades:SigningTime>2024-01-09T14:54:06</xades:SigningTime>
                                         <xades:SigningCertificate>
                                             <xades:Cert>
                                                 <xades:CertDigest>
@@ -66,10 +66,10 @@
     </ext:UBLExtension>
 </ext:UBLExtensions>
  <cbc:ProfileID>reporting:1.0</cbc:ProfileID>
- <cbc:ID>INV/00000155863</cbc:ID>
- <cbc:UUID>d09e4fa9-f994-4669-a2a4-f2b510eb2bf8</cbc:UUID>
- <cbc:IssueDate>2024-01-08</cbc:IssueDate>
- <cbc:IssueTime>12:41:59</cbc:IssueTime>
+ <cbc:ID>INV/00000155866</cbc:ID>
+ <cbc:UUID>66a417f5-56e9-4b33-ab66-2cd8012dda40</cbc:UUID>
+ <cbc:IssueDate>2024-01-09</cbc:IssueDate>
+ <cbc:IssueTime>22:54:02</cbc:IssueTime>
  <cbc:InvoiceTypeCode name="0200000">388</cbc:InvoiceTypeCode>
  <cbc:DocumentCurrencyCode>SAR</cbc:DocumentCurrencyCode>
  <cbc:TaxCurrencyCode>SAR</cbc:TaxCurrencyCode>
@@ -78,18 +78,18 @@
  </cac:ContractDocumentReference>
  <cac:AdditionalDocumentReference>
   <cbc:ID>ICV</cbc:ID>
-  <cbc:UUID>155863</cbc:UUID>
+  <cbc:UUID>155866</cbc:UUID>
  </cac:AdditionalDocumentReference>
  <cac:AdditionalDocumentReference>
   <cbc:ID>PIH</cbc:ID>
   <cac:Attachment>
-   <cbc:EmbeddedDocumentBinaryObject mimeCode="text/plain">Q5+ZGGxK0WY91Theiq8WGljFPw1nNSDL20sox5WSj5A=</cbc:EmbeddedDocumentBinaryObject>
+   <cbc:EmbeddedDocumentBinaryObject mimeCode="text/plain">876gKroJ0j2hY3GNl9+dH6hzT11xFTPYBgmEMSazGKE=</cbc:EmbeddedDocumentBinaryObject>
   </cac:Attachment>
  </cac:AdditionalDocumentReference>
  <cac:AdditionalDocumentReference>
         <cbc:ID>QR</cbc:ID>
         <cac:Attachment>
-            <cbc:EmbeddedDocumentBinaryObject mimeCode="text/plain">ARtFTVRZQVogRk9SIENBVEVSSU5HIENPTVBBTlkCDzMwMDA2Njg4OTQwMDAwMwMTMjAyNC0wMS0wOFQxMjo0MTo1OQQGNTIyLjEwBQQ2OC4xBixnbzNtWnlLRnRwbWtJL2ErY05VL2dvSldraXNRTjFsbUovNytnU2s3T1kwPQdgTUVZQ0lRQ2RGbTNBeC9TMDZxeEt2MnZyQXVIdGl4V1ZnT05wQjl2TUExVnZxS1NmOVFJaEFMRFk2S3VaemFvbXhwdXY0bXdoYVpyNWdtVEt3M0IvRWw0cGVMSzNWMFhJCFgwVjAQBgcqhkjOPQIBBgUrgQQACgNCAAQP/BvaWEG8EgLwKedm+i6jo7NHKbKZT01ZGEjJoyEZEQEIRkHgQBWsG5XbFeLFjioFh/1116vORb0PB2jciUeCCUgwRgIhAMjYcnEN2zZSxXTj5amE+kVUE1oJytRodDR3XEmOD3wtAiEAkgLYV77+7XrVC+vVo6fAcZyyzMHq8WYQZ3sKP4BdxCQ=</cbc:EmbeddedDocumentBinaryObject>
+            <cbc:EmbeddedDocumentBinaryObject mimeCode="text/plain">ARtFTVRZQVogRk9SIENBVEVSSU5HIENPTVBBTlkCDzMwMDA2Njg4OTQwMDAwMwMTMjAyNC0wMS0wOVQyMjo1NDowMgQHMTkwMy4yNQUFMjQ4LjMGLElrWTFaZ3NBcjRUUjh3NE9IZXhSVks5SmU3ZEZVT3pabGdTSjRHbXNmRkk9B2BNRVVDSVFESHcwL29FQ1h5bFh2d0FKWGZBNXpSekhiTzFmTnowOHp5MS9QUElnMzZEd0lnSG9FQW5mL2tZem43ek85M0dFYjJFam40Z0FPbWdkSmpvMGVHMUtPOWVYdz0IWDBWMBAGByqGSM49AgEGBSuBBAAKA0IABA/8G9pYQbwSAvAp52b6LqOjs0cpsplPTVkYSMmjIRkRAQhGQeBAFawbldsV4sWOKgWH/XXXq85FvQ8HaNyJR4IJSDBGAiEAyNhycQ3bNlLFdOPlqYT6RVQTWgnK1Gh0NHdcSY4PfC0CIQCSAthXvv7tetUL69Wjp8BxnLLMwerxZhBnewo/gF3EJA==</cbc:EmbeddedDocumentBinaryObject>
         </cac:Attachment>
 </cac:AdditionalDocumentReference><cac:Signature>
       <cbc:ID>urn:oasis:names:specification:ubl:signature:Invoice</cbc:ID>
@@ -124,15 +124,11 @@
  <cac:AccountingCustomerParty>
   <cac:Party>
    <cac:PartyIdentification>
-    <cbc:ID schemeID="NAT">310368430900003</cbc:ID>
+    <cbc:ID schemeID="NAT">310254702500003</cbc:ID>
    </cac:PartyIdentification>
    <cac:PostalAddress>
-    <cbc:StreetName>Main Street</cbc:StreetName>
-    <cbc:BuildingNumber>2334</cbc:BuildingNumber>
-    <cbc:PlotIdentification>2334</cbc:PlotIdentification>
     <cbc:CitySubdivisionName>Riyadh</cbc:CitySubdivisionName>
     <cbc:CityName>Riyadh</cbc:CityName>
-    <cbc:PostalZone>23340</cbc:PostalZone>
     <cac:Country>
      <cbc:IdentificationCode>SA</cbc:IdentificationCode>
     </cac:Country>
@@ -143,7 +139,7 @@
     </cac:TaxScheme>
    </cac:PartyTaxScheme>
    <cac:PartyLegalEntity>
-    <cbc:RegistrationName>Suburb Oven Fast Food Institution</cbc:RegistrationName>
+    <cbc:RegistrationName>Latifa Abdulrahman AlShathri Restaurants</cbc:RegistrationName>
    </cac:PartyLegalEntity>
   </cac:Party>
  </cac:AccountingCustomerParty>
@@ -164,13 +160,13 @@
   </cac:TaxCategory>
  </cac:AllowanceCharge>
  <cac:TaxTotal>
-  <cbc:TaxAmount currencyID="SAR">68.1</cbc:TaxAmount>
+  <cbc:TaxAmount currencyID="SAR">248.3</cbc:TaxAmount>
  </cac:TaxTotal>
  <cac:TaxTotal>
-  <cbc:TaxAmount currencyID="SAR">68.10</cbc:TaxAmount>
+  <cbc:TaxAmount currencyID="SAR">248.25</cbc:TaxAmount>
   <cac:TaxSubtotal>
-   <cbc:TaxableAmount currencyID="SAR">454.00</cbc:TaxableAmount>
-   <cbc:TaxAmount currencyID="SAR">68.10</cbc:TaxAmount>
+   <cbc:TaxableAmount currencyID="SAR">1655.00</cbc:TaxableAmount>
+   <cbc:TaxAmount currencyID="SAR">248.25</cbc:TaxAmount>
    <cac:TaxCategory>
     <cbc:ID schemeID="UN/ECE 5305" schemeAgencyID="6">S</cbc:ID>
     <cbc:Percent>15</cbc:Percent>
@@ -181,64 +177,20 @@
   </cac:TaxSubtotal>
  </cac:TaxTotal>
  <cac:LegalMonetaryTotal>
-  <cbc:LineExtensionAmount currencyID="SAR">454.00</cbc:LineExtensionAmount>
-  <cbc:TaxExclusiveAmount currencyID="SAR">454.00</cbc:TaxExclusiveAmount>
-  <cbc:TaxInclusiveAmount currencyID="SAR">522.10</cbc:TaxInclusiveAmount>
+  <cbc:LineExtensionAmount currencyID="SAR">1655.00</cbc:LineExtensionAmount>
+  <cbc:TaxExclusiveAmount currencyID="SAR">1655.00</cbc:TaxExclusiveAmount>
+  <cbc:TaxInclusiveAmount currencyID="SAR">1903.25</cbc:TaxInclusiveAmount>
   <cbc:AllowanceTotalAmount currencyID="SAR">0.00</cbc:AllowanceTotalAmount>
   <cbc:PrepaidAmount currencyID="SAR">0.00</cbc:PrepaidAmount>
-  <cbc:PayableAmount currencyID="SAR">522.10</cbc:PayableAmount>
+  <cbc:PayableAmount currencyID="SAR">1903.25</cbc:PayableAmount>
  </cac:LegalMonetaryTotal>
  <cac:InvoiceLine>
-  <cbc:ID>4</cbc:ID>
-  <cbc:InvoicedQuantity unitCode="PCE">1.000000</cbc:InvoicedQuantity>
-  <cbc:LineExtensionAmount currencyID="SAR">2.00</cbc:LineExtensionAmount>
-  <cac:TaxTotal>
-   <cbc:TaxAmount currencyID="SAR">0.30</cbc:TaxAmount>
-   <cbc:RoundingAmount currencyID="SAR">2.30</cbc:RoundingAmount>
-  </cac:TaxTotal>
-  <cac:Item>
-   <cbc:Name>Al-Oula White Plastic Big Spoon  (50 PC * Bag)</cbc:Name>
-   <cac:ClassifiedTaxCategory>
-    <cbc:ID>S</cbc:ID>
-    <cbc:Percent>15.00</cbc:Percent>
-    <cac:TaxScheme>
-     <cbc:ID>VAT</cbc:ID>
-    </cac:TaxScheme>
-   </cac:ClassifiedTaxCategory>
-  </cac:Item>
-  <cac:Price>
-   <cbc:PriceAmount currencyID="SAR">2.00</cbc:PriceAmount>
-  </cac:Price>
- </cac:InvoiceLine>
- <cac:InvoiceLine>
-  <cbc:ID>5</cbc:ID>
-  <cbc:InvoicedQuantity unitCode="PCE">1.000000</cbc:InvoicedQuantity>
-  <cbc:LineExtensionAmount currencyID="SAR">98.00</cbc:LineExtensionAmount>
-  <cac:TaxTotal>
-   <cbc:TaxAmount currencyID="SAR">14.70</cbc:TaxAmount>
-   <cbc:RoundingAmount currencyID="SAR">112.70</cbc:RoundingAmount>
-  </cac:TaxTotal>
-  <cac:Item>
-   <cbc:Name>Mobi Dishwash lemon jumbo size  (20 LI * Gallon)</cbc:Name>
-   <cac:ClassifiedTaxCategory>
-    <cbc:ID>S</cbc:ID>
-    <cbc:Percent>15.00</cbc:Percent>
-    <cac:TaxScheme>
-     <cbc:ID>VAT</cbc:ID>
-    </cac:TaxScheme>
-   </cac:ClassifiedTaxCategory>
-  </cac:Item>
-  <cac:Price>
-   <cbc:PriceAmount currencyID="SAR">98.00</cbc:PriceAmount>
-  </cac:Price>
- </cac:InvoiceLine>
- <cac:InvoiceLine>
   <cbc:ID>6</cbc:ID>
-  <cbc:InvoicedQuantity unitCode="PCE">2.000000</cbc:InvoicedQuantity>
-  <cbc:LineExtensionAmount currencyID="SAR">206.00</cbc:LineExtensionAmount>
+  <cbc:InvoicedQuantity unitCode="PCE">5.000000</cbc:InvoicedQuantity>
+  <cbc:LineExtensionAmount currencyID="SAR">515.00</cbc:LineExtensionAmount>
   <cac:TaxTotal>
-   <cbc:TaxAmount currencyID="SAR">30.90</cbc:TaxAmount>
-   <cbc:RoundingAmount currencyID="SAR">236.90</cbc:RoundingAmount>
+   <cbc:TaxAmount currencyID="SAR">77.25</cbc:TaxAmount>
+   <cbc:RoundingAmount currencyID="SAR">592.25</cbc:RoundingAmount>
   </cac:TaxTotal>
   <cac:Item>
    <cbc:Name>Cosmoplast Microwave containers rectangle with lid (50 PC * 4 Bag)</cbc:Name>
@@ -255,15 +207,15 @@
   </cac:Price>
  </cac:InvoiceLine>
  <cac:InvoiceLine>
-  <cbc:ID>24</cbc:ID>
-  <cbc:InvoicedQuantity unitCode="PCE">2.000000</cbc:InvoicedQuantity>
-  <cbc:LineExtensionAmount currencyID="SAR">148.00</cbc:LineExtensionAmount>
+  <cbc:ID>8</cbc:ID>
+  <cbc:InvoicedQuantity unitCode="PCE">3.000000</cbc:InvoicedQuantity>
+  <cbc:LineExtensionAmount currencyID="SAR">684.00</cbc:LineExtensionAmount>
   <cac:TaxTotal>
-   <cbc:TaxAmount currencyID="SAR">22.20</cbc:TaxAmount>
-   <cbc:RoundingAmount currencyID="SAR">170.20</cbc:RoundingAmount>
+   <cbc:TaxAmount currencyID="SAR">102.60</cbc:TaxAmount>
+   <cbc:RoundingAmount currencyID="SAR">786.60</cbc:RoundingAmount>
   </cac:TaxTotal>
   <cac:Item>
-   <cbc:Name>Americana French Fries 9*9 (2.5 KG * 4 Bag)</cbc:Name>
+   <cbc:Name>Rainbow Evaporated Milk Portion Cup (10*14 ML * 50 Bag)</cbc:Name>
    <cac:ClassifiedTaxCategory>
     <cbc:ID>S</cbc:ID>
     <cbc:Percent>15.00</cbc:Percent>
@@ -273,7 +225,29 @@
    </cac:ClassifiedTaxCategory>
   </cac:Item>
   <cac:Price>
-   <cbc:PriceAmount currencyID="SAR">74.00</cbc:PriceAmount>
+   <cbc:PriceAmount currencyID="SAR">228.00</cbc:PriceAmount>
+  </cac:Price>
+ </cac:InvoiceLine>
+ <cac:InvoiceLine>
+  <cbc:ID>8</cbc:ID>
+  <cbc:InvoicedQuantity unitCode="PCE">2.000000</cbc:InvoicedQuantity>
+  <cbc:LineExtensionAmount currencyID="SAR">456.00</cbc:LineExtensionAmount>
+  <cac:TaxTotal>
+   <cbc:TaxAmount currencyID="SAR">68.40</cbc:TaxAmount>
+   <cbc:RoundingAmount currencyID="SAR">524.40</cbc:RoundingAmount>
+  </cac:TaxTotal>
+  <cac:Item>
+   <cbc:Name>Rainbow Evaporated Milk Portion Cup (10*14 ML * 50 Bag)</cbc:Name>
+   <cac:ClassifiedTaxCategory>
+    <cbc:ID>S</cbc:ID>
+    <cbc:Percent>15.00</cbc:Percent>
+    <cac:TaxScheme>
+     <cbc:ID>VAT</cbc:ID>
+    </cac:TaxScheme>
+   </cac:ClassifiedTaxCategory>
+  </cac:Item>
+  <cac:Price>
+   <cbc:PriceAmount currencyID="SAR">228.00</cbc:PriceAmount>
   </cac:Price>
  </cac:InvoiceLine>
 </Invoice>

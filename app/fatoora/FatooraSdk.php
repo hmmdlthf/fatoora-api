@@ -58,7 +58,11 @@ class FatooraCommandExecutor
     public function executeCommand($command)
     {
         $output = [];
-        exec($command, $output);
+        $result_code = 0;
+        $result = exec($command, $output, $result_code);
+        // $result = system($command, $result_code);
+        // $result = shell_exec($command);
+        // $result = passthru($command, $result_code);
         return $output;
     }
 

@@ -218,7 +218,8 @@ $allowanceCharges[] = (new AllowanceCharge)
     ->setTaxCategory($taxCategory);
 
 
-if ($grandTotal != $subTotal + $totalVAT) {
+$tolerance = 0.0001;
+if (((float)$grandTotal - ((float)$subTotal + (float)$totalVAT)) > $tolerance) {
     die400('Main Invoice Total Calculation Are Wrong');
 }
 
@@ -257,7 +258,6 @@ foreach ($invoiceDetailRecords as $invoiceDetailRecord) {
     $subTotal = $invoiceDetailRecord['SubTotal'];
     $orderQuantity = $invoiceDetailRecord['OrderQuantity'];
 
-    $tolerance = 0.0001;
     if ($subTotal != $unitAmount * $orderQuantity) {
         die400("Invoice Line for ProductRecID $productRecID - SubTotal Calculation Is Wrong");
     }

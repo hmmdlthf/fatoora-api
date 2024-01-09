@@ -1,10 +1,10 @@
 <?xml version="1.0"?>
 <Invoice xmlns="urn:oasis:names:specification:ubl:schema:xsd:Invoice-2" xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2" xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2" xmlns:ext="urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2">
  <cbc:ProfileID>reporting:1.0</cbc:ProfileID>
- <cbc:ID>INV/00000155863</cbc:ID>
- <cbc:UUID>d09e4fa9-f994-4669-a2a4-f2b510eb2bf8</cbc:UUID>
- <cbc:IssueDate>2024-01-08</cbc:IssueDate>
- <cbc:IssueTime>12:41:59</cbc:IssueTime>
+ <cbc:ID>INV/00000155866</cbc:ID>
+ <cbc:UUID>66a417f5-56e9-4b33-ab66-2cd8012dda40</cbc:UUID>
+ <cbc:IssueDate>2024-01-09</cbc:IssueDate>
+ <cbc:IssueTime>22:54:02</cbc:IssueTime>
  <cbc:InvoiceTypeCode name="0200000">388</cbc:InvoiceTypeCode>
  <cbc:DocumentCurrencyCode>SAR</cbc:DocumentCurrencyCode>
  <cbc:TaxCurrencyCode>SAR</cbc:TaxCurrencyCode>
@@ -13,12 +13,12 @@
  </cac:ContractDocumentReference>
  <cac:AdditionalDocumentReference>
   <cbc:ID>ICV</cbc:ID>
-  <cbc:UUID>155863</cbc:UUID>
+  <cbc:UUID>155866</cbc:UUID>
  </cac:AdditionalDocumentReference>
  <cac:AdditionalDocumentReference>
   <cbc:ID>PIH</cbc:ID>
   <cac:Attachment>
-   <cbc:EmbeddedDocumentBinaryObject mimeCode="text/plain">Q5+ZGGxK0WY91Theiq8WGljFPw1nNSDL20sox5WSj5A=</cbc:EmbeddedDocumentBinaryObject>
+   <cbc:EmbeddedDocumentBinaryObject mimeCode="text/plain">876gKroJ0j2hY3GNl9+dH6hzT11xFTPYBgmEMSazGKE=</cbc:EmbeddedDocumentBinaryObject>
   </cac:Attachment>
  </cac:AdditionalDocumentReference>
  <cac:AccountingSupplierParty>
@@ -51,15 +51,11 @@
  <cac:AccountingCustomerParty>
   <cac:Party>
    <cac:PartyIdentification>
-    <cbc:ID schemeID="NAT">310368430900003</cbc:ID>
+    <cbc:ID schemeID="NAT">310254702500003</cbc:ID>
    </cac:PartyIdentification>
    <cac:PostalAddress>
-    <cbc:StreetName>Main Street</cbc:StreetName>
-    <cbc:BuildingNumber>2334</cbc:BuildingNumber>
-    <cbc:PlotIdentification>2334</cbc:PlotIdentification>
     <cbc:CitySubdivisionName>Riyadh</cbc:CitySubdivisionName>
     <cbc:CityName>Riyadh</cbc:CityName>
-    <cbc:PostalZone>23340</cbc:PostalZone>
     <cac:Country>
      <cbc:IdentificationCode>SA</cbc:IdentificationCode>
     </cac:Country>
@@ -70,7 +66,7 @@
     </cac:TaxScheme>
    </cac:PartyTaxScheme>
    <cac:PartyLegalEntity>
-    <cbc:RegistrationName>Suburb Oven Fast Food Institution</cbc:RegistrationName>
+    <cbc:RegistrationName>Latifa Abdulrahman AlShathri Restaurants</cbc:RegistrationName>
    </cac:PartyLegalEntity>
   </cac:Party>
  </cac:AccountingCustomerParty>
@@ -91,13 +87,13 @@
   </cac:TaxCategory>
  </cac:AllowanceCharge>
  <cac:TaxTotal>
-  <cbc:TaxAmount currencyID="SAR">68.1</cbc:TaxAmount>
+  <cbc:TaxAmount currencyID="SAR">248.3</cbc:TaxAmount>
  </cac:TaxTotal>
  <cac:TaxTotal>
-  <cbc:TaxAmount currencyID="SAR">68.10</cbc:TaxAmount>
+  <cbc:TaxAmount currencyID="SAR">248.25</cbc:TaxAmount>
   <cac:TaxSubtotal>
-   <cbc:TaxableAmount currencyID="SAR">454.00</cbc:TaxableAmount>
-   <cbc:TaxAmount currencyID="SAR">68.10</cbc:TaxAmount>
+   <cbc:TaxableAmount currencyID="SAR">1655.00</cbc:TaxableAmount>
+   <cbc:TaxAmount currencyID="SAR">248.25</cbc:TaxAmount>
    <cac:TaxCategory>
     <cbc:ID schemeID="UN/ECE 5305" schemeAgencyID="6">S</cbc:ID>
     <cbc:Percent>15</cbc:Percent>
@@ -108,64 +104,20 @@
   </cac:TaxSubtotal>
  </cac:TaxTotal>
  <cac:LegalMonetaryTotal>
-  <cbc:LineExtensionAmount currencyID="SAR">454.00</cbc:LineExtensionAmount>
-  <cbc:TaxExclusiveAmount currencyID="SAR">454.00</cbc:TaxExclusiveAmount>
-  <cbc:TaxInclusiveAmount currencyID="SAR">522.10</cbc:TaxInclusiveAmount>
+  <cbc:LineExtensionAmount currencyID="SAR">1655.00</cbc:LineExtensionAmount>
+  <cbc:TaxExclusiveAmount currencyID="SAR">1655.00</cbc:TaxExclusiveAmount>
+  <cbc:TaxInclusiveAmount currencyID="SAR">1903.25</cbc:TaxInclusiveAmount>
   <cbc:AllowanceTotalAmount currencyID="SAR">0.00</cbc:AllowanceTotalAmount>
   <cbc:PrepaidAmount currencyID="SAR">0.00</cbc:PrepaidAmount>
-  <cbc:PayableAmount currencyID="SAR">522.10</cbc:PayableAmount>
+  <cbc:PayableAmount currencyID="SAR">1903.25</cbc:PayableAmount>
  </cac:LegalMonetaryTotal>
  <cac:InvoiceLine>
-  <cbc:ID>4</cbc:ID>
-  <cbc:InvoicedQuantity unitCode="PCE">1.000000</cbc:InvoicedQuantity>
-  <cbc:LineExtensionAmount currencyID="SAR">2.00</cbc:LineExtensionAmount>
-  <cac:TaxTotal>
-   <cbc:TaxAmount currencyID="SAR">0.30</cbc:TaxAmount>
-   <cbc:RoundingAmount currencyID="SAR">2.30</cbc:RoundingAmount>
-  </cac:TaxTotal>
-  <cac:Item>
-   <cbc:Name>Al-Oula White Plastic Big Spoon  (50 PC * Bag)</cbc:Name>
-   <cac:ClassifiedTaxCategory>
-    <cbc:ID>S</cbc:ID>
-    <cbc:Percent>15.00</cbc:Percent>
-    <cac:TaxScheme>
-     <cbc:ID>VAT</cbc:ID>
-    </cac:TaxScheme>
-   </cac:ClassifiedTaxCategory>
-  </cac:Item>
-  <cac:Price>
-   <cbc:PriceAmount currencyID="SAR">2.00</cbc:PriceAmount>
-  </cac:Price>
- </cac:InvoiceLine>
- <cac:InvoiceLine>
-  <cbc:ID>5</cbc:ID>
-  <cbc:InvoicedQuantity unitCode="PCE">1.000000</cbc:InvoicedQuantity>
-  <cbc:LineExtensionAmount currencyID="SAR">98.00</cbc:LineExtensionAmount>
-  <cac:TaxTotal>
-   <cbc:TaxAmount currencyID="SAR">14.70</cbc:TaxAmount>
-   <cbc:RoundingAmount currencyID="SAR">112.70</cbc:RoundingAmount>
-  </cac:TaxTotal>
-  <cac:Item>
-   <cbc:Name>Mobi Dishwash lemon jumbo size  (20 LI * Gallon)</cbc:Name>
-   <cac:ClassifiedTaxCategory>
-    <cbc:ID>S</cbc:ID>
-    <cbc:Percent>15.00</cbc:Percent>
-    <cac:TaxScheme>
-     <cbc:ID>VAT</cbc:ID>
-    </cac:TaxScheme>
-   </cac:ClassifiedTaxCategory>
-  </cac:Item>
-  <cac:Price>
-   <cbc:PriceAmount currencyID="SAR">98.00</cbc:PriceAmount>
-  </cac:Price>
- </cac:InvoiceLine>
- <cac:InvoiceLine>
   <cbc:ID>6</cbc:ID>
-  <cbc:InvoicedQuantity unitCode="PCE">2.000000</cbc:InvoicedQuantity>
-  <cbc:LineExtensionAmount currencyID="SAR">206.00</cbc:LineExtensionAmount>
+  <cbc:InvoicedQuantity unitCode="PCE">5.000000</cbc:InvoicedQuantity>
+  <cbc:LineExtensionAmount currencyID="SAR">515.00</cbc:LineExtensionAmount>
   <cac:TaxTotal>
-   <cbc:TaxAmount currencyID="SAR">30.90</cbc:TaxAmount>
-   <cbc:RoundingAmount currencyID="SAR">236.90</cbc:RoundingAmount>
+   <cbc:TaxAmount currencyID="SAR">77.25</cbc:TaxAmount>
+   <cbc:RoundingAmount currencyID="SAR">592.25</cbc:RoundingAmount>
   </cac:TaxTotal>
   <cac:Item>
    <cbc:Name>Cosmoplast Microwave containers rectangle with lid (50 PC * 4 Bag)</cbc:Name>
@@ -182,15 +134,15 @@
   </cac:Price>
  </cac:InvoiceLine>
  <cac:InvoiceLine>
-  <cbc:ID>24</cbc:ID>
-  <cbc:InvoicedQuantity unitCode="PCE">2.000000</cbc:InvoicedQuantity>
-  <cbc:LineExtensionAmount currencyID="SAR">148.00</cbc:LineExtensionAmount>
+  <cbc:ID>8</cbc:ID>
+  <cbc:InvoicedQuantity unitCode="PCE">3.000000</cbc:InvoicedQuantity>
+  <cbc:LineExtensionAmount currencyID="SAR">684.00</cbc:LineExtensionAmount>
   <cac:TaxTotal>
-   <cbc:TaxAmount currencyID="SAR">22.20</cbc:TaxAmount>
-   <cbc:RoundingAmount currencyID="SAR">170.20</cbc:RoundingAmount>
+   <cbc:TaxAmount currencyID="SAR">102.60</cbc:TaxAmount>
+   <cbc:RoundingAmount currencyID="SAR">786.60</cbc:RoundingAmount>
   </cac:TaxTotal>
   <cac:Item>
-   <cbc:Name>Americana French Fries 9*9 (2.5 KG * 4 Bag)</cbc:Name>
+   <cbc:Name>Rainbow Evaporated Milk Portion Cup (10*14 ML * 50 Bag)</cbc:Name>
    <cac:ClassifiedTaxCategory>
     <cbc:ID>S</cbc:ID>
     <cbc:Percent>15.00</cbc:Percent>
@@ -200,7 +152,29 @@
    </cac:ClassifiedTaxCategory>
   </cac:Item>
   <cac:Price>
-   <cbc:PriceAmount currencyID="SAR">74.00</cbc:PriceAmount>
+   <cbc:PriceAmount currencyID="SAR">228.00</cbc:PriceAmount>
+  </cac:Price>
+ </cac:InvoiceLine>
+ <cac:InvoiceLine>
+  <cbc:ID>8</cbc:ID>
+  <cbc:InvoicedQuantity unitCode="PCE">2.000000</cbc:InvoicedQuantity>
+  <cbc:LineExtensionAmount currencyID="SAR">456.00</cbc:LineExtensionAmount>
+  <cac:TaxTotal>
+   <cbc:TaxAmount currencyID="SAR">68.40</cbc:TaxAmount>
+   <cbc:RoundingAmount currencyID="SAR">524.40</cbc:RoundingAmount>
+  </cac:TaxTotal>
+  <cac:Item>
+   <cbc:Name>Rainbow Evaporated Milk Portion Cup (10*14 ML * 50 Bag)</cbc:Name>
+   <cac:ClassifiedTaxCategory>
+    <cbc:ID>S</cbc:ID>
+    <cbc:Percent>15.00</cbc:Percent>
+    <cac:TaxScheme>
+     <cbc:ID>VAT</cbc:ID>
+    </cac:TaxScheme>
+   </cac:ClassifiedTaxCategory>
+  </cac:Item>
+  <cac:Price>
+   <cbc:PriceAmount currencyID="SAR">228.00</cbc:PriceAmount>
   </cac:Price>
  </cac:InvoiceLine>
 </Invoice>

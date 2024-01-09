@@ -182,6 +182,7 @@ $allowanceCharges[] = (new \Saleh7\Zatca\AllowanceCharge())
     ->setAmount(0.00)
     ->setTaxCategory($taxCategory);
 
+    
 $tolerance = 0.0001;
 if (((float)$grandTotal - ((float)$subTotal + (float)$totalVAT)) > $tolerance) {
     die400('Main Invoice Total Calculation Are Wrong');
