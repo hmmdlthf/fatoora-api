@@ -2,9 +2,9 @@
 <Invoice xmlns="urn:oasis:names:specification:ubl:schema:xsd:Invoice-2" xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2" xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2" xmlns:ext="urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2">
  <cbc:ProfileID>reporting:1.0</cbc:ProfileID>
  <cbc:ID>INV/W009296</cbc:ID>
- <cbc:UUID>3e842e02-cc21-4aa4-b7b0-9d1e98b38022</cbc:UUID>
- <cbc:IssueDate>2024-01-03</cbc:IssueDate>
- <cbc:IssueTime>06:27:54</cbc:IssueTime>
+ <cbc:UUID>f3772607-d73e-4402-8de3-9ba257e76644</cbc:UUID>
+ <cbc:IssueDate>2024-01-05</cbc:IssueDate>
+ <cbc:IssueTime>12:59:29</cbc:IssueTime>
  <cbc:InvoiceTypeCode name="0100000">388</cbc:InvoiceTypeCode>
  <cbc:DocumentCurrencyCode>SAR</cbc:DocumentCurrencyCode>
  <cbc:TaxCurrencyCode>SAR</cbc:TaxCurrencyCode>
@@ -18,7 +18,7 @@
  <cac:AdditionalDocumentReference>
   <cbc:ID>PIH</cbc:ID>
   <cac:Attachment>
-   <cbc:EmbeddedDocumentBinaryObject mimeCode="text/plain">TLpE71tTvubHiAzR9/bn/noTI19LNCNmJ4133e1755E=</cbc:EmbeddedDocumentBinaryObject>
+   <cbc:EmbeddedDocumentBinaryObject mimeCode="text/plain">yNbP5c6ew3ic/qnwIitIVY28rnIlpfKSQFuThXp5rIg=</cbc:EmbeddedDocumentBinaryObject>
   </cac:Attachment>
  </cac:AdditionalDocumentReference>
  <cac:AccountingSupplierParty>
@@ -119,28 +119,6 @@
   <cbc:PayableAmount currencyID="SAR">1020.03</cbc:PayableAmount>
  </cac:LegalMonetaryTotal>
  <cac:InvoiceLine>
-  <cbc:ID>234</cbc:ID>
-  <cbc:InvoicedQuantity unitCode="PCE">2.000000</cbc:InvoicedQuantity>
-  <cbc:LineExtensionAmount currencyID="SAR">271.98</cbc:LineExtensionAmount>
-  <cac:TaxTotal>
-   <cbc:TaxAmount currencyID="SAR">40.80</cbc:TaxAmount>
-   <cbc:RoundingAmount currencyID="SAR">312.78</cbc:RoundingAmount>
-  </cac:TaxTotal>
-  <cac:Item>
-   <cbc:Name>Greens, Strawberry Jelly (80 GM * 72 Piece)</cbc:Name>
-   <cac:ClassifiedTaxCategory>
-    <cbc:ID>S</cbc:ID>
-    <cbc:Percent>15.00</cbc:Percent>
-    <cac:TaxScheme>
-     <cbc:ID>VAT</cbc:ID>
-    </cac:TaxScheme>
-   </cac:ClassifiedTaxCategory>
-  </cac:Item>
-  <cac:Price>
-   <cbc:PriceAmount currencyID="SAR">135.99</cbc:PriceAmount>
-  </cac:Price>
- </cac:InvoiceLine>
- <cac:InvoiceLine>
   <cbc:ID>1066</cbc:ID>
   <cbc:InvoicedQuantity unitCode="PCE">5.000000</cbc:InvoicedQuantity>
   <cbc:LineExtensionAmount currencyID="SAR">615.00</cbc:LineExtensionAmount>
@@ -160,6 +138,28 @@
   </cac:Item>
   <cac:Price>
    <cbc:PriceAmount currencyID="SAR">123.00</cbc:PriceAmount>
+  </cac:Price>
+ </cac:InvoiceLine>
+ <cac:InvoiceLine>
+  <cbc:ID>234</cbc:ID>
+  <cbc:InvoicedQuantity unitCode="PCE">2.000000</cbc:InvoicedQuantity>
+  <cbc:LineExtensionAmount currencyID="SAR">271.98</cbc:LineExtensionAmount>
+  <cac:TaxTotal>
+   <cbc:TaxAmount currencyID="SAR">40.80</cbc:TaxAmount>
+   <cbc:RoundingAmount currencyID="SAR">312.78</cbc:RoundingAmount>
+  </cac:TaxTotal>
+  <cac:Item>
+   <cbc:Name>Greens, Strawberry Jelly (80 GM * 72 Piece)</cbc:Name>
+   <cac:ClassifiedTaxCategory>
+    <cbc:ID>S</cbc:ID>
+    <cbc:Percent>15.00</cbc:Percent>
+    <cac:TaxScheme>
+     <cbc:ID>VAT</cbc:ID>
+    </cac:TaxScheme>
+   </cac:ClassifiedTaxCategory>
+  </cac:Item>
+  <cac:Price>
+   <cbc:PriceAmount currencyID="SAR">135.99</cbc:PriceAmount>
   </cac:Price>
  </cac:InvoiceLine>
 </Invoice>

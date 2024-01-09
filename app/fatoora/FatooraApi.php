@@ -211,9 +211,23 @@ class ComplianceInvoiceAPI extends FatooraAuthApi
         $this->invoice = $fatooraInvoice['Invoice'];
     }
 
+    public function getInvoiceFromJson()
+    {
+        $file_path = '.././fatoora/api-request.json';
+        $jsonContent = file_get_contents($file_path);
+        $jsonData = json_decode($jsonContent, true);
+
+        // Extracting specific variables from the JSON data
+        if ($jsonData) {
+            $this->invoiceHash = $jsonData['invoiceHash'] ?? null;
+            $this->uuid = $jsonData['uuid'] ?? null;
+            $this->invoice = $jsonData['invoice'] ?? null;
+        }
+    }
+
     public function setBody()
     {
-        $this->getInvoice();
+        $this->getInvoiceFromJson();
         $body_array = ['invoiceHash' => $this->invoiceHash, 'uuid' => $this->uuid, 'invoice' => $this->invoice];
         $this->body = json_encode($body_array);
     }

@@ -8,6 +8,10 @@
         "monolog/monolog": "^3.5",
         "abdelrahmanbl/fatoora-zatca": "^2.3",
         "bacon/bacon-qr-code": "^2.0",
-        "cboden/ratchet": "^0.4.4"
+        "cboden/ratchet": "^0.4.4",
+        "tecnickcom/tcpdf": "^6.6",
+        "vlucas/phpdotenv": "^5.6",
+        "dompdf/dompdf": "^2.0",
+        "mpdf/mpdf": "^8.2"
     }
 }

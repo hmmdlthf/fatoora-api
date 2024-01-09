@@ -1,5 +1,5 @@
-*   Trying 185.117.129.50:443...
-* Connected to gw-fatoora.zatca.gov.sa (185.117.129.50) port 443 (#0)
+*   Trying 185.117.128.50:443...
+* Connected to gw-fatoora.zatca.gov.sa (185.117.128.50) port 443 (#0)
 * ALPN: offers h2
 * ALPN: offers http/1.1
 *  CAfile: E:\installed_applications\xampp\apache\bin\curl-ca-bundle.crt
@@ -22,12 +22,12 @@ Accept-Language: en
 Accept-Version: V2
 Content-Type: application/json
 Clearance-Status: 1
-Content-Length: 18322
+Content-Length: 20512
 
 * Mark bundle as not supporting multiuse
 < HTTP/1.1 400 Bad Request
 < Connection: Keep-Alive
-< Date: Wed, 03 Jan 2024 07:25:43 GMT
+< Date: Mon, 08 Jan 2024 11:42:06 GMT
 < Content-Type: application/json
 < Strict-Transport-Security: max-age=15724800; includeSubDomains
 < X-Content-Type-Options: nosniff
@@ -35,8 +35,8 @@ Content-Length: 18322
 < X-Xss-Protection: 1; mode=block
 < Content-Security-Policy: default-src 'none'; script-src 'self'; connect-src 'self'; img-src 'self'; style-src 'self'; frame-ancestors 'none'; form-action 'self'
 < Cache-Control: no-store, max-age=0
-< X-Global-Transaction-ID: ae5a90e165950bf12713dc4f
-< Set-Cookie: TS0106293e=0132a679c099fbbb1ebb810fbf03c70f085f53bcde37162272a2356dccefa49f192f080197c0edf065601f31ea24513fbabb64364f; Path=/; Domain=.gw-fatoora.zatca.gov.sa
+< X-Global-Transaction-ID: 0bf35509659bdf7847f455e1
+< Set-Cookie: TS0106293e=0132a679c0a661ab35e38120f096d7eee42f3f6028827cdc11e9c384c36dc951c8f63d8de28b047519b1fbaf772f45d65045f15813; Path=/; Domain=.gw-fatoora.zatca.gov.sa
 < Transfer-Encoding: chunked
 < 
 * Connection #0 to host gw-fatoora.zatca.gov.sa left intact

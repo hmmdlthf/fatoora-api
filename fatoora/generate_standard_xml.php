@@ -7,10 +7,11 @@ require_once $ROOT . "/fatoora/app/invoice/Invoice.php";
 require_once $ROOT . "/fatoora/app/customer/Customer.php";
 require_once $ROOT . "/fatoora/app/invoiceDetail/InvoiceDetail.php";
 require_once $ROOT . "/fatoora/app/fatoora/FatooraBusinessInvoice.php";
-require_once $ROOT . "/fatoora/fatoora/utils.php";
-require_once $ROOT . "/fatoora/fatoora/csr-config.php";
+require_once $ROOT . "/fatoora/app/fatoora/FatooraSdk.php";
 require_once $ROOT . "/fatoora/app/fatoora/objects/Client.php";
 require_once $ROOT . "/fatoora/app/fatoora/objects/Supplier.php";
+require_once $ROOT . "/fatoora/fatoora/utils.php";
+require_once $ROOT . "/fatoora/fatoora/csr-config.php";
 
 use Objects\Client\Client;
 use Objects\Supplier\Supplier;
@@ -82,6 +83,7 @@ if ($firstRecord == false) {
 
 
 $fatooraInvoice->setPIH($invoiceNumber, $PIH);
+(new FatooraCommandExecutor())->setPIHInSdk($PIH);
 $uuid = $fatooraInvoiceDocument['UUID'];
 // $customerIdentificationTypeCode = 'CRN';
 $customerIdentificationTypeCode = 'NAT';

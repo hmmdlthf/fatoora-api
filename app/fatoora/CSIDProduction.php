@@ -3,6 +3,7 @@
 $ROOT = $_SERVER["DOCUMENT_ROOT"];
 require_once $ROOT . '/fatoora/vendor/autoload.php';
 require_once $ROOT . "/fatoora/app/fatoora/CSID.php";
+require_once $ROOT . "/fatoora/app/fatoora/FatooraSdk.php";
 
 class CSIDProduction extends CSID
 {
@@ -24,6 +25,11 @@ class CSIDProduction extends CSID
         $currentDate = date('Y-m-d H:i:s');
         // Calculating 7 days from now
         $expireDate = date('Y-m-d H:i:s', strtotime('+7 days'));
+
+        // save it in the sdk
+        $fatooraSdk = new FatooraCommandExecutor();
+        $fatooraSdk->setPrivateKeySdk();
+        $fatooraSdk->setCertInSdk($binarySecurityToken);
 
         $this->create($requestID, $binarySecurityToken, $secret, $currentDate, $expireDate);
         return true;

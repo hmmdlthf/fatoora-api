@@ -10,10 +10,11 @@ require_once $ROOT . "/fatoora/app/invoice/Invoice.php";
 require_once $ROOT . "/fatoora/app/customer/Customer.php";
 require_once $ROOT . "/fatoora/app/invoiceDetail/InvoiceDetail.php";
 require_once $ROOT . "/fatoora/app/fatoora/FatooraInvoice.php";
-require_once $ROOT . "/fatoora/fatoora/utils.php";
-require_once $ROOT . "/fatoora/fatoora/csr-config.php";
+require_once $ROOT . "/fatoora/app/fatoora/FatooraSdk.php";
 require_once $ROOT . "/fatoora/app/fatoora/objects/Supplier.php";
 require_once $ROOT . "/fatoora/app/fatoora/objects/ClientB2C.php";
+require_once $ROOT . "/fatoora/fatoora/utils.php";
+require_once $ROOT . "/fatoora/fatoora/csr-config.php";
 
 session_start();
 
@@ -42,16 +43,22 @@ $fatooraInvoice = new FatooraInvoice();
 $firstRecord = $fatooraInvoice->findFirstRecord();
 $fatooraInvoiceDocument = $fatooraInvoice->findOrCreateInvoice($invoiceNumber);
 $invoiceCounter = extractCounter($invoiceNumber);
+// echo "firstRecord: $firstRecord <br>";
+// echo "fatooraInvoice: $fatooraInvoiceDocument <br>";
+// echo "invoiceCounter:  $invoiceCounter  <br>";
+
 
 if ($firstRecord == false) {
     $PIH = 'NWZlY2ViNjZmZmM4NmYzOGQ5NTI3ODZjNmQ2OTZjNzljMmRiYzIzOWRkNGU5MWI0NjcyOWQ3M2EyN2ZiNTdlOQ==';
 } else {
     $invoiceNumberPrevious = getInvoiceNumberFromCounter((int)$invoiceCounter - 1);
+    // echo "previousInvoiceNumber: $invoiceNumberPrevious  <br>";
     $fatooraInvoicePrevious = $fatooraInvoice->findInvoice($invoiceNumberPrevious);
     $PIH = $fatooraInvoicePrevious['InvoiceHash'];
 }
 
 $fatooraInvoice->setPIH($invoiceNumber, $PIH);
+(new FatooraCommandExecutor())->setPIHInSdk($PIH);
 $uuid = $fatooraInvoiceDocument['UUID'];
 // $customerIdentificationTypeCode = 'CRN';
 $customerIdentificationTypeCode = 'NAT';
@@ -175,8 +182,8 @@ $allowanceCharges[] = (new \Saleh7\Zatca\AllowanceCharge())
     ->setAmount(0.00)
     ->setTaxCategory($taxCategory);
 
-
-if ($grandTotal != $subTotal + $totalVAT) {
+$tolerance = 0.0001;
+if (((float)$grandTotal - ((float)$subTotal + (float)$totalVAT)) > $tolerance) {
     die400('Main Invoice Total Calculation Are Wrong');
 }
 
@@ -215,13 +222,17 @@ foreach ($invoiceDetailRecords as $invoiceDetailRecord) {
     $subTotal = $invoiceDetailRecord['SubTotal'];
     $orderQuantity = $invoiceDetailRecord['OrderQuantity'];
 
-    if ($subTotal != $unitAmount * $orderQuantity) {
+    if (abs((float)$subTotal - ((float)$unitAmount * (float)$orderQuantity)) > $tolerance ) {
         die400("Invoice Line for ProductRecID $productRecID - SubTotal Calculation Is Wrong");
     }
-
-    if ($totalAmount != $subTotal + $salesTaxAmount) {
+    
+    if (abs((float)$totalAmount - ((float)$subTotal + (float)$salesTaxAmount)) > $tolerance) {
         die400("Invoice Line for ProductRecID $productRecID - Total Calculation Are Wrong");
     }
+
+    // if (abs((float)$salesTaxAmount - ((float)$subTotal * 0.15)) > $tolerance) {
+    //     die400("Invoice Line for ProductRecID $productRecID - Tax Calculations Are Wrong");
+    // }
 
     // Invoice Line tax totals
     $lineTaxTotal = (new \Saleh7\Zatca\TaxTotal())

@@ -15,7 +15,7 @@ try {
         // sign the invoice
         // generate invoice hash
         $fatooraCommand = new FatooraCommandExecutor();
-        $output = $fatooraCommand->signAndGenerateInvoiceHash($fatooraCommand->xmlFilePath . '/generated-standard-xml-invoice.xml');
+        $output = $fatooraCommand->signAndGenerateInvoiceHash($fatooraCommand->xmlFilePath . '/generated-standard-xml-invoice.xml', 'business');
         // $fatooraCommand->printArrayLineByLine($output);
 
         // create api request json file

@@ -16,7 +16,7 @@ try {
         // sign the invoice
         // generate invoice hash
         $fatooraCommand = new FatooraCommandExecutor();
-        $output = $fatooraCommand->signAndGenerateInvoiceHash($fatooraCommand->xmlFilePath . '/generated-standard-xml-invoice.xml');
+        $output = $fatooraCommand->signAndGenerateInvoiceHash($fatooraCommand->xmlFilePath . '/generated-standard-xml-invoice.xml', 'business');
         // $hash = $fatooraCommand->extractInvoiceHash($output);
         // $fatooraCommand->printArrayLineByLine($output);
 

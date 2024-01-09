@@ -11,7 +11,7 @@ class Db
 
     public function connect()
     {
-        $servername = '(local)';
+        $servername = '192.168.8.149';
         $dbname = 'Emtyaz';
         $username = 'posadmin';
         $password = '123';
